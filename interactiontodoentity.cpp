@@ -1,18 +1,18 @@
 #include "interactiontodoentity.h"
 
 
-InteractionTodoEntity::InteractionTodoEntity(InteractionEntity interaction, TodoEntity todo)
+InteractionTodoEntity::InteractionTodoEntity(InteractionEntity *interaction, TodoEntity *todo)
 {
     interactionEntity=interaction;
     todoEntity=todo;
 }
 
-const InteractionEntity &InteractionTodoEntity::getInteractionEntity() const
+const InteractionEntity *InteractionTodoEntity::getInteractionEntity() const
 {
     return interactionEntity;
 }
 
-const TodoEntity &InteractionTodoEntity::getTodoEntity() const
+const TodoEntity *InteractionTodoEntity::getTodoEntity() const
 {
     return todoEntity;
 }

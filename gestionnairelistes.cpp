@@ -1,58 +1,64 @@
 #include "gestionnairelistes.h"
 
-const list<ContactEntity> &GestionnaireListes::getListContactEntity() const
+GestionnaireListes::GestionnaireListes()
+{
+
+}
+
+const list<ContactEntity *> &GestionnaireListes::getListContactEntity() const
 {
     return listContactEntity;
 }
 
-const list<InteractionEntity> &GestionnaireListes::getListInteractionEntity() const
-{
-    return listInteractionEntity;
-}
-
-const list<TodoEntity> &GestionnaireListes::getListTodoEntity() const
-{
-    return listTodoEntity;
-}
-
-const list<ContactInteractionEntity> &GestionnaireListes::getListContactInteractionEntity() const
-{
-    return listContactInteractionEntity;
-}
-
-const list<InteractionTodoEntity> &GestionnaireListes::getListInteractionTodoEntity() const
-{
-    return listInteractionTodoEntity;
-}
-
-void GestionnaireListes::setListContactEntity(const list<ContactEntity> &newListContactEntity)
+void GestionnaireListes::setListContactEntity(const list<ContactEntity *> &newListContactEntity)
 {
     listContactEntity = newListContactEntity;
 }
 
-void GestionnaireListes::setListInteractionEntity(const list<InteractionEntity> &newListInteractionEntity)
+const list<InteractionEntity *> &GestionnaireListes::getListInteractionEntity() const
+{
+    return listInteractionEntity;
+}
+
+void GestionnaireListes::setListInteractionEntity(const list<InteractionEntity *> &newListInteractionEntity)
 {
     listInteractionEntity = newListInteractionEntity;
 }
 
-void GestionnaireListes::setListTodoEntity(const list<TodoEntity> &newListTodoEntity)
+const list<TodoEntity *> &GestionnaireListes::getListTodoEntity() const
+{
+    return listTodoEntity;
+}
+
+void GestionnaireListes::setListTodoEntity(const list<TodoEntity *> &newListTodoEntity)
 {
     listTodoEntity = newListTodoEntity;
 }
 
-void GestionnaireListes::setListContactInteractionEntity(const list<ContactInteractionEntity> &newListContactInteractionEntity)
+const list<ContactInteractionEntity *> &GestionnaireListes::getListContactInteractionEntity() const
+{
+    return listContactInteractionEntity;
+}
+
+void GestionnaireListes::setListContactInteractionEntity(const list<ContactInteractionEntity *> &newListContactInteractionEntity)
 {
     listContactInteractionEntity = newListContactInteractionEntity;
 }
 
-void GestionnaireListes::setListInteractionTodoEntity(const list<InteractionTodoEntity> &newListInteractionTodoEntity)
+const list<InteractionTodoEntity *> &GestionnaireListes::getListInteractionTodoEntity() const
+{
+    return listInteractionTodoEntity;
+}
+
+void GestionnaireListes::setListInteractionTodoEntity(const list<InteractionTodoEntity *> &newListInteractionTodoEntity)
 {
     listInteractionTodoEntity = newListInteractionTodoEntity;
 }
 
-bool GestionnaireListes::isInteractionInList(InteractionEntity interactionRecherche)
+
+bool GestionnaireListes::isInteractionInList(InteractionEntity *interactionRecherche)
 {
-    list<InteractionEntity>::iterator findIter = find(listInteractionEntity.begin(), listInteractionEntity.end(), interactionRecherche);
+    list<InteractionEntity*>::iterator findIter = find(listInteractionEntity.begin(), listInteractionEntity.end(), interactionRecherche);
 
     if(findIter!=listInteractionEntity.end()){
         return true;

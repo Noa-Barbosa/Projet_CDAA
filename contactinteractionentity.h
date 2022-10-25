@@ -16,30 +16,30 @@ public:
      * @param Le contact a lie
      * @param L'interaction a lie
      */
-    ContactInteractionEntity(ContactEntity contact, InteractionEntity interaction);
+    ContactInteractionEntity(ContactEntity *contact, InteractionEntity *interaction);
     /**
      * @brief Assesseur du contact lie
      * @return Le contact
      */
-    const ContactEntity &getContactEntity() const;
+    const ContactEntity *getContactEntity() const;
 
     /**
      * @brief Assesseur de l'interaction lie
      * @return L'interaction
      */
-    const InteractionEntity &getInteractionEntity() const;
+    const InteractionEntity *getInteractionEntity() const;
 
 private:
 
     /**
      * @brief Le contact lie a l'interaction
      */
-    ContactEntity contactEntity;
+    ContactEntity *contactEntity;
 
     /**
      * @brief L'interaction lie au contact
      */
-    InteractionEntity interactionEntity;
+    InteractionEntity *interactionEntity;
 
     friend bool operator==(ContactInteractionEntity a, ContactInteractionEntity b);
 
