@@ -11,14 +11,19 @@ using namespace std;
 
 class GestionnaireListes
 {
+
 public:
-    GestionnaireListes();
 
-    void addInteraction(InteractionEntity interaction, ContactEntity contact);
+    static GestionnaireListes& getInstance()
+           {
+               static GestionnaireListes    instance; // Guaranteed to be destroyed.
+                                     // Instantiated on first use.
+               return instance;
+           }
 
-    void editInteraction(InteractionEntity interaction, InteractionEntity interactionModif);
+    GestionnaireListes(GestionnaireListes const&) = delete;
+    void operator=(GestionnaireListes const&) = delete;
 
-    void deleteInteraction(InteractionEntity interaction);
     /**
      * @brief Assesseur de la liste de contacts
      * @return La liste de contacts
@@ -53,8 +58,26 @@ public:
      */
     const list<InteractionTodoEntity> &getListInteractionTodoEntity() const;
 
+    void setListContactEntity(const list<ContactEntity> &newListContactEntity);
+
+    void setListInteractionEntity(const list<InteractionEntity> &newListInteractionEntity);
+
+    void setListTodoEntity(const list<TodoEntity> &newListTodoEntity);
+
+    void setListContactInteractionEntity(const list<ContactInteractionEntity> &newListContactInteractionEntity);
+
+    void setListInteractionTodoEntity(const list<InteractionTodoEntity> &newListInteractionTodoEntity);
+
+    /**
+     * @brief Verifie si l'interaction existe ou pas dans la liste des interactions
+     * @param L'interaction recherche
+     * @return vrai si elle existe faux sinon
+     */
+    bool isInteractionInList(InteractionEntity interactionRecherche);
+
 private:
 
+    GestionnaireListes(){};
     /**
      * @brief Liste des contacts du programme
      */
@@ -80,12 +103,6 @@ private:
      */
     list<InteractionTodoEntity> listInteractionTodoEntity;
 
-    /**
-     * @brief Verifie si l'interaction existe ou pas dans la liste des interactions
-     * @param L'interaction recherche
-     * @return vrai si elle existe faux sinon
-     */
-    bool isInteractionInList(InteractionEntity interactionRecherche);
 };
 
 #endif // GESTIONNAIRELISTES_H

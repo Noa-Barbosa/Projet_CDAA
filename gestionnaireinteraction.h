@@ -21,7 +21,7 @@ public:
     /**
      * @brief Constructeur avec parametre
      */
-    GestionnaireInteraction(GestionnaireListes gestionnaire);
+    GestionnaireInteraction();
 
     void addInteraction(InteractionEntity interaction, ContactEntity contact);
 
@@ -29,11 +29,7 @@ public:
 
     void deleteInteraction(InteractionEntity interaction);
 
-    list<InteractionEntity> getListInteractionEntity();
-
 private:
-
-    GestionnaireListes gestionnaireListes;
 
 };
 

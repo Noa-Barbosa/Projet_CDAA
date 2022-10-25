@@ -1,10 +1,5 @@
 #include "gestionnairelistes.h"
 
-GestionnaireListes::GestionnaireListes()
-{
-
-}
-
 const list<ContactEntity> &GestionnaireListes::getListContactEntity() const
 {
     return listContactEntity;
@@ -30,41 +25,29 @@ const list<InteractionTodoEntity> &GestionnaireListes::getListInteractionTodoEnt
     return listInteractionTodoEntity;
 }
 
-void GestionnaireListes::addInteraction(InteractionEntity interaction, ContactEntity contact)
+void GestionnaireListes::setListContactEntity(const list<ContactEntity> &newListContactEntity)
 {
-    //si l'interaction n'existe pas deja dans la liste
-    if(!isInteractionInList(interaction)){
-        listInteractionEntity.push_back(interaction);
-
-        ContactInteractionEntity contactInteraction(contact, interaction);
-
-        listContactInteractionEntity.push_back(contactInteraction);
-    }
-    else{
-        cout << "L'interaction existe deja dans la liste elle n'a pas ete ajoute" << std::endl;
-    }
+    listContactEntity = newListContactEntity;
 }
 
-void GestionnaireListes::editInteraction(InteractionEntity interaction, InteractionEntity interactionModif)
+void GestionnaireListes::setListInteractionEntity(const list<InteractionEntity> &newListInteractionEntity)
 {
-    if(isInteractionInList(interaction)){
-
-        //Ici il faut recuperer la liste de tout les contacts et les todos des entites associations qui ont cette interaction
-        //ensuite les supprimer
-        //puis creer des nouvelles entites associations avec la listes des contacts et todos
-        //et les ajouter a leur liste respective
-        listInteractionEntity.remove(interaction);
-    }
-    else{
-        cout << "L'interaction n'existe pas rien n'a ete fait" << std::endl;
-    }
-
+    listInteractionEntity = newListInteractionEntity;
 }
 
-void GestionnaireListes::deleteInteraction(InteractionEntity interaction)
+void GestionnaireListes::setListTodoEntity(const list<TodoEntity> &newListTodoEntity)
 {
-    //il faut supprimer l'interaction de la liste si elle existe bien
-    //et faire de même pour toute ces entites associations
+    listTodoEntity = newListTodoEntity;
+}
+
+void GestionnaireListes::setListContactInteractionEntity(const list<ContactInteractionEntity> &newListContactInteractionEntity)
+{
+    listContactInteractionEntity = newListContactInteractionEntity;
+}
+
+void GestionnaireListes::setListInteractionTodoEntity(const list<InteractionTodoEntity> &newListInteractionTodoEntity)
+{
+    listInteractionTodoEntity = newListInteractionTodoEntity;
 }
 
 bool GestionnaireListes::isInteractionInList(InteractionEntity interactionRecherche)
