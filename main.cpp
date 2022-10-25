@@ -4,9 +4,18 @@
 #include <iostream>
 #include <interactionentity.h>
 #include <contactentity.h>
+#include <todoentity.h>
+#include <contactinteractionentity.h>
+#include <interactiontodoentity.h>
+#include <gestionnairelistes.h>
+#include <gestionnaireinteraction.h>
 
 int main(int argc, char *argv[])
 {
+    GestionnaireListes gestionnaireListes;
+
+    GestionnaireInteraction gestionnaireInteraction(gestionnaireListes);
+
     //test de creation d'un contact avec le constructeur vide et les mutateur et test de l'affichage
     std::cout << "test de creation d'un contact avec le constructeur vide et les mutateur et test de l'affichage" << std::endl;
     ContactEntity Contact1;
@@ -36,6 +45,15 @@ int main(int argc, char *argv[])
     InteractionEntity Interaction2("Contenu interaction 2");
     std::cout << Interaction2 << std::endl<<std::endl ;
 
+    gestionnaireInteraction.addInteraction(Interaction1,Contact1);
+
+    auto list =gestionnaireInteraction.getListInteractionEntity();
+
+    std::list<InteractionEntity>::iterator findIter = find(list.begin(), list.end(), Interaction1);
+
+    cout<< "L'interaction" << *findIter << "est bien dans la liste" << std::endl;
+
+    gestionnaireInteraction.addInteraction(Interaction1,Contact1);
 
     QApplication a(argc, argv);
     MainWindow w;

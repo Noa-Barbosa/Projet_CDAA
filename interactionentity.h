@@ -46,9 +46,6 @@ public:
      */
     const sys_days &getDateAjoutInteraction() const;
 
-    const list<TodoEntity> &getListTodo() const;
-    void setListTodo(const list<TodoEntity> &newListTodo);
-
 private:
 
     /**
@@ -62,14 +59,11 @@ private:
     sys_days dateAjoutInteraction;
 
     /**
-     * @brief Liste des todos de l'interaction
-     */
-    list<TodoEntity> listTodo;
-
-    /**
     * @brief Fonction amie qui surcharge l'operateur << pour l'affichage de l'interaction
     */
     friend std::ostream& operator<< (ostream& os, const InteractionEntity& interaction);
+
+    friend bool operator==(InteractionEntity a, InteractionEntity b);
 };
 
 #endif // INTERACTIONENTITY_H

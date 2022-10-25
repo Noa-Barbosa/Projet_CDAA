@@ -30,18 +30,12 @@ const sys_days &InteractionEntity::getDateAjoutInteraction() const
     return dateAjoutInteraction;
 }
 
-const list<TodoEntity> &InteractionEntity::getListTodo() const
-{
-    return listTodo;
-}
-
-void InteractionEntity::setListTodo(const list<TodoEntity> &newListTodo)
-{
-    listTodo = newListTodo;
-}
-
 std::ostream& operator<< (ostream& os, const InteractionEntity& interaction)
 {
     os << interaction.getContenuInteraction() << ' ' << interaction.getDateAjoutInteraction();
     return os;
+}
+
+bool operator==(InteractionEntity a, InteractionEntity b){
+    return a.contenuInteraction == b.contenuInteraction && a.dateAjoutInteraction == b.dateAjoutInteraction;
 }
