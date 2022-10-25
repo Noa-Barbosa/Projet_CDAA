@@ -110,4 +110,15 @@ std::ostream& operator<< (std::ostream& os, const ContactEntity& contact){
     return os;
 }
 
+bool operator==(ContactEntity a, ContactEntity b){
+    return a.dateCreaContact == b.dateCreaContact &&
+            a.dateLastUpdate == b.dateLastUpdate &&
+            a.entrepriseContact == b.entrepriseContact &&
+            a.idContact == b.idContact &&
+            a.mailContact == b.mailContact &&
+            a.nomContact == b.nomContact &&
+            a.prenomContact == b.prenomContact &&
+            a.telContact == b.telContact &&
+            a.uriPhotoContact == b.uriPhotoContact;
+}
 

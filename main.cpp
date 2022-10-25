@@ -55,6 +55,16 @@ int main(int argc, char *argv[])
 
     gestionnaireInteraction.addInteraction(Interaction1,Contact1);
 
+    gestionnaireInteraction.addInteraction(Interaction2,Contact1);
+
+    InteractionEntity Interaction3("Contenu interaction 3 edit");
+
+    gestionnaireInteraction.editInteraction(Interaction2, Interaction3);
+
+    gestionnaireInteraction.deleteInteraction(Interaction3);
+
+    list =GestionnaireListes::getInstance().getListInteractionEntity();
+
     /**
     QApplication a(argc, argv);
     MainWindow w;

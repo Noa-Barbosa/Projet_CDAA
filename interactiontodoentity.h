@@ -35,6 +35,8 @@ private:
      * @brief Le todo lie a l'interaction
      */
     TodoEntity todoEntity;
+
+    friend bool operator==(InteractionTodoEntity a, InteractionTodoEntity b);
 };
 
 #endif // INTERACTIONTODOENTITY_H

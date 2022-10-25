@@ -41,6 +41,8 @@ private:
      */
     InteractionEntity interactionEntity;
 
+    friend bool operator==(ContactInteractionEntity a, ContactInteractionEntity b);
+
 };
 
 #endif // CONTACTINTERACTIONENTITY_H

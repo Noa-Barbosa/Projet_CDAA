@@ -61,6 +61,8 @@ private:
     * @brief Fonction amie qui surcharge l'operateur << pour l'affichage du todo
     */
     friend std::ostream& operator<< (ostream& os, const TodoEntity& todo);
+
+    friend bool operator==(TodoEntity a, TodoEntity b);
 };
 
 #endif // TODOENTITY_H

@@ -17,3 +17,7 @@ const InteractionEntity &ContactInteractionEntity::getInteractionEntity() const
     return interactionEntity;
 }
 
+bool operator==(ContactInteractionEntity a, ContactInteractionEntity b){
+    return  a.contactEntity == b.contactEntity &&
+            a.interactionEntity == b.interactionEntity;
+}

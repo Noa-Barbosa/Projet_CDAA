@@ -182,6 +182,7 @@ private:
    */
     friend std::ostream& operator<< (ostream& os, const ContactEntity& contact);
 
+    friend bool operator==(ContactEntity a, ContactEntity b);
 };
 
 #endif // CONTACTENTITY_H

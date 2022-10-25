@@ -35,3 +35,8 @@ std::ostream& operator<< (ostream& os, const TodoEntity& interaction)
     os << interaction.getContenuTodo() << ' ' << interaction.getDateAjoutTodo();
     return os;
 }
+
+bool operator==(TodoEntity a, TodoEntity b){
+    return a.getContenuTodo() == b.getContenuTodo() &&
+            a.getDateAjoutTodo() == b.getDateAjoutTodo();
+}
