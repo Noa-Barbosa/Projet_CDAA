@@ -12,6 +12,7 @@ SOURCES += \
     contactentity.cpp \
     contactinteractionentity.cpp \
     interactionentity.cpp \
+    interactiontodoentity.cpp \
     main.cpp \
     mainwindow.cpp \
     todoentity.cpp
@@ -21,6 +22,7 @@ HEADERS += \
     contactinteractionentity.h \
     date.h \
     interactionentity.h \
+    interactiontodoentity.h \
     mainwindow.h \
     todoentity.h
 
