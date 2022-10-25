@@ -7,7 +7,7 @@ GestionnaireInteraction::GestionnaireInteraction()
 
 void GestionnaireInteraction::addInteraction(InteractionEntity interaction, ContactEntity contact)
 {
-    //a chaque fois qu'on veut faire une operation sur une liste on recupere la liste actuelle avec le gestionnaire de liste
+    //a chaque fois qu'on veut faire une operation sur une liste on recupere la liste actuelle avec le gestionnaire de liste (plus tard se sera un appel sur la base)
     auto listInteractionEntity = GestionnaireListes::getInstance().getListInteractionEntity();
     auto listContactInteractionEntity = GestionnaireListes::getInstance().getListContactInteractionEntity();
 

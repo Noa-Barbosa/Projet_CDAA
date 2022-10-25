@@ -40,12 +40,15 @@ int main(int argc, char *argv[])
     Interaction1.setContenuInteraction("Contenu interaction 1");
     std::cout<<Interaction1<<std::endl<<std::endl;
 
+    //ajout de l'interaction dans la liste
+    gestionnaireInteraction.addInteraction(Interaction1,Contact1);
+
     //test de creation d'une interaction avec le constructeur avec parametre et affichage
     std::cout << "test de creation d'une interaction avec le constructeur avec parametre et affichage" << std::endl;
     InteractionEntity Interaction2("Contenu interaction 2");
     std::cout << Interaction2 << std::endl<<std::endl ;
 
-    gestionnaireInteraction.addInteraction(Interaction1,Contact1);
+    gestionnaireInteraction.addInteraction(Interaction2,Contact1);
 
     auto list =GestionnaireListes::getInstance().getListInteractionEntity();
 
@@ -53,15 +56,13 @@ int main(int argc, char *argv[])
 
     cout<< "L'interaction " << *findIter << " est bien dans la liste" << std::endl;
 
-    gestionnaireInteraction.addInteraction(Interaction1,Contact1);
-
-    gestionnaireInteraction.addInteraction(Interaction2,Contact1);
-
     InteractionEntity Interaction3("Contenu interaction 3 edit");
 
     gestionnaireInteraction.editInteraction(Interaction2, Interaction3);
 
-    gestionnaireInteraction.deleteInteraction(Interaction3);
+    Interaction2 = Interaction3;
+
+    gestionnaireInteraction.deleteInteraction(Interaction2);
 
     list =GestionnaireListes::getInstance().getListInteractionEntity();
 
