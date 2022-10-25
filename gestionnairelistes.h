@@ -28,11 +28,25 @@ public:
     void setListInteractionTodoEntity(const list<InteractionTodoEntity *> &newListInteractionTodoEntity);
 
     /**
+     * @brief Verifie si le contact existe ou pas dans la liste des contacts
+     * @param Le contact recherche
+     * @return vrai s'il existe faux sinon
+     */
+    bool isContactInList(ContactEntity *contactRecherche);
+
+    /**
      * @brief Verifie si l'interaction existe ou pas dans la liste des interactions
      * @param L'interaction recherche
      * @return vrai si elle existe faux sinon
      */
     bool isInteractionInList(InteractionEntity *interactionRecherche);
+
+    /**
+     * @brief Verifie si le todo existe ou pas dans la liste des todos
+     * @param Le todo recherche
+     * @return vrai s'il existe faux sinon
+     */
+    bool isTodoInList(TodoEntity *todoRecherche);
 
 private:
     /**

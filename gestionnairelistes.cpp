@@ -55,6 +55,19 @@ void GestionnaireListes::setListInteractionTodoEntity(const list<InteractionTodo
     listInteractionTodoEntity = newListInteractionTodoEntity;
 }
 
+bool GestionnaireListes::isContactInList(ContactEntity *contactRecherche)
+{
+    list<ContactEntity*>::iterator findIter = find(listContactEntity.begin(), listContactEntity.end(), contactRecherche);
+
+    if(findIter!=listContactEntity.end()){
+        return true;
+    }
+    else{
+        return false;
+    }
+
+}
+
 
 bool GestionnaireListes::isInteractionInList(InteractionEntity *interactionRecherche)
 {
@@ -67,4 +80,16 @@ bool GestionnaireListes::isInteractionInList(InteractionEntity *interactionReche
         return false;
     }
 
+}
+
+bool GestionnaireListes::isTodoInList(TodoEntity *todoRecherche)
+{
+    list<TodoEntity*>::iterator findIter = find(listTodoEntity.begin(), listTodoEntity.end(), todoRecherche);
+
+    if(findIter!=listTodoEntity.end()){
+        return true;
+    }
+    else{
+        return false;
+    }
 }

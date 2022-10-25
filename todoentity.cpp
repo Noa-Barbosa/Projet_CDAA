@@ -30,9 +30,9 @@ const sys_days &TodoEntity::getDateAjoutTodo() const
     return dateAjoutTodo;
 }
 
-std::ostream& operator<< (ostream& os, const TodoEntity& interaction)
+std::ostream& operator<< (ostream& os, const TodoEntity& todo)
 {
-    os << interaction.getContenuTodo() << ' ' << interaction.getDateAjoutTodo();
+    os << todo.getContenuTodo() << ' ' << todo.getDateAjoutTodo();
     return os;
 }
 

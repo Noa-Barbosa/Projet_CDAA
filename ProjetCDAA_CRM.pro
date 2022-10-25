@@ -13,6 +13,7 @@ SOURCES += \
     contactinteractionentity.cpp \
     gestionnaireinteraction.cpp \
     gestionnairelistes.cpp \
+    gestionnairetodo.cpp \
     interactionentity.cpp \
     interactiontodoentity.cpp \
     main.cpp \
@@ -25,6 +26,7 @@ HEADERS += \
     date.h \
     gestionnaireinteraction.h \
     gestionnairelistes.h \
+    gestionnairetodo.h \
     interactionentity.h \
     interactiontodoentity.h \
     mainwindow.h \

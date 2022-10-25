@@ -29,7 +29,6 @@ public:
 
     /**
      * @brief Modifie l'interaction en premier parametre avec les valeurs contenu dans l'interaction en deuxieme parametre
-     * @brief La fonction va rechercher toutes les associations pour les modifier
      * @param La premiere interaction a modifier
      * @param L'interaction contenant les modifications a apporter sur la deuxieme (il faut laisser la meme valeur que dans la premiere interaction si on ne veut pas modifier)
      */
