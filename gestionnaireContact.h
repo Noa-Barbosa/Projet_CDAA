@@ -102,7 +102,14 @@ public:
 
     private:
 
+    /**
+     * @brief Date de la derniere suppression d'un contact
+     */
     sys_days dateDernSuppContact;
+
+    /**
+     * @brief Gestionnaire des listes du programme
+     */
     GestionnaireListes *gestionnaireListes;
 };
 
