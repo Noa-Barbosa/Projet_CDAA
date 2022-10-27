@@ -47,28 +47,36 @@ void GestionnaireContact::deleteContact(ContactEntity* contact)
     if(gestionnaireListes->isContactInList(contact)){
 
         auto listContactEntity = gestionnaireListes->getListContactEntity();
-        auto listInteractionContactEntity = gestionnaireListes->getListContactInteractionEntity();
+        auto listContactInteractionEntity = gestionnaireListes->getListContactInteractionEntity();
+        auto listInteractionEntity = gestionnaireListes->getListInteractionEntity();
 
 
-        list<ContactInteractionEntity*> interactionContactAsupprimer;
+        list<ContactInteractionEntity*> contactInteractionAsupprimer;
+        list<InteractionEntity*> interactionAsupprimer;
 
-        for(ContactInteractionEntity* interactionContact : listInteractionContactEntity)
+        for(ContactInteractionEntity* contactInteraction : listContactInteractionEntity)
         {
-           if(interactionContact->getContactEntity()==contact){
-               interactionContactAsupprimer.push_back(interactionContact);
-
+           if(contactInteraction->getContactEntity()==contact){
+               contactInteractionAsupprimer.push_back(contactInteraction);
+               interactionAsupprimer.push_back(contactInteraction->getInteractionEntity());
            }
         }
 
-        for(ContactInteractionEntity* interactionContactAsupprimer : interactionContactAsupprimer)
+        for(ContactInteractionEntity* interactionContactAsupprimer : contactInteractionAsupprimer)
         {
-           listInteractionContactEntity.remove(interactionContactAsupprimer);
+           listContactInteractionEntity.remove(interactionContactAsupprimer);
+        }
+
+        for (InteractionEntity* interactionEntity : interactionAsupprimer)
+        {
+            listInteractionEntity.remove(interactionEntity);
         }
 
         listContactEntity.remove(contact);
 
         gestionnaireListes->setListContactEntity(listContactEntity);
-        gestionnaireListes->setListContactInteractionEntity(listInteractionContactEntity);
+        gestionnaireListes->setListContactInteractionEntity(listContactInteractionEntity);
+        gestionnaireListes->setListInteractionEntity(listInteractionEntity);
 
     }
     else{
@@ -78,36 +86,51 @@ void GestionnaireContact::deleteContact(ContactEntity* contact)
 
 ContactEntity* GestionnaireContact::findContactByNom(string nomContact)
 {
-    auto ret = std::find_if(gestionnaireListes->getListContactEntity().begin(),gestionnaireListes->getListContactEntity().end(), [nomContact](ContactEntity *contact){return  contact->getNomContact()==nomContact;});
-    return *ret;
+    auto itContact = std::find_if(gestionnaireListes->getListContactEntity().begin(),gestionnaireListes->getListContactEntity().end(), [nomContact](ContactEntity *contact){return  contact->getNomContact()==nomContact;});
+    return *itContact;
 }
 
 ContactEntity* GestionnaireContact::findByEntreprise(string entrepriseContact)
 {
-
+    auto itContact = std::find_if(gestionnaireListes->getListContactEntity().begin(),gestionnaireListes->getListContactEntity().end(), [entrepriseContact](ContactEntity *contact){return  contact->getEntrepriseContact()==entrepriseContact;});
+    return *itContact;
 }
 
 ContactEntity* GestionnaireContact::findByDateCrea(sys_days dateCrea)
 {
-
+    auto itContact = std::find_if(gestionnaireListes->getListContactEntity().begin(),gestionnaireListes->getListContactEntity().end(), [dateCrea](ContactEntity *contact){return  contact->getDateCreaContact()==dateCrea;});
+    return *itContact;
 }
 
 ContactEntity* GestionnaireContact::findByDateModif(sys_days dateModif)
 {
-
+    auto itContact = std::find_if(gestionnaireListes->getListContactEntity().begin(),gestionnaireListes->getListContactEntity().end(), [dateModif](ContactEntity *contact){return  contact->getDateLastUpdate()==dateModif;});
+    return *itContact;
 }
 
 ContactEntity* GestionnaireContact::findByDateCreaBetween(sys_days dateCreaMin, sys_days dateCreaMax)
 {
-
+    auto itContact = std::find_if(gestionnaireListes->getListContactEntity().begin(),gestionnaireListes->getListContactEntity().end(), [dateCreaMin, dateCreaMax](ContactEntity *contact){return  contact->getDateCreaContact()>=dateCreaMin && contact->getDateCreaContact()<=dateCreaMax;});
+    return *itContact;
 }
 
 ContactEntity* GestionnaireContact::findByDateModifBetween(sys_days dateModifMin, sys_days dateModifMax)
 {
-
+    auto itContact = std::find_if(gestionnaireListes->getListContactEntity().begin(),gestionnaireListes->getListContactEntity().end(), [dateModifMin, dateModifMax](ContactEntity *contact){return  contact->getDateLastUpdate()>=dateModifMin && contact->getDateLastUpdate()<=dateModifMax;});
+    return *itContact;
 }
 
-list<InteractionEntity> GestionnaireContact::listAllInteractions(ContactEntity *contactEntity)
+list<InteractionEntity*> GestionnaireContact::listAllInteractions(ContactEntity *contactEntity)
 {
+    auto listContactInteractionEntity = gestionnaireListes->getListContactInteractionEntity();
+    list<InteractionEntity*> interaction;
 
+    for(ContactInteractionEntity* contactInteraction : listContactInteractionEntity)
+    {
+       if(contactInteraction->getContactEntity()==contactEntity){
+           interaction.push_back(contactInteraction->getInteractionEntity());
+       }
+    }
+
+    return interaction;
 }

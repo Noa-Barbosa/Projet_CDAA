@@ -47,8 +47,10 @@ void GestionnaireInteraction::deleteInteraction(InteractionEntity* interaction)
         auto listInteractionEntity = gestionnaireListes->getListInteractionEntity();
         auto listContactInteractionEntity = gestionnaireListes->getListContactInteractionEntity();
         auto listInteractionTodoEntity = gestionnaireListes->getListInteractionTodoEntity();
+        auto listTodoEntity = gestionnaireListes->getListTodoEntity();
 
         list<ContactInteractionEntity*> contactInteractionAsupprimer;
+        list<TodoEntity*> todoASupprimer;
 
         //on recupere tout les contacts interaction associe avec l'interaction modifie
         for(ContactInteractionEntity* contactInteraction : listContactInteractionEntity)
@@ -71,6 +73,7 @@ void GestionnaireInteraction::deleteInteraction(InteractionEntity* interaction)
         {
            if(interactionTodo->getInteractionEntity()==interaction){
                interactionTodoAsupprimer.push_back(interactionTodo);
+               todoASupprimer.push_back(interactionTodo->getTodoEntity());
            }
         }
 
@@ -79,11 +82,17 @@ void GestionnaireInteraction::deleteInteraction(InteractionEntity* interaction)
            listInteractionTodoEntity.remove(interactionTodoAsupprimer);
         }
 
+        for(TodoEntity* todoASupprimer : todoASupprimer)
+        {
+            listTodoEntity.remove(todoASupprimer);
+        }
+
         listInteractionEntity.remove(interaction);
 
         gestionnaireListes->setListInteractionEntity(listInteractionEntity);
         gestionnaireListes->setListContactInteractionEntity(listContactInteractionEntity);
         gestionnaireListes->setListInteractionTodoEntity(listInteractionTodoEntity);
+        gestionnaireListes->setListTodoEntity(listTodoEntity);
 
     }
     else{

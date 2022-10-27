@@ -7,12 +7,12 @@ InteractionTodoEntity::InteractionTodoEntity(InteractionEntity *interaction, Tod
     todoEntity=todo;
 }
 
-const InteractionEntity *InteractionTodoEntity::getInteractionEntity() const
+InteractionEntity *InteractionTodoEntity::getInteractionEntity() const
 {
     return interactionEntity;
 }
 
-const TodoEntity *InteractionTodoEntity::getTodoEntity() const
+TodoEntity *InteractionTodoEntity::getTodoEntity() const
 {
     return todoEntity;
 }

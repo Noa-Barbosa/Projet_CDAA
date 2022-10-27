@@ -87,7 +87,7 @@ public:
     * @param contactEntity le contact dont l'on désire la liste des interactions
     * @return la liste des interactions du contact
     */
-    list<InteractionEntity> listAllInteractions(ContactEntity *contactEntity);
+    list<InteractionEntity*> listAllInteractions(ContactEntity *contactEntity);
 
     /**
     * @brief Assesseur de la date de la dernière suppression de contact

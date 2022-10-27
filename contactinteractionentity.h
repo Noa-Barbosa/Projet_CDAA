@@ -22,13 +22,13 @@ public:
      * @brief Assesseur du contact lie
      * @return Le contact
      */
-    const ContactEntity *getContactEntity() const;
+     ContactEntity *getContactEntity() const;
 
     /**
      * @brief Assesseur de l'interaction lie
      * @return L'interaction
      */
-    const InteractionEntity *getInteractionEntity() const;
+     InteractionEntity *getInteractionEntity() const;
 
 private:
 

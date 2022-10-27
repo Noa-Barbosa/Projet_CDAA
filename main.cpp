@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
 
     gestionnaireContact.addContact(Contact3);
 
-    gestionnaireContact.editContact(Contact2, Contact3);
+    gestionnaireContact.editContact(Contact3, Contact2);
 
     gestionnaireContact.deleteContact(Contact1);
 
@@ -86,6 +86,128 @@ int main(int argc, char *argv[])
     gestionnaireTodo.editTodo(Todo2,Todo3);
 
     gestionnaireTodo.deleteTodo(Todo2);
+
+    //tests des fonctions find
+    ContactEntity *contactRecherche1 = gestionnaireContact.findContactByNom("Boisson test constructeur contact");
+    if(contactRecherche1==Contact2)
+    {
+        std::cout << "Nous avons trouvé le bon contact par nom" << std::endl;
+    }
+    else
+    {
+       std::cout << "Nous n'avons pas trouvé de contact par nom" << std::endl;
+    }
+
+    if(contactRecherche1==Contact3)
+    {
+        std::cout << "Nous avons trouvé le bon contact par nom" << std::endl;
+    }
+    else
+    {
+       std::cout << "Nous n'avons pas trouvé de contact par nom" << std::endl;
+    }
+
+    contactRecherche1 = gestionnaireContact.findByEntreprise("Sylph");
+
+    if(contactRecherche1==Contact2)
+    {
+        std::cout << "Nous avons trouvé le bon contact par entreprise" << std::endl;
+    }
+    else
+    {
+       std::cout << "Nous n'avons pas trouvé de contact par entreprise" << std::endl;
+    }
+
+    contactRecherche1 = gestionnaireContact.findByEntreprise("Sylph Sarl");
+
+    if(contactRecherche1==Contact2)
+    {
+        std::cout << "Nous avons trouvé le bon contact par entreprise" << std::endl;
+    }
+    else
+    {
+       std::cout << "Nous n'avons pas trouvé de contact par entreprise" << std::endl;
+    }
+
+    contactRecherche1 = gestionnaireContact.findByDateCrea(Contact2->getDateCreaContact());
+
+    if(contactRecherche1==Contact2)
+    {
+        std::cout << "Nous avons trouvé le bon contact par la date de création" << std::endl;
+    }
+    else
+    {
+       std::cout << "Nous n'avons pas trouvé de contact par la date de création" << std::endl;
+    }
+
+    if(contactRecherche1==Contact3)
+    {
+        std::cout << "Nous avons trouvé le bon contact par la date de création" << std::endl;
+    }
+    else
+    {
+       std::cout << "Nous n'avons pas trouvé de contact par la date de création" << std::endl;
+    }
+
+    contactRecherche1 = gestionnaireContact.findByDateModif(Contact3->getDateLastUpdate());
+
+    if(contactRecherche1==Contact2)
+    {
+        std::cout << "Nous avons trouvé le bon contact par la date de modification" << std::endl;
+    }
+    else
+    {
+       std::cout << "Nous n'avons pas trouvé de contact par la date de modification" << std::endl;
+    }
+
+    if(contactRecherche1==Contact3)
+    {
+        std::cout << "Nous avons trouvé le bon contact par la date de modification" << std::endl;
+    }
+    else
+    {
+       std::cout << "Nous n'avons pas trouvé de contact par la date de modification" << std::endl;
+    }
+
+    contactRecherche1 = gestionnaireContact.findByDateCreaBetween(Contact1->getDateCreaContact(), Contact3->getDateCreaContact());
+
+    if(contactRecherche1==Contact1)
+    {
+        std::cout << "Nous avons trouvé le bon contact par la date de création" << std::endl;
+    }
+    else
+    {
+       std::cout << "Nous n'avons pas trouvé de contact par la date de création" << std::endl;
+    }
+
+    if(contactRecherche1==Contact2)
+    {
+        std::cout << "Nous avons trouvé le bon contact par la date de création" << std::endl;
+    }
+    else
+    {
+       std::cout << "Nous n'avons pas trouvé de contact par la date de création" << std::endl;
+    }
+
+    contactRecherche1 = gestionnaireContact.findByDateModifBetween(Contact1->getDateLastUpdate(), Contact3->getDateLastUpdate());
+
+    if(contactRecherche1==Contact2)
+    {
+        std::cout << "Nous avons trouvé le bon contact par la date de modification" << std::endl;
+    }
+    else
+    {
+       std::cout << "Nous n'avons pas trouvé de contact par la date de modification" << std::endl;
+    }
+
+    if(contactRecherche1==Contact3)
+    {
+        std::cout << "Nous avons trouvé le bon contact par la date de modification" << std::endl;
+    }
+    else
+    {
+       std::cout << "Nous n'avons pas trouvé de contact par la date de modification" << std::endl;
+    }
 
     /**
     QApplication a(argc, argv);

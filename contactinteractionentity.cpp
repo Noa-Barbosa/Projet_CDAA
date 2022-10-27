@@ -7,12 +7,12 @@ ContactInteractionEntity::ContactInteractionEntity(ContactEntity *contact, Inter
     interactionEntity=interaction;
 }
 
-const ContactEntity *ContactInteractionEntity::getContactEntity() const
+ContactEntity *ContactInteractionEntity::getContactEntity() const
 {
     return contactEntity;
 }
 
-const InteractionEntity *ContactInteractionEntity::getInteractionEntity() const
+InteractionEntity *ContactInteractionEntity::getInteractionEntity() const
 {
     return interactionEntity;
 }

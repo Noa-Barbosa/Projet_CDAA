@@ -21,13 +21,13 @@ public:
      * @brief Assesseur de l'interaction
      * @return L'interaction
      */
-    const InteractionEntity *getInteractionEntity() const;
+     InteractionEntity *getInteractionEntity() const;
 
     /**
      * @brief Asseseur du todo
      * @return Le todo
      */
-    const TodoEntity *getTodoEntity() const;
+     TodoEntity *getTodoEntity() const;
 
 private:
 
