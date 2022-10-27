@@ -61,13 +61,15 @@ int main(int argc, char *argv[])
     TodoEntity* Todo2 = new TodoEntity("@todo test constructeur parametrique");
     std::cout << *Todo2 << std::endl<<std::endl ;
     //ajout du todo a la liste
-    gestionnaireTodo.addTodo(Todo2,Interaction1);
+    gestionnaireTodo.addTodo(Todo2,Interaction2);
 
     InteractionEntity* Interaction3 = new InteractionEntity("Contenu 3 edit");
 
+    gestionnaireInteraction.addInteraction(Interaction3, Contact2);
+
     gestionnaireInteraction.editInteraction(Interaction2, Interaction3);
 
-    gestionnaireInteraction.deleteInteraction(Interaction2);
+    gestionnaireInteraction.deleteInteraction(Interaction3);
 
     TodoEntity* Todo3 = new TodoEntity("@todo EDIT");
 

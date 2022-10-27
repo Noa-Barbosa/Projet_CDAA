@@ -9,11 +9,17 @@
 
 using namespace std;
 
+/**
+ * @brief Classe qui gere toutes les listes utilisees dans notre application
+ */
 class GestionnaireListes
 {
 
 public:
 
+    /**
+     * @brief Constructeur vide la classe
+     */
     GestionnaireListes();
 
     const list<ContactEntity *> &getListContactEntity() const;
@@ -47,6 +53,20 @@ public:
      * @return vrai s'il existe faux sinon
      */
     bool isTodoInList(TodoEntity *todoRecherche);
+
+    /**
+     * @brief Verifie si le contactinteraction existe ou pas dans la liste des contactinteractions
+     * @param Le contact interaction recherche
+     * @return vrai s'il existe faux sinon
+     */
+    bool isContactInteractionInList(ContactInteractionEntity* contactInteractionRecherche);
+
+    /**
+     * @brief Verifie si l'interactiontodo existe ou pas dans la liste des todointeractions
+     * @param Le contact interaction recherche
+     * @return vrai s'il existe faux sinon
+     */
+    bool isInteractionTodoInList(InteractionTodoEntity* interactionTodoRecherche);
 
 private:
     /**

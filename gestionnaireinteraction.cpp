@@ -13,21 +13,20 @@ void GestionnaireInteraction::addInteraction(InteractionEntity *interaction, Con
 
     //si l'interaction n'existe pas deja dans la liste
     if(!gestionnaireListes->isInteractionInList(interaction)){
-
         listInteractionEntity.push_back(interaction);
-
-        ContactInteractionEntity *contactInteraction = new ContactInteractionEntity(contact, interaction);
-
-        listContactInteractionEntity.push_back(contactInteraction);
-
         gestionnaireListes->setListInteractionEntity(listInteractionEntity);
-
-        gestionnaireListes->setListContactInteractionEntity(listContactInteractionEntity);
     }
-
-
     else{
         cout << "L'interaction existe deja dans la liste elle n'a pas ete ajoute" << std::endl;
+    }
+
+    ContactInteractionEntity *contactInteraction = new ContactInteractionEntity(contact, interaction);
+    if(!gestionnaireListes->isContactInteractionInList(contactInteraction)){
+        listContactInteractionEntity.push_back(contactInteraction);
+        gestionnaireListes->setListContactInteractionEntity(listContactInteractionEntity);
+    }
+    else{
+        cout << "Le contact a deja cette interaction les deux n'ont pas ete lie" << std::endl;
     }
 
 }

@@ -12,10 +12,17 @@ using namespace date;
 using namespace std;
 using namespace std::chrono;
 
+/**
+ * @brief Classe gerant les actions sur les todos
+ */
 class GestionnaireTodo
 {
 public:
 
+    /**
+     * @brief Constructeur avec parametre de la classe
+     * @param Le gestionnaire de liste du programme
+     */
     GestionnaireTodo(GestionnaireListes *gestionnaire);
     /**
      * @brief Ajoute l'interaction a liste d'interaction
@@ -40,6 +47,9 @@ public:
 
 private:
 
+    /**
+     * @brief Le gestionnaire de liste du programme
+     */
     GestionnaireListes *gestionnaireListes;
 };
 

@@ -11,6 +11,7 @@
 using namespace date;
 using namespace std;
 using namespace std::chrono;
+
 /**
  * @brief Classe qui gere les interactions de notre CRM
  */
@@ -18,6 +19,10 @@ class GestionnaireInteraction
 {
 public:
 
+    /**
+     * @brief Constructeur avec parametre du gestionnaire
+     * @param gestionnaire le gestionnaire de listes de l'application
+     */
     GestionnaireInteraction(GestionnaireListes *gestionnaire);
     /**
      * @brief Ajoute l'interaction a liste d'interaction
@@ -42,6 +47,9 @@ public:
 
 private:
 
+    /**
+     * @brief Les gestionnaire de listes de l'application
+     */
     GestionnaireListes *gestionnaireListes;
 
 };

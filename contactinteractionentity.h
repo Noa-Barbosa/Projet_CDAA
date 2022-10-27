@@ -17,6 +17,7 @@ public:
      * @param L'interaction a lie
      */
     ContactInteractionEntity(ContactEntity *contact, InteractionEntity *interaction);
+
     /**
      * @brief Assesseur du contact lie
      * @return Le contact
@@ -41,6 +42,12 @@ private:
      */
     InteractionEntity *interactionEntity;
 
+    /**
+     * @brief Compare l'interaction et le contact de chacun des objets en parametres
+     * @param a le premier objet a comparer
+     * @param b le deuxieme objet a comparer
+     * @return vrai si les objets sont identiques faux sinon
+     */
     friend bool operator==(ContactInteractionEntity a, ContactInteractionEntity b);
 
 };

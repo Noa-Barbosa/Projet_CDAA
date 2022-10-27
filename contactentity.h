@@ -8,6 +8,7 @@
 using namespace date;
 using namespace std;
 using namespace std::chrono;
+
 /**
  * @brief Classe decrivant une fiche de contact du CRM
  */
@@ -16,7 +17,7 @@ class ContactEntity
 
 public:
     /**
-     * @brief Constructeur vide de la fiche
+     * @brief Constructeur vide du contact
      */
     ContactEntity();
 
@@ -36,12 +37,12 @@ public:
     }
     /**
      * @brief Assesseur du nom du contact
-     * @return Le nom du contact qui est une chaine de caractere
+     * @return La chaine de caractere du nom
      */
     const string &getNomContact() const;
     /**
      * @brief Mutateur du nom du contact
-     * @param La chaine de caratere du nouveau nom
+     * @param La chaine de caractere du nouveau nom
      */
     void setNomContact(const string &newNomContact);
 
@@ -63,7 +64,7 @@ public:
     const string &getEntrepriseContact() const;
     /**
      * @brief Mutateur de l'entreprise du contact
-     * @param La nouvelle entreprise
+     * @param La chaine de caractere de la nouvelle entreprise
      */
     void setEntrepriseContact(const string &newEntrepriseContact);
 
@@ -105,12 +106,6 @@ public:
      * @return la date de creation
      */
     const sys_days &getDateCreaContact() const;
-
-    /**
-     * @brief getListInteraction
-     * @return
-     */
-    const list<InteractionEntity> &getListInteraction() const;
 
     /**
     * @brief Assesseur de l'id du contact
@@ -182,6 +177,12 @@ private:
    */
     friend std::ostream& operator<< (ostream& os, const ContactEntity& contact);
 
+    /**
+     * @brief Compare tout les attributs de chacun des parametres
+     * @param a le premier contact a comparer
+     * @param b le deuxieme contact a comparer
+     * @return vrai si les contacts sont identiques faux sinon
+     */
     friend bool operator==(ContactEntity a, ContactEntity b);
 };
 

@@ -62,6 +62,12 @@ private:
     */
     friend std::ostream& operator<< (ostream& os, const TodoEntity& todo);
 
+    /**
+     * @brief Compare le contenu et la date des todos en parametres
+     * @param a le premier todo a comparer
+     * @param b le deuxieme todo a comparer
+     * @return vrai s'ils sont identiques faux sinon
+     */
     friend bool operator==(TodoEntity a, TodoEntity b);
 };
 

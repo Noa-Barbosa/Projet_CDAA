@@ -13,21 +13,24 @@ void GestionnaireTodo::addTodo(TodoEntity *todo, InteractionEntity *interaction)
 
     //si le todo n'existe pas deja dans la liste
     if(!gestionnaireListes->isTodoInList(todo)){
-
         listTodoEntity.push_back(todo);
-
-        InteractionTodoEntity *interactionTodo = new InteractionTodoEntity(interaction, todo);
-
-        listInteractionTodo.push_back(interactionTodo);
-
         gestionnaireListes->setListTodoEntity(listTodoEntity);
-
-        gestionnaireListes->setListInteractionTodoEntity(listInteractionTodo);
     }
-
     else{
         cout << "Le todo existe deja dans la liste il n'a pas ete ajoute" << std::endl;
     }
+
+    InteractionTodoEntity *interactionTodo = new InteractionTodoEntity(interaction, todo);
+
+    if(!gestionnaireListes->isInteractionTodoInList(interactionTodo)){
+        listInteractionTodo.push_back(interactionTodo);
+        gestionnaireListes->setListInteractionTodoEntity(listInteractionTodo);
+    }
+    else{
+        cout << "Linteraction a deja ce todo les deux n'ont pas ete lie" << std::endl;
+    }
+
+
 }
 
 void GestionnaireTodo::editTodo(TodoEntity *todo, TodoEntity *todoModif)
@@ -64,6 +67,6 @@ void GestionnaireTodo::deleteTodo(TodoEntity *todo)
 
     }
     else{
-        cout << "L'interaction n'existe pas rien n'a ete fait" << std::endl;
+        cout << "Le todo n'existe pas rien n'a ete fait" << std::endl;
     }
 }

@@ -63,6 +63,12 @@ private:
     */
     friend std::ostream& operator<< (ostream& os, const InteractionEntity& interaction);
 
+    /**
+     * @brief Compare le contenu et la date d'ajout des deux interactions
+     * @param a la premiere interaction a comparer
+     * @param b la deuxieme interaction a comparer
+     * @return vrai si les deux interactions sont identiques faux sinon
+     */
     friend bool operator==(InteractionEntity a, InteractionEntity b);
 };
 

@@ -93,3 +93,27 @@ bool GestionnaireListes::isTodoInList(TodoEntity *todoRecherche)
         return false;
     }
 }
+
+bool GestionnaireListes::isContactInteractionInList(ContactInteractionEntity *contactInteractionRecherche)
+{
+    list<ContactInteractionEntity*>::iterator findIter = find(listContactInteractionEntity.begin(), listContactInteractionEntity.end(), contactInteractionRecherche);
+
+    if(findIter!=listContactInteractionEntity.end()){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+bool GestionnaireListes::isInteractionTodoInList(InteractionTodoEntity *interactionTodoRecherche)
+{
+    list<InteractionTodoEntity*>::iterator findIter = find(listInteractionTodoEntity.begin(), listInteractionTodoEntity.end(), interactionTodoRecherche);
+
+    if(findIter!=listInteractionTodoEntity.end()){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
