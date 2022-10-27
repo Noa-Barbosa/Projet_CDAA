@@ -22,15 +22,64 @@ public:
      */
     GestionnaireListes();
 
+    /**
+     * @brief Assesseur de la liste des contacts
+     * @return la liste des contacts
+     */
     const list<ContactEntity *> &getListContactEntity() const;
+
+    /**
+     * @brief Mutateur de la liste des contacts
+     * @param newListContactEntity la nouvelle liste
+     */
     void setListContactEntity(const list<ContactEntity *> &newListContactEntity);
+
+    /**
+     * @brief Assesseur de la liste des interactions
+     * @return la liste des interactions
+     */
     const list<InteractionEntity *> &getListInteractionEntity() const;
+
+    /**
+     * @brief Mutateur de la liste des interactions
+     * @param newListInteractionEntity la nouvelle liste
+     */
     void setListInteractionEntity(const list<InteractionEntity *> &newListInteractionEntity);
+
+    /**
+     * @brief Assesseur de la liste des todos
+     * @return la liste des todos
+     */
     const list<TodoEntity *> &getListTodoEntity() const;
+
+    /**
+     * @brief Mutateur de la liste des todos
+     * @param newListTodoEntity la nouvelle liste
+     */
     void setListTodoEntity(const list<TodoEntity *> &newListTodoEntity);
+
+    /**
+     * @brief Assesseur de la liste des contactinteractions
+     * @return la liste des contactinteractions
+     */
     const list<ContactInteractionEntity *> &getListContactInteractionEntity() const;
+
+    /**
+     * @brief Mutateur de la liste des contactinteractions
+     * @param newListContactInteractionEntity la nouvelle liste
+     */
     void setListContactInteractionEntity(const list<ContactInteractionEntity *> &newListContactInteractionEntity);
+
+    /**
+     * @brief Assesseur de la liste des interactiontodos
+     * @return la liste des interactiontodos
+     */
     const list<InteractionTodoEntity *> &getListInteractionTodoEntity() const;
+
+    /**
+     * @brief Mutateur de la liste des interactiontodos
+     * @param newListInteractionTodoEntity la nouvelle liste
+     */
     void setListInteractionTodoEntity(const list<InteractionTodoEntity *> &newListInteractionTodoEntity);
 
     /**
