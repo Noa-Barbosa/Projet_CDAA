@@ -35,35 +35,35 @@ public:
 
     /**
      * @brief Verifie si le contact existe ou pas dans la liste des contacts
-     * @param Le contact recherche
+     * @param contactRecherche Le contact recherche
      * @return vrai s'il existe faux sinon
      */
     bool isContactInList(ContactEntity *contactRecherche);
 
     /**
      * @brief Verifie si l'interaction existe ou pas dans la liste des interactions
-     * @param L'interaction recherche
+     * @param interactionRecherche L'interaction recherche
      * @return vrai si elle existe faux sinon
      */
     bool isInteractionInList(InteractionEntity *interactionRecherche);
 
     /**
      * @brief Verifie si le todo existe ou pas dans la liste des todos
-     * @param Le todo recherche
+     * @param todoRecherche Le todo recherche
      * @return vrai s'il existe faux sinon
      */
     bool isTodoInList(TodoEntity *todoRecherche);
 
     /**
      * @brief Verifie si le contactinteraction existe ou pas dans la liste des contactinteractions
-     * @param Le contact interaction recherche
+     * @param contactInteractionRecherche Le contact interaction recherche
      * @return vrai s'il existe faux sinon
      */
     bool isContactInteractionInList(ContactInteractionEntity* contactInteractionRecherche);
 
     /**
      * @brief Verifie si l'interactiontodo existe ou pas dans la liste des todointeractions
-     * @param Le contact interaction recherche
+     * @param interactionTodoRecherche Le contact interaction recherche
      * @return vrai s'il existe faux sinon
      */
     bool isInteractionTodoInList(InteractionTodoEntity* interactionTodoRecherche);

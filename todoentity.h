@@ -35,7 +35,7 @@ public:
 
     /**
      * @brief Mutateur du contenu du todo
-     * @param le nouveau contenu
+     * @param newContenuTodo le nouveau contenu
      */
     void setContenuTodo(const std::string &newContenuTodo);
 

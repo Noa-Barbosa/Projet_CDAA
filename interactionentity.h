@@ -36,7 +36,7 @@ public:
 
     /**
      * @brief Mutateur du contenu de l'interaction
-     * @param le nouveau contenu
+     * @param newContenuInteraction le nouveau contenu
      */
     void setContenuInteraction(const std::string &newContenuInteraction);
 

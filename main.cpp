@@ -10,10 +10,12 @@
 #include <gestionnairelistes.h>
 #include <gestionnaireinteraction.h>
 #include <gestionnairetodo.h>
+#include <gestionnairecontact.h>
 
 int main(int argc, char *argv[])
 {
     GestionnaireListes *gestionnaireListes = new GestionnaireListes();
+    GestionnaireContact gestionnaireContact(gestionnaireListes);
     GestionnaireInteraction gestionnaireInteraction(gestionnaireListes);
     GestionnaireTodo gestionnaireTodo(gestionnaireListes);
 
@@ -28,12 +30,14 @@ int main(int argc, char *argv[])
     Contact1->setTelContact(numTelContact1);
     Contact1->setPhotoContact("Projet/ProjetQT/photo_contact1.jpg");
     std::cout << *Contact1 << std::endl<<std::endl;
+    gestionnaireContact.addContact(Contact1);
 
     //test de creation d'un contact avec le constructeur avec parametres et affichage
     std::cout << "test de creation d'un contact avec le constructeur avec parametres et affichage" << std::endl;
     list<unsigned> numTelContact2 = {8,7,2,5,9,8,9,4,1,0};
     ContactEntity* Contact2 = new ContactEntity("Boisson test constructeur contact","Adrien","Sylph Sarl","exemple@1outlook.fr",numTelContact2,"Projet/ProjetQT/photo_contact2.jpg");
     std::cout << *Contact2 << std::endl<<std::endl;
+    gestionnaireContact.addContact(Contact2);
 
     //test de creation d'une interaction avec le constructeur vide et un mutateur et test de l'affichage
     InteractionEntity *Interaction1 = new InteractionEntity("Contenu 1");
@@ -61,15 +65,21 @@ int main(int argc, char *argv[])
     TodoEntity* Todo2 = new TodoEntity("@todo test constructeur parametrique");
     std::cout << *Todo2 << std::endl<<std::endl ;
     //ajout du todo a la liste
-    gestionnaireTodo.addTodo(Todo2,Interaction2);
+    gestionnaireTodo.addTodo(Todo2,Interaction1);
+
+    ContactEntity *Contact3 = new ContactEntity();
+
+    gestionnaireContact.addContact(Contact3);
+
+    gestionnaireContact.editContact(Contact2, Contact3);
+
+    gestionnaireContact.deleteContact(Contact1);
 
     InteractionEntity* Interaction3 = new InteractionEntity("Contenu 3 edit");
 
-    gestionnaireInteraction.addInteraction(Interaction3, Contact2);
-
     gestionnaireInteraction.editInteraction(Interaction2, Interaction3);
 
-    gestionnaireInteraction.deleteInteraction(Interaction3);
+    gestionnaireInteraction.deleteInteraction(Interaction2);
 
     TodoEntity* Todo3 = new TodoEntity("@todo EDIT");
 

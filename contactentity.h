@@ -42,7 +42,7 @@ public:
     const string &getNomContact() const;
     /**
      * @brief Mutateur du nom du contact
-     * @param La chaine de caractere du nouveau nom
+     * @param newNomContact La chaine de caractere du nouveau nom
      */
     void setNomContact(const string &newNomContact);
 
@@ -53,7 +53,7 @@ public:
     const string &getPrenomContact() const;
     /**
      * @brief Mutateur du prenom du contact
-     * @param La chaine de caractere du nouveau prenom
+     * @param newPrenomContact La chaine de caractere du nouveau prenom
      */
     void setPrenomContact(const string &newPrenomContact);
 
@@ -64,7 +64,7 @@ public:
     const string &getEntrepriseContact() const;
     /**
      * @brief Mutateur de l'entreprise du contact
-     * @param La chaine de caractere de la nouvelle entreprise
+     * @param newEntrepriseContact La chaine de caractere de la nouvelle entreprise
      */
     void setEntrepriseContact(const string &newEntrepriseContact);
 
@@ -75,7 +75,7 @@ public:
     const string &getMailContact() const;
     /**
      * @brief Mutateur de l'adresse mail
-     * @param le nouveau mail du contact
+     * @param newMailContact le nouveau mail du contact
      */
     void setMailContact(const string &newMailContact);
 
@@ -86,7 +86,7 @@ public:
     const std::list<unsigned> &getTelContact() const;
     /**
      * @brief Mutateur du tel du contact
-     * @param la liste d'entier non signe correspondant au nouveau numero de telephone
+     * @param newTelContact la liste d'entier non signe correspondant au nouveau numero de telephone
      */
     void setTelContact(const std::list<unsigned> &newTelContact);
 
@@ -97,7 +97,7 @@ public:
     const string &getPhotoContact() const;
     /**
      * @brief Mutateur de la photo du contact
-     * @param l'uri de la nouvelle photo du contact
+     * @param newPhotoContact l'uri de la nouvelle photo du contact
      */
     void setPhotoContact(const string &newPhotoContact);
 
@@ -121,7 +121,7 @@ public:
 
     /**
      * @brief Mutateur de la derniere date de modification
-     * @param la nouvel date de derniere modifcation
+     * @param newDateLastUpdate la nouvel date de derniere modifcation
      */
     void setDateLastUpdate(const sys_days &newDateLastUpdate);
 

@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     contactentity.cpp \
     contactinteractionentity.cpp \
+    gestionnairecontact.cpp \
     gestionnaireinteraction.cpp \
     gestionnairelistes.cpp \
     gestionnairetodo.cpp \
@@ -24,6 +25,7 @@ HEADERS += \
     contactentity.h \
     contactinteractionentity.h \
     date.h \
+    gestionnairecontact.h \
     gestionnaireinteraction.h \
     gestionnairelistes.h \
     gestionnairetodo.h \

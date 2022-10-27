@@ -13,8 +13,8 @@ public:
 
     /**
      * @brief Constructeur avec parametre de la classe association
-     * @param Le contact a lie
-     * @param L'interaction a lie
+     * @param contact Le contact a lie
+     * @param interaction L'interaction a lie
      */
     ContactInteractionEntity(ContactEntity *contact, InteractionEntity *interaction);
 
