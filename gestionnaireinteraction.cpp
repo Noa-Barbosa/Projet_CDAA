@@ -17,7 +17,7 @@ void GestionnaireInteraction::addInteraction(InteractionEntity *interaction, Con
         gestionnaireListes->setListInteractionEntity(listInteractionEntity);
     }
     else{
-        cout << "L'interaction existe deja dans la liste elle n'a pas ete ajoute" << std::endl;
+        cout << "L'interaction existe deja dans la liste elle n'a pas ete ajoute" << std::endl<<std::endl;
     }
 
     ContactInteractionEntity *contactInteraction = new ContactInteractionEntity(contact, interaction);
@@ -26,7 +26,7 @@ void GestionnaireInteraction::addInteraction(InteractionEntity *interaction, Con
         gestionnaireListes->setListContactInteractionEntity(listContactInteractionEntity);
     }
     else{
-        cout << "Le contact a deja cette interaction les deux n'ont pas ete lie" << std::endl;
+        cout << "Le contact a deja cette interaction les deux n'ont pas ete lie" << std::endl<<std::endl;
     }
 
 }
@@ -96,7 +96,7 @@ void GestionnaireInteraction::deleteInteraction(InteractionEntity* interaction)
 
     }
     else{
-        cout << "L'interaction n'existe pas rien n'a ete fait" << std::endl;
+        cout << "L'interaction n'existe pas rien n'a ete fait" << std::endl<<std::endl;
     }
 
 

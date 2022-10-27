@@ -67,13 +67,16 @@ int main(int argc, char *argv[])
     //ajout du todo a la liste
     gestionnaireTodo.addTodo(Todo2,Interaction1);
 
+    std::cout << "test de creation, de modification, et de suppression des contact des interactions  et des todo avec les gestionnaires" << std::endl;
     ContactEntity *Contact3 = new ContactEntity();
+
+    ContactEntity *Contact4 = new ContactEntity();
 
     gestionnaireContact.addContact(Contact3);
 
     gestionnaireContact.editContact(Contact3, Contact2);
 
-    gestionnaireContact.deleteContact(Contact1);
+    gestionnaireContact.deleteContact(Contact4);
 
     InteractionEntity* Interaction3 = new InteractionEntity("Contenu 3 edit");
 
@@ -88,6 +91,8 @@ int main(int argc, char *argv[])
     gestionnaireTodo.deleteTodo(Todo2);
 
     //tests des fonctions find
+    std::cout << "test des fonctions find" << std::endl;
+    std::cout << "test de la fonction findContactByNom" << std::endl;
     ContactEntity *contactRecherche1 = gestionnaireContact.findContactByNom("Boisson test constructeur contact");
     if(contactRecherche1==Contact2)
     {
@@ -107,6 +112,7 @@ int main(int argc, char *argv[])
        std::cout << "Nous n'avons pas trouvé de contact par nom" << std::endl;
     }
 
+    std::cout << std::endl << "test de la fonction findByEntreprise" << std::endl;
     contactRecherche1 = gestionnaireContact.findByEntreprise("Sylph");
 
     if(contactRecherche1==Contact2)
@@ -129,6 +135,7 @@ int main(int argc, char *argv[])
        std::cout << "Nous n'avons pas trouvé de contact par entreprise" << std::endl;
     }
 
+    std::cout << std::endl << "test de la fonction findByDateCrea" << std::endl;
     contactRecherche1 = gestionnaireContact.findByDateCrea(Contact2->getDateCreaContact());
 
     if(contactRecherche1==Contact2)
@@ -149,6 +156,7 @@ int main(int argc, char *argv[])
        std::cout << "Nous n'avons pas trouvé de contact par la date de création" << std::endl;
     }
 
+    std::cout << std::endl << "test de la fonction findByDateModif" << std::endl;
     contactRecherche1 = gestionnaireContact.findByDateModif(Contact3->getDateLastUpdate());
 
     if(contactRecherche1==Contact2)
@@ -169,6 +177,7 @@ int main(int argc, char *argv[])
        std::cout << "Nous n'avons pas trouvé de contact par la date de modification" << std::endl;
     }
 
+    std::cout << std::endl << "test de la fonction findByDateCreaBetween" << std::endl;
     contactRecherche1 = gestionnaireContact.findByDateCreaBetween(Contact1->getDateCreaContact(), Contact3->getDateCreaContact());
 
     if(contactRecherche1==Contact1)
@@ -189,6 +198,7 @@ int main(int argc, char *argv[])
        std::cout << "Nous n'avons pas trouvé de contact par la date de création" << std::endl;
     }
 
+    std::cout << std::endl << "test de la fonction findByDateModifBetween" << std::endl;
     contactRecherche1 = gestionnaireContact.findByDateModifBetween(Contact1->getDateLastUpdate(), Contact3->getDateLastUpdate());
 
     if(contactRecherche1==Contact2)
@@ -207,6 +217,15 @@ int main(int argc, char *argv[])
     else
     {
        std::cout << "Nous n'avons pas trouvé de contact par la date de modification" << std::endl;
+    }
+
+    std::cout << endl << "Test de listAllInteractions" <<endl;
+    list<InteractionEntity*> listInteraction1= gestionnaireContact.listAllInteractions(Contact2);
+    cout << &listInteraction1;
+
+    for (auto &i: listInteraction1)
+    {
+            std::cout << i << std::endl;
     }
 
     /**

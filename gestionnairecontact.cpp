@@ -22,7 +22,7 @@ void GestionnaireContact::addContact(ContactEntity *contact)
 
 
     else{
-        cout << "Le contact existe deja dans la liste elle n'a pas ete ajoute" << std::endl;
+        cout << "Le contact existe deja dans la liste elle n'a pas ete ajoute" << std::endl<<std::endl;
     }
 
 }
@@ -80,7 +80,7 @@ void GestionnaireContact::deleteContact(ContactEntity* contact)
 
     }
     else{
-        cout << "Le contact n'existe pas rien n'a ete fait" << std::endl;
+        cout << "Le contact n'existe pas rien n'a ete fait" << std::endl<<std::endl;
     }
 }
 
