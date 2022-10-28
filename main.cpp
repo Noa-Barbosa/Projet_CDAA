@@ -220,14 +220,18 @@ int main(int argc, char *argv[])
     }
 
     std::cout << endl << "Test de listAllInteractions" <<endl;
-    list<InteractionEntity*> listInteraction1= gestionnaireContact.listAllInteractions(Contact2);
-    cout << &listInteraction1;
+    list<InteractionEntity*> listInteraction= gestionnaireContact.listAllInteractions(Contact1);
 
-    for (auto &i: listInteraction1)
+    for (auto i: listInteraction)
     {
-            std::cout << i << std::endl;
+            std::cout << *i << std::endl;
     }
 
+    listInteraction = gestionnaireContact.listAllInteractions(Contact2);
+
+    if (listInteraction.size()==0){
+        cout << "La liste est vide le contact n'a pas d'interaction" << endl;
+    }
     /**
     QApplication a(argc, argv);
     MainWindow w;
