@@ -12,9 +12,15 @@
 #include <gestionnairetodo.h>
 #include <gestionnairecontact.h>
 
+#define _STR(x) #x
+#define STR(x)  _STR(x)
+
 int main(int argc, char *argv[])
 {
-    GestionnaireListes *gestionnaireListes = new GestionnaireListes();
+    const QString project_path = STR(PROJECT_PATH);
+    const QString database_path = project_path+"/database/CRM.db";
+
+    GestionnaireListes *gestionnaireListes = new GestionnaireListes(database_path);
     GestionnaireContact gestionnaireContact(gestionnaireListes);
     GestionnaireInteraction gestionnaireInteraction(gestionnaireListes);
     GestionnaireTodo gestionnaireTodo(gestionnaireListes);
@@ -232,12 +238,11 @@ int main(int argc, char *argv[])
     if (listInteraction.size()==0){
         cout << "La liste est vide le contact n'a pas d'interaction" << endl;
     }
-    /**
+
     QApplication a(argc, argv);
     MainWindow w;
     w.show();
-    return a.exec();
-    **/
 
-    return 0;
+    return a.exec();
+
 }

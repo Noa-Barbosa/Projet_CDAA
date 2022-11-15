@@ -1,8 +1,19 @@
 #include "gestionnairelistes.h"
 
-GestionnaireListes::GestionnaireListes()
+GestionnaireListes::GestionnaireListes(const QString& path)
 {
 
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName(path);
+
+    if (!db.open())
+    {
+        qDebug() << "Erreur de connexion avec la BDD";
+    }
+    else
+    {
+        qDebug() << "Connexion etablie avec la BDD";
+    }
 }
 
 const list<ContactEntity *> &GestionnaireListes::getListContactEntity() const

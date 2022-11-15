@@ -1,4 +1,5 @@
 QT       += core gui
+QT       += sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -36,6 +37,8 @@ HEADERS += \
 
 FORMS += \
     mainwindow.ui
+
+DEFINES += PROJECT_PATH="\"$$PWD\""
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

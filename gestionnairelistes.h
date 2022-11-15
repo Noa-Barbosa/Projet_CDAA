@@ -1,6 +1,7 @@
 #ifndef GESTIONNAIRELISTES_H
 #define GESTIONNAIRELISTES_H
 #include <iostream>
+#include <QtSql>
 #include <contactentity.h>
 #include <interactionentity.h>
 #include <todoentity.h>
@@ -19,8 +20,9 @@ public:
 
     /**
      * @brief Constructeur vide la classe
+     * @param path le chemin jusqu'a la base SQLite
      */
-    GestionnaireListes();
+    GestionnaireListes(const QString& path);
 
     /**
      * @brief Assesseur de la liste des contacts
@@ -118,6 +120,11 @@ public:
     bool isInteractionTodoInList(InteractionTodoEntity* interactionTodoRecherche);
 
 private:
+
+    /**
+      * @brief La base de donnees du CRM
+      */
+     QSqlDatabase db;
     /**
      * @brief Liste des contacts du programme
      */
