@@ -2,13 +2,13 @@
 
 TodoEntity::TodoEntity()
 {
-    dateAjoutTodo=floor<days>(system_clock::now());
+    dateAjoutTodo=year_month_day{floor<days>(system_clock::now())};
 }
 
-TodoEntity::TodoEntity(std::string contenu)
+TodoEntity::TodoEntity(std::string contenu, year_month_day dateAjout)
 {
     contenuTodo=contenu;
-    dateAjoutTodo=floor<days>(system_clock::now());
+    dateAjoutTodo=dateAjout;
 }
 
 TodoEntity::~TodoEntity(){
@@ -25,7 +25,7 @@ void TodoEntity::setContenuTodo(const std::string &newContenuTodo)
     contenuTodo = newContenuTodo;
 }
 
-const sys_days &TodoEntity::getDateAjoutTodo() const
+const year_month_day &TodoEntity::getDateAjoutTodo() const
 {
     return dateAjoutTodo;
 }

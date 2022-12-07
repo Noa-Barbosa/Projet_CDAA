@@ -23,8 +23,9 @@ public:
     /**
      * @brief Constructeur parametrique de l'interaction
      * @param contenu le contenu sous forme d'une chaine de l'interaction
+     * @param dateAjout la date d'ajout de l'interaction recuperer depuis la BDD
      */
-    InteractionEntity(std::string contenu);
+    InteractionEntity(std::string contenu, year_month_day dateAjout);
 
     ~InteractionEntity();
 
@@ -44,7 +45,7 @@ public:
      * @brief Assesseur de la date d'ajout d'une interaction
      * @return la date d'ajout de l'interaction
      */
-    const sys_days &getDateAjoutInteraction() const;
+    const year_month_day &getDateAjoutInteraction() const;
 
 private:
 
@@ -56,7 +57,7 @@ private:
     /**
      * @brief Date d'ajout de l'interaction
      */
-    sys_days dateAjoutInteraction;
+    year_month_day dateAjoutInteraction;
 
     /**
     * @brief Fonction amie qui surcharge l'operateur << pour l'affichage de l'interaction

@@ -1,7 +1,7 @@
 #include "gestionnairecontact.h"
 
 
-GestionnaireContact::GestionnaireContact(GestionnaireListes *gestionnaire)
+GestionnaireContact::GestionnaireContact(GestionnaireBDD *gestionnaire)
 {
     gestionnaireListes=gestionnaire;
 }
@@ -19,8 +19,6 @@ void GestionnaireContact::addContact(ContactEntity *contact)
         gestionnaireListes->setListContactEntity(listContactEntity);
 
     }
-
-
     else{
         cout << "Le contact existe deja dans la liste elle n'a pas ete ajoute" << std::endl<<std::endl;
     }
@@ -96,25 +94,25 @@ ContactEntity* GestionnaireContact::findByEntreprise(string entrepriseContact)
     return *itContact;
 }
 
-ContactEntity* GestionnaireContact::findByDateCrea(sys_days dateCrea)
+ContactEntity* GestionnaireContact::findByDateCrea(year_month_day dateCrea)
 {
     auto itContact = std::find_if(gestionnaireListes->getListContactEntity().begin(),gestionnaireListes->getListContactEntity().end(), [dateCrea](ContactEntity *contact){return  contact->getDateCreaContact()==dateCrea;});
     return *itContact;
 }
 
-ContactEntity* GestionnaireContact::findByDateModif(sys_days dateModif)
+ContactEntity* GestionnaireContact::findByDateModif(year_month_day dateModif)
 {
     auto itContact = std::find_if(gestionnaireListes->getListContactEntity().begin(),gestionnaireListes->getListContactEntity().end(), [dateModif](ContactEntity *contact){return  contact->getDateLastUpdate()==dateModif;});
     return *itContact;
 }
 
-ContactEntity* GestionnaireContact::findByDateCreaBetween(sys_days dateCreaMin, sys_days dateCreaMax)
+ContactEntity* GestionnaireContact::findByDateCreaBetween(year_month_day dateCreaMin, year_month_day dateCreaMax)
 {
     auto itContact = std::find_if(gestionnaireListes->getListContactEntity().begin(),gestionnaireListes->getListContactEntity().end(), [dateCreaMin, dateCreaMax](ContactEntity *contact){return  contact->getDateCreaContact()>=dateCreaMin && contact->getDateCreaContact()<=dateCreaMax;});
     return *itContact;
 }
 
-ContactEntity* GestionnaireContact::findByDateModifBetween(sys_days dateModifMin, sys_days dateModifMax)
+ContactEntity* GestionnaireContact::findByDateModifBetween(year_month_day dateModifMin, year_month_day dateModifMax)
 {
     auto itContact = std::find_if(gestionnaireListes->getListContactEntity().begin(),gestionnaireListes->getListContactEntity().end(), [dateModifMin, dateModifMax](ContactEntity *contact){return  contact->getDateLastUpdate()>=dateModifMin && contact->getDateLastUpdate()<=dateModifMax;});
     return *itContact;
@@ -133,4 +131,9 @@ list<InteractionEntity*> GestionnaireContact::listAllInteractions(ContactEntity 
     }
 
     return interaction;
+}
+
+const list<ContactEntity *> &GestionnaireContact::getContactList() const
+{
+    return gestionnaireListes->getListContactEntity();
 }

@@ -7,7 +7,7 @@
 #include <todoentity.h>
 #include <contactinteractionentity.h>
 #include <interactiontodoentity.h>
-#include <gestionnairelistes.h>
+#include <gestionnaireBDD.h>
 #include <gestionnaireinteraction.h>
 #include <gestionnairetodo.h>
 #include <gestionnairecontact.h>
@@ -20,11 +20,14 @@ int main(int argc, char *argv[])
     const QString project_path = STR(PROJECT_PATH);
     const QString database_path = project_path+"/database/CRM.db";
 
-    GestionnaireListes *gestionnaireListes = new GestionnaireListes(database_path);
-    GestionnaireContact gestionnaireContact(gestionnaireListes);
-    GestionnaireInteraction gestionnaireInteraction(gestionnaireListes);
-    GestionnaireTodo gestionnaireTodo(gestionnaireListes);
+    GestionnaireBDD *gestionnaireBDD = new GestionnaireBDD(database_path);
+    GestionnaireContact gestionnaireContact(gestionnaireBDD);
+    GestionnaireInteraction gestionnaireInteraction(gestionnaireBDD);
+    GestionnaireTodo gestionnaireTodo(gestionnaireBDD);
 
+    auto test = gestionnaireContact.getContactList();
+
+    /**
     //test de creation d'un contact avec le constructeur vide et les mutateur et test de l'affichage
     std::cout << "test de creation d'un contact avec le constructeur vide et les mutateur et test de l'affichage" << std::endl;
     ContactEntity *Contact1 = new ContactEntity();
@@ -239,6 +242,7 @@ int main(int argc, char *argv[])
         cout << "La liste est vide le contact n'a pas d'interaction" << endl;
     }
 
+    */
     QApplication a(argc, argv);
     MainWindow w;
     w.show();

@@ -3,7 +3,7 @@
 #include <iostream>
 #include <list>
 #include <contactentity.h>
-#include <gestionnairelistes.h>
+#include <gestionnaireBDD.h>
 #include <date.h>
 
 /**
@@ -17,7 +17,7 @@ public:
     * @brief Constructeur de la fiche
     * @param gestionnaire gestionnaire des listes
     */
-    GestionnaireContact(GestionnaireListes *gestionnaire);
+    GestionnaireContact(GestionnaireBDD *gestionnaire);
 
     /**
     * @brief ajouter un contact à la BDD
@@ -57,14 +57,14 @@ public:
     * @param dateCrea la date de création
     * @return le contact
     */
-    ContactEntity* findByDateCrea(sys_days dateCrea);
+    ContactEntity* findByDateCrea(year_month_day dateCrea);
 
     /**
     * @brief trouver un contact par sa date de modification
     * @param dateModif la date de modification
     * @return le contact
     */
-    ContactEntity* findByDateModif(sys_days dateModif);
+    ContactEntity* findByDateModif(year_month_day dateModif);
 
     /**
     * @brief renvoi le premier contact trouver entre deux date de creation
@@ -72,7 +72,7 @@ public:
     * @param dateCreaMax la date de création maximum
     * @return le contact
     */
-    ContactEntity* findByDateCreaBetween(sys_days dateCreaMin, sys_days dateCreaMax);
+    ContactEntity* findByDateCreaBetween(year_month_day dateCreaMin, year_month_day dateCreaMax);
 
     /**
     * @brief renvoi le premier contact trouver entre deux date de modification
@@ -80,7 +80,7 @@ public:
     * @param dateModifMax la date de modification maximum
     * @return le contact
     */
-    ContactEntity* findByDateModifBetween(sys_days dateModifMin, sys_days dateModifMax);
+    ContactEntity* findByDateModifBetween(year_month_day dateModifMin, year_month_day dateModifMax);
 
     /**
     * @brief renvoi la liste de toutes les interactions d'un contact
@@ -93,24 +93,26 @@ public:
     * @brief Assesseur de la date de la dernière suppression de contact
     * @return La date de la dernière suppression d'un contact
      */
-    const sys_days &getDateDernSuppContact() const;
+    const year_month_day &getDateDernSuppContact() const;
 
     /**
     * @brief modifie la date de dernière suppression de contact
     */
-    void setDateDernSuppContact(const sys_days &newDateDernSuppContact);
+    void setDateDernSuppContact(const year_month_day &newDateDernSuppContact);
+
+    const list<ContactEntity *> &getContactList() const;
 
     private:
 
     /**
      * @brief Date de la derniere suppression d'un contact
      */
-    sys_days dateDernSuppContact;
+    year_month_day dateDernSuppContact;
 
     /**
      * @brief Gestionnaire des listes du programme
      */
-    GestionnaireListes *gestionnaireListes;
+    GestionnaireBDD *gestionnaireListes;
 };
 
 #endif // GESTIONNAIRECONTACT_H

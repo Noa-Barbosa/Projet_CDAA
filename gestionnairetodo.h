@@ -3,7 +3,7 @@
 #include <todoentity.h>
 #include <interactionentity.h>
 #include <interactiontodoentity.h>
-#include <gestionnairelistes.h>
+#include <gestionnaireBDD.h>
 #include <iostream>
 #include <date.h>
 #include <list>
@@ -23,7 +23,7 @@ public:
      * @brief Constructeur avec parametre de la classe
      * @param gestionnaire Le gestionnaire de liste du programme
      */
-    GestionnaireTodo(GestionnaireListes *gestionnaire);
+    GestionnaireTodo(GestionnaireBDD *gestionnaire);
     /**
      * @brief Ajoute l'interaction a liste d'interaction
      * @brief Va egalement ajouter l'association contact/interaction lie au contact en parametre
@@ -50,7 +50,7 @@ private:
     /**
      * @brief Le gestionnaire de liste du programme
      */
-    GestionnaireListes *gestionnaireListes;
+    GestionnaireBDD *gestionnaireListes;
 };
 
 #endif // GESTIONNAIRETODO_H

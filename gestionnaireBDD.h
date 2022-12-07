@@ -1,5 +1,5 @@
-#ifndef GESTIONNAIRELISTES_H
-#define GESTIONNAIRELISTES_H
+#ifndef GESTIONNAIREBDD_H
+#define GESTIONNAIREBDD_H
 #include <iostream>
 #include <QtSql>
 #include <contactentity.h>
@@ -13,7 +13,7 @@ using namespace std;
 /**
  * @brief Classe qui gere toutes les listes utilisees dans notre application
  */
-class GestionnaireListes
+class GestionnaireBDD
 {
 
 public:
@@ -22,7 +22,7 @@ public:
      * @brief Constructeur vide la classe
      * @param path le chemin jusqu'a la base SQLite
      */
-    GestionnaireListes(const QString& path);
+    GestionnaireBDD(const QString& path);
 
     /**
      * @brief Assesseur de la liste des contacts
@@ -119,6 +119,8 @@ public:
      */
     bool isInteractionTodoInList(InteractionTodoEntity* interactionTodoRecherche);
 
+    void updateContactList();
+
 private:
 
     /**
@@ -152,4 +154,4 @@ private:
 
 };
 
-#endif // GESTIONNAIRELISTES_H
+#endif // GESTIONNAIREBDD_H

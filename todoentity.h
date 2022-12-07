@@ -22,8 +22,9 @@ public:
     /**
      * @brief Constructeur parametrique du todo
      * @param contenu le contenu sous forme d'un chaine du todo
+     * @param dateAjout la date d'ajout du todo recuperer depuis la bdd
      */
-    TodoEntity(std::string contenu);
+    TodoEntity(std::string contenu, year_month_day dateAjout);
 
     ~TodoEntity();
 
@@ -43,7 +44,7 @@ public:
      * @brief Assesseur de la date d'ajout du todo
      * @return la date d'ajout du todo
      */
-    const sys_days &getDateAjoutTodo() const;
+    const year_month_day &getDateAjoutTodo() const;
 
 private:
 
@@ -55,7 +56,7 @@ private:
     /**
      * @brief Date d'ajout du todo
      */
-    sys_days dateAjoutTodo;
+    year_month_day dateAjoutTodo;
 
     /**
     * @brief Fonction amie qui surcharge l'operateur << pour l'affichage du todo

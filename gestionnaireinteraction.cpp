@@ -1,6 +1,6 @@
 #include "gestionnaireinteraction.h"
 
-GestionnaireInteraction::GestionnaireInteraction(GestionnaireListes *gestionnaire)
+GestionnaireInteraction::GestionnaireInteraction(GestionnaireBDD *gestionnaire)
 {
     gestionnaireListes=gestionnaire;
 }

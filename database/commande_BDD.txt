@@ -1,0 +1,5 @@
+create table Contact(idContact INTEGER PRIMARY KEY AUTOINCREMENT,nomContact TEXT NOT NULL,prenomContact TEXT NOT NULL, entrepriseContact TEXT NOT NULL,uriPhotoContact TEXT,mailContact TEXT NOT NULL UNIQUE,telContact TEXT NOT NULL UNIQUE,dateCreaContact NUMERIC NOT NULL,dateDernModifContact NUMERIC NOT NULL);
+
+insert into contact(nomContact, prenomContact, entrepriseContact, uriPhotoContact, mailContact, telContact, dateCreaContact, dateDernModifContact) values ("Barbosa", "Noa", "McDonald's", "test.jpg", "noa.barbosa@hotmail.fr", "0458961235", date('now'), date('now'));
+
+insert into contact(nomContact, prenomContact, entrepriseContact, uriPhotoContact, mailContact, telContact, dateCreaContact, dateDernModifContact) values ("Boisson", "Adrien", "Bar tabac de son pere", "test2.jpg", "adrien.boisson@hotmail.fr", "4879512002", date('now'), date('now'));

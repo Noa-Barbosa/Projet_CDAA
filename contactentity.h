@@ -23,14 +23,17 @@ public:
 
     /**
      * @brief Constructeur parametrique d'un contact
+     * @param id l'id du contact dans la BDD
      * @param nom le nom du contact
      * @param prenom le prenom du contact
      * @param entreprise l'entreprise du contact
      * @param mail le mail du contact
      * @param tel le numero de telephone du contact
      * @param photo l'uri de la photo du contact
+     * @param dateCrea la date de creation du contact
+     * @param dateDernModif la date de la derniere modification du profil
      */
-    ContactEntity(string nom, string prenom, string entreprise, string mail, list<unsigned> tel, string photo);
+    ContactEntity(int id, string nom, string prenom, string entreprise, string mail, list<unsigned> tel, string photo, year_month_day dateCrea, year_month_day dateDernModif);
 
     ~ContactEntity(){
         telContact.clear();
@@ -105,7 +108,7 @@ public:
      * @brief Assesseur de la date de creation du contact
      * @return la date de creation
      */
-    const sys_days &getDateCreaContact() const;
+    const year_month_day &getDateCreaContact() const;
 
     /**
     * @brief Assesseur de l'id du contact
@@ -117,13 +120,13 @@ public:
      * @brief Assesseur de la date de la derniere modification
      * @return la date de la derniere modification
      */
-    const sys_days &getDateLastUpdate() const;
+    const year_month_day &getDateLastUpdate() const;
 
     /**
      * @brief Mutateur de la derniere date de modification
      * @param newDateLastUpdate la nouvel date de derniere modifcation
      */
-    void setDateLastUpdate(const sys_days &newDateLastUpdate);
+    void setDateLastUpdate(const year_month_day &newDateLastUpdate);
 
 private:
 
@@ -165,12 +168,12 @@ private:
     /**
     * @brief La date de creation du contact
     */
-    sys_days dateCreaContact;
+    year_month_day dateCreaContact;
 
     /**
      * @brief La date de la derniere maj du contact
      */
-    sys_days dateLastUpdate;
+    year_month_day dateDernModif;
 
     /**
    * @brief Fonction amie qui surcharge l'operateur << pour l'affichage du contact

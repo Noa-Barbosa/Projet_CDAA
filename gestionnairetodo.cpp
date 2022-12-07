@@ -1,6 +1,6 @@
 #include "gestionnairetodo.h"
 
-GestionnaireTodo::GestionnaireTodo(GestionnaireListes *gestionnaire)
+GestionnaireTodo::GestionnaireTodo(GestionnaireBDD *gestionnaire)
 {
     gestionnaireListes=gestionnaire;
 }

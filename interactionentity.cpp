@@ -2,13 +2,13 @@
 
 InteractionEntity::InteractionEntity()
 {
-    dateAjoutInteraction=floor<days>(system_clock::now());
+    dateAjoutInteraction=year_month_day{floor<days>(system_clock::now())};
 }
 
-InteractionEntity::InteractionEntity(std::string contenu)
+InteractionEntity::InteractionEntity(std::string contenu, year_month_day dateAjout)
 {
     contenuInteraction=contenu;
-    dateAjoutInteraction=floor<days>(system_clock::now());
+    dateAjoutInteraction=dateAjout;
 }
 
 InteractionEntity::~InteractionEntity(){
@@ -25,7 +25,7 @@ void InteractionEntity::setContenuInteraction(const std::string &newContenuInter
     contenuInteraction = newContenuInteraction;
 }
 
-const sys_days &InteractionEntity::getDateAjoutInteraction() const
+const year_month_day &InteractionEntity::getDateAjoutInteraction() const
 {
     return dateAjoutInteraction;
 }
