@@ -1,3 +1,15 @@
+
+https://www.sqlite.org/index.html
+download -> precompiled binaries for windows x64 version 3.40.0
+installe puis tu te mets dans le dossier du fichier CRM.db et du ouvre une invite de commande en tapant cmd dans la barre de parcours du dossier (à gauche de la barre de recherche)
+tu run la commande sqlite3
+tu run .open CRM.db pour ouvrir la base
+après tu peux faire les operations habituelles de sql
+et par exemple .tables pour afficher les tables créee
+
+Listes des commandes utilisées :
+
+//Creation de table
 create table Contact(idContact INTEGER PRIMARY KEY AUTOINCREMENT,nomContact TEXT NOT NULL,prenomContact TEXT NOT NULL, entrepriseContact TEXT NOT NULL,uriPhotoContact TEXT,mailContact TEXT NOT NULL UNIQUE,telContact TEXT NOT NULL UNIQUE,dateCreaContact NUMERIC NOT NULL,dateDernModifContact NUMERIC NOT NULL);
 
 create table Interaction(idInteraction INTEGER PRIMARY KEY AUTOINCREMENT, contenuInteraction TEXT NOT NULL, dateAjoutInteraction NUMERIC NOT NULL);
@@ -8,6 +20,7 @@ create table ContactInteraction(idContactInteraction INTEGER PRIMARY KEY AUTOINC
 
 create table InteractionTodo(idContactInteraction INTEGER PRIMARY KEY AUTOINCREMENT, idInteraction INTEGER REFERENCES Interaction(idInteraction) ON DELETE CASCADE, idTodo INTEGER REFERENCES Todo(idTodo) ON DELETE CASCADE);
 
+//insertion
 insert into contact(nomContact, prenomContact, entrepriseContact, uriPhotoContact, mailContact, telContact, dateCreaContact, dateDernModifContact) values ("Barbosa", "Noa", "McDonald's", "test.jpg", "noa.barbosa@hotmail.fr", "0458961235", date('now'), date('now'));
 
 insert into contact(nomContact, prenomContact, entrepriseContact, uriPhotoContact, mailContact, telContact, dateCreaContact, dateDernModifContact) values ("Boisson", "Adrien", "Bar tabac de son pere", "test2.jpg", "adrien.boisson@hotmail.fr", "4879512002", date('now'), date('now'));
