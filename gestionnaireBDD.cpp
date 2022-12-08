@@ -278,6 +278,8 @@ void GestionnaireBDD::updateContact(ContactEntity *contact, ContactEntity *conta
     }
     else{
         qDebug() << "Contact modifie en base" << updateQuery.lastError().text();
+
+        //a changer
         contact->setNomContact(contactEntityModifie->getNomContact());
         contact->setPrenomContact(contactEntityModifie->getPrenomContact());
         contact->setEntrepriseContact(contactEntityModifie->getEntrepriseContact());

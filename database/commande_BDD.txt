@@ -1,5 +1,13 @@
 create table Contact(idContact INTEGER PRIMARY KEY AUTOINCREMENT,nomContact TEXT NOT NULL,prenomContact TEXT NOT NULL, entrepriseContact TEXT NOT NULL,uriPhotoContact TEXT,mailContact TEXT NOT NULL UNIQUE,telContact TEXT NOT NULL UNIQUE,dateCreaContact NUMERIC NOT NULL,dateDernModifContact NUMERIC NOT NULL);
 
+create table Interaction(idInteraction INTEGER PRIMARY KEY AUTOINCREMENT, contenuInteraction TEXT NOT NULL, dateAjoutInteraction NUMERIC NOT NULL);
+
+create table Todo(idTodo INTEGER PRIMARY KEY AUTOINCREMENT, contenuTodo TEXT NOT NULL, dateAjoutTodo NUMERIC NOT NULL);
+
+create table ContactInteraction(idContactInteraction INTEGER PRIMARY KEY AUTOINCREMENT, idContact INTEGER REFERENCES Contact(idContact) ON DELETE CASCADE, idInteraction INTEGER REFERENCES Interaction(idInteraction) ON DELETE CASCADE);
+
+create table InteractionTodo(idContactInteraction INTEGER PRIMARY KEY AUTOINCREMENT, idInteraction INTEGER REFERENCES Interaction(idInteraction) ON DELETE CASCADE, idTodo INTEGER REFERENCES Todo(idTodo) ON DELETE CASCADE);
+
 insert into contact(nomContact, prenomContact, entrepriseContact, uriPhotoContact, mailContact, telContact, dateCreaContact, dateDernModifContact) values ("Barbosa", "Noa", "McDonald's", "test.jpg", "noa.barbosa@hotmail.fr", "0458961235", date('now'), date('now'));
 
 insert into contact(nomContact, prenomContact, entrepriseContact, uriPhotoContact, mailContact, telContact, dateCreaContact, dateDernModifContact) values ("Boisson", "Adrien", "Bar tabac de son pere", "test2.jpg", "adrien.boisson@hotmail.fr", "4879512002", date('now'), date('now'));
