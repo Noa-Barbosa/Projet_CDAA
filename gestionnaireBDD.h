@@ -119,7 +119,29 @@ public:
      */
     bool isInteractionTodoInList(InteractionTodoEntity* interactionTodoRecherche);
 
+    /**
+     * @brief Met a jour la liste des contacts depuis la BDD
+     */
     void updateContactList();
+
+    /**
+     * @brief Insere un nouveau contact dans la BDD
+     * @param contact le contact a ajoute
+     */
+    void insertContact(ContactEntity * contact);
+
+    /**
+     * @brief Met a jour le contact avec l'id correpondant a celui du parametres selon les attributs du contact en parametre
+     * @param contact le pointeur sur le contact a modifie (cela permet de modifier directement l'objet sans modifier la liste)
+     * @param contactEntityModifie le pointeur sur le contact qui contient les modifications
+     */
+    void updateContact(ContactEntity * contact, ContactEntity * contactEntityModifie);
+
+    /**
+     * @brief Suppression d'un contact dans la BDD
+     * @param contact le contact a supprimer
+     */
+    void deleteContact(ContactEntity * contact);
 
 private:
 

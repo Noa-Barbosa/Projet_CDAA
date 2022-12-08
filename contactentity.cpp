@@ -19,6 +19,19 @@ ContactEntity::ContactEntity(int id,std::string nom, std::string prenom, std::st
     dateDernModif=dateDern;
 }
 
+ContactEntity::ContactEntity(ContactEntity *contact)
+{
+    idContact = contact->getIdContact();
+    nomContact=contact->getNomContact();
+    prenomContact=contact->getPrenomContact();
+    entrepriseContact=contact->getEntrepriseContact();
+    mailContact=contact->getMailContact();
+    telContact=contact->getTelContact();
+    uriPhotoContact=contact->getPhotoContact();
+    dateCreaContact=contact->getDateCreaContact();
+    dateDernModif=contact->getDateDernModif();
+}
+
 const std::string &ContactEntity::getNomContact() const
 {
     return nomContact;
@@ -83,17 +96,15 @@ int ContactEntity::getIdContact() const
 {
     return idContact;
 }
-
-const year_month_day &ContactEntity::getDateLastUpdate() const
+const year_month_day &ContactEntity::getDateDernModif() const
 {
     return dateDernModif;
 }
 
-void ContactEntity::setDateLastUpdate(const year_month_day &newDateLastUpdate)
+void ContactEntity::setDateDernModif(const year_month_day &newDateLastUpdate)
 {
     dateDernModif = newDateLastUpdate;
 }
-
 
 const std::string &ContactEntity::getPhotoContact() const
 {

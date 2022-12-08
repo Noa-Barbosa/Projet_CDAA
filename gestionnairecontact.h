@@ -112,7 +112,7 @@ public:
     /**
      * @brief Gestionnaire des listes du programme
      */
-    GestionnaireBDD *gestionnaireListes;
+    GestionnaireBDD *gestionnaireBDD;
 };
 
 #endif // GESTIONNAIRECONTACT_H

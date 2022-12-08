@@ -25,7 +25,26 @@ int main(int argc, char *argv[])
     GestionnaireInteraction gestionnaireInteraction(gestionnaireBDD);
     GestionnaireTodo gestionnaireTodo(gestionnaireBDD);
 
-    auto test = gestionnaireContact.getContactList();
+    auto listContact = gestionnaireContact.getContactList();
+
+    /* Test ajout nouveau contact
+    ContactEntity *Contact1 = new ContactEntity();
+    Contact1->setNomContact("QSQS test mutateur contact");
+    Contact1->setPrenomContact("QS");
+    Contact1->setEntrepriseContact("McDonald's");
+    Contact1->setMailContact("nQSqs");
+    list<unsigned> numTelContact1 = {0,1,2,8,4,8,9,5,14,0};
+    Contact1->setTelContact(numTelContact1);
+    Contact1->setPhotoContact("Projet/ProjetQT/photo_contact1.jpg");
+    std::cout << *Contact1 << std::endl<<std::endl;
+    gestionnaireContact.addContact(Contact1);
+    */
+
+    auto contact = gestionnaireContact.findContactByNom("Barbosa");
+
+    ContactEntity *Contact2 = new ContactEntity(contact);
+    Contact2->setNomContact("Barberousse");
+    gestionnaireContact.editContact(contact, Contact2);
 
     /**
     //test de creation d'un contact avec le constructeur vide et les mutateur et test de l'affichage

@@ -35,6 +35,12 @@ public:
      */
     ContactEntity(int id, string nom, string prenom, string entreprise, string mail, list<unsigned> tel, string photo, year_month_day dateCrea, year_month_day dateDernModif);
 
+    /**
+     * @brief Constructeur par copie
+     * @param contact le pointeur sur le contact que l'on veut copier
+     */
+    ContactEntity(ContactEntity * contact);
+
     ~ContactEntity(){
         telContact.clear();
     }
@@ -120,18 +126,18 @@ public:
      * @brief Assesseur de la date de la derniere modification
      * @return la date de la derniere modification
      */
-    const year_month_day &getDateLastUpdate() const;
+    const year_month_day &getDateDernModif() const;
 
     /**
      * @brief Mutateur de la derniere date de modification
      * @param newDateLastUpdate la nouvel date de derniere modifcation
      */
-    void setDateLastUpdate(const year_month_day &newDateLastUpdate);
+    void setDateDernModif(const year_month_day &newDateLastUpdate);
 
 private:
 
     /**
-     * @brief Id du contact dans la BDD (plus tard il sera fixer automatiquement apres l'ajout dans la BDD SQL-Lite avec l'auto-increment)
+     * @brief Id du contact dans la BDD
      */
     int idContact;
 
