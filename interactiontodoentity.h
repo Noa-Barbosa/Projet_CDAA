@@ -15,7 +15,7 @@ public:
      * @param interaction l'interaction liee au todo
      * @param todo le todo lie a l'interaction
      */
-    InteractionTodoEntity(InteractionEntity *interaction, TodoEntity *todo);
+    InteractionTodoEntity(int idInteractionTodo, InteractionEntity *interaction, TodoEntity *todo);
 
     /**
      * @brief Assesseur de l'interaction
@@ -29,12 +29,44 @@ public:
      */
      TodoEntity *getTodoEntity() const;
 
+     /**
+      * @brief Assesseur de l'id de l'interactiontodo
+      * @return l'id de l'interaction todo
+      */
+     int getIdInteractionTodo() const;
+
+     /**
+      * @brief Assesseur de l'id de l'interaction
+      * @return
+      */
+     int getIdInteraction() const;
+
+     /**
+      * @brief Assesseur de l'id du todo
+      * @return
+      */
+     int getIdTodo() const;
+
 private:
 
+     /**
+      * @brief L'id de l'interactiontodo
+      */
+     int idInteractionTodo;
+
+     /**
+      * @brief l'id de l'interaction lie au todo
+      */
+     int idInteraction;
     /**
      * @brief L'interaction lie au todo
      */
     InteractionEntity *interactionEntity;
+
+    /**
+     * @brief L'id du todo lie a l'interaction
+     */
+    int idTodo;
 
     /**
      * @brief Le todo lie a l'interaction

@@ -39,28 +39,28 @@ public:
     void deleteContact(ContactEntity *contactEntity);
 
     /**
-    * @brief trouver un contact avec son nom
+    * @brief trouver le premier contatc avec le nom en parametre
     * @param nomContact le nom du contact
     * @return le contact
     */
     ContactEntity* findContactByNom(string nomContact);
 
     /**
-    * @brief trouver un contact avec son entreprise
+    * @brief trouver le premier contatc avec l'entreprise en parametre
     * @param entrepriseContact l'entreprise du contact
     * @return le contact
     */
     ContactEntity* findContactByEntreprise(string entrepriseContact);
 
     /**
-    * @brief trouver un contact par sa date de création
+    * @brief trouver le premier contatc avec la date de modification en paramatre
     * @param dateCrea la date de création
     * @return le contact
     */
     ContactEntity* findContactByDateCrea(year_month_day dateCrea);
 
     /**
-    * @brief trouver un contact par sa date de modification
+    * @brief trouver le premier contact avec la date de modification en paramatre
     * @param dateModif la date de modification
     * @return le contact
     */

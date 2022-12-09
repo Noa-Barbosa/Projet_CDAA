@@ -20,7 +20,9 @@ GestionnaireBDD::GestionnaireBDD(const QString& path)
 
         hydrateContactList();
         hydrateInteractionList();
+        hydrateTodoList();
         hydrateContactInteractionList();
+        hydrateInteractionTodoList();
     }
 
 
@@ -551,6 +553,207 @@ bool GestionnaireBDD::insertContactInteraction(ContactInteractionEntity *contact
 
     } catch (const exception & e) {
         cerr <<"Erreur lors de la preparation de la requete insert ContactInteraction" << e.what() << endl;
+        return false;
+    }
+}
+
+bool GestionnaireBDD::hydrateTodoList()
+{
+    listTodoEntity.clear();
+    QSqlQuery query(db);
+
+    //si query.exec renvoie false cela signifie qu'il y a eu une erreur au moment de l'execution de la requete
+    if(!query.exec("SELECT idTodo, contenuTodo, dateAjoutTodo FROM Todo")){
+        cerr << "Erreur lors de la selection des todos dans la BDD "<<query.lastError().text().toStdString() << endl;
+        return false;
+    }else{
+        try {
+            while(query.next()){
+
+                //cette partie du code separe la chaine de caractere donne la date d'e creation'ajout en trois parties et la stocke dans un vector
+                std::vector<std::string> partiesDate;
+                std::string partie;
+                std::istringstream dateStream(query.value(2).toString().toStdString());
+                while (std::getline(dateStream, partie, '-'))
+                {
+                   partiesDate.push_back(partie);
+                }
+
+                //convertit chacune des trois parties de la date en entier
+                int annee = std::stoi(partiesDate.at(0));
+                int mois = std::stoi(partiesDate.at(1));
+                int jour = std::stoi(partiesDate.at(2));
+
+                //pour creer la date approprie
+                year_month_day dateAjout =year{annee}/mois/jour;
+
+                int id = query.value(0).toInt();
+                string contenu = query.value(1).toString().toStdString();
+
+                TodoEntity * todo = new TodoEntity(id,contenu,dateAjout);
+
+                listTodoEntity.push_back(todo);
+            }
+
+            cout << "Liste des todos mise a jour avec succes" << endl;
+            return true;
+
+        } catch (const exception & e) {
+            cerr <<"Erreur lors du remplissage de la liste des todos" << e.what() << endl;
+            return false;
+        }
+
+    }
+}
+
+bool GestionnaireBDD::insertTodo(TodoEntity *todo)
+{
+    try {
+        QSqlQuery insertQuery(db);
+        insertQuery.prepare("INSERT INTO Todo (contenuTodo, dateAjoutTodo) "
+                      "VALUES (:contenuTodo, :dateAjoutTodo)");
+
+        //on recupere chacune des valeurs string depuis l'objet en parametre pour les binds
+        insertQuery.bindValue(":contenuTodo", QString::fromStdString(todo->getContenuTodo()));
+
+        //meme choses pour les dates
+        year_month_day dateAjout = todo->getDateAjoutTodo();
+        stringstream streamDateAjout;
+        string chaineDateAjout;
+        streamDateAjout << dateAjout;
+        streamDateAjout >> chaineDateAjout;
+        insertQuery.bindValue(":dateAjoutTodo", QString::fromStdString(chaineDateAjout));
+
+
+        if(!insertQuery.exec()){
+            cerr << "Erreur lors de l'insertion du todo dans la BDD" << insertQuery.lastError().text().toStdString() << endl;
+            return false;
+        }
+        else{
+            //apres avoir inserer un nouveau contact on remet a jour la liste des contacts
+            hydrateTodoList();
+            cout << "Todo insere avec succes" << endl;
+            return true;
+        }
+
+    } catch (const exception & e) {
+        cerr <<"Erreur lors de la preparation de la requete insert interaction" << e.what() << endl;
+        return false;
+    }
+}
+
+bool GestionnaireBDD::updateTodo(TodoEntity *todo, TodoEntity *todoModifie)
+{
+    try {
+        QSqlQuery updateQuery(db);
+        updateQuery.prepare("UPDATE todo SET contenuTodo = :contenuTodo WHERE idTodo = :idTodo");
+
+        //on recupere chacune des valeurs string depuis l'objet interactionModifie en parametre pour les binds
+        updateQuery.bindValue(":idTodo", todo->getIdTodo());
+        updateQuery.bindValue(":contenuTodo", QString::fromStdString(todoModifie->getContenuTodo()));
+
+        if(!updateQuery.exec()){
+            cerr << "Erreur lors de l'update du todo dans la BDD" << updateQuery.lastError().text().toStdString()<< endl;
+            return false;
+        }
+        else{
+            cout << "Todo modifie en base" << endl;
+            return true;
+        }
+
+    } catch (const exception & e) {
+        cerr <<"Erreur lors de la preparation de la requete update todo" << e.what() << endl;
+        return false;
+    }
+}
+
+bool GestionnaireBDD::deleteTodo(TodoEntity *todo)
+{
+    try {
+        QSqlQuery deleteQuery(db);
+        deleteQuery.prepare("Delete from Todo where idTodo = :idTodo");
+
+        deleteQuery.bindValue(":idTodo",todo->getIdTodo());
+
+        if(!deleteQuery.exec()){
+            cerr << "Erreur lors du delete du todo en base" << deleteQuery.lastError().text().toStdString() << endl;
+            return false;
+        }
+        else{
+            cout << "Todo supprimee en base" << endl;
+            return true;
+        }
+    } catch (const exception & e) {
+        cerr <<"Erreur lors de la preparation de la requete delete todo" << e.what() << endl;
+        return false;
+    }
+}
+
+bool GestionnaireBDD::hydrateInteractionTodoList()
+{
+    listInteractionTodoEntity.clear();
+    QSqlQuery query(db);
+
+    //si query.exec renvoie false cela signifie qu'il y a eu une erreur au moment de l'execution de la requete
+    if(!query.exec("SELECT idInteractionTodo, idInteraction, idTodo FROM InteractionTodo")){
+        cerr << "Erreur lors de la selection des InteractionTodo dans la BDD "<<query.lastError().text().toStdString() << endl;
+        return false;
+    }else{
+        try {
+            while(query.next()){
+
+                int idInteractionTodo = query.value(0).toInt();
+                int idInteraction = query.value(1).toInt();
+                int idTodo = query.value(2).toInt();
+
+                auto itInteraction = std::find_if(listInteractionEntity.begin(),listInteractionEntity.end(), [idInteraction](InteractionEntity *interaction){return  interaction->getIdInteraction()==idInteraction;});
+
+                auto itTodo = std::find_if(listTodoEntity.begin(),listTodoEntity.end(), [idTodo](TodoEntity *todo){return  todo->getIdTodo()==idTodo;});
+
+                InteractionEntity * interaction = *itInteraction;
+
+                TodoEntity * todo = *itTodo;
+
+                InteractionTodoEntity * interactionTodoEntity = new InteractionTodoEntity(idInteractionTodo, interaction, todo);
+
+                listInteractionTodoEntity.push_back(interactionTodoEntity);
+            }
+
+            cout << "Liste des interactiontodo mis a jour avec succes" << endl;
+            return true;
+
+        } catch (const exception & e) {
+            cerr <<"Erreur lors du remplissage de la liste interactiontodo" << e.what() << endl;
+            return false;
+        }
+
+    }
+}
+
+bool GestionnaireBDD::insertInteractionTodo(InteractionTodoEntity *interactionTodo)
+{
+    try {
+        QSqlQuery insertQuery(db);
+        insertQuery.prepare("INSERT INTO InteractionTodo (idInteraction, idTodo) "
+                      "VALUES (:idInteraction, :idTodo)");
+
+        //on recupere chacune des valeurs string depuis l'objet en parametre pour les binds
+        insertQuery.bindValue(":idInteraction", interactionTodo->getIdInteraction());
+        insertQuery.bindValue(":idTodo", interactionTodo->getIdTodo());
+
+        if(!insertQuery.exec()){
+            cerr << "Erreur lors de l'insertion de l'interactiontodo dans la BDD" << insertQuery.lastError().text().toStdString() << endl;
+            return false;
+        }
+        else{
+            //apres avoir inserer un nouveau contact on remet a jour la liste des contacts
+            hydrateInteractionTodoList();
+            cout << "interactiontodo insere avec succes" << endl;
+            return true;
+        }
+
+    } catch (const exception & e) {
+        cerr <<"Erreur lors de la preparation de la requete insert interactiontodo" << e.what() << endl;
         return false;
     }
 }

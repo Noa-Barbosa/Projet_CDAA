@@ -45,6 +45,26 @@ public:
      */
     void deleteTodo(TodoEntity* todo);
 
+    /**
+     * @brief Assesseur de la liste des todos
+     * @return la liste des todos
+     */
+    const list<TodoEntity*> &getTodoList() const ;
+
+    /**
+     * @brief Recherche un todo identique au todo en parametre (donc avec le meme contenu et la meme date)
+     * @param todo le todo recherche
+     * @return le todo
+     */
+    TodoEntity* findTodo(TodoEntity * todoRecherche);
+
+    /**
+     * @brief Recherche un todo par son id
+     * @param id l'id du todo recherche
+     * @return le todo recherche
+     */
+    TodoEntity* findTodoById(int id);
+
 private:
 
     /**

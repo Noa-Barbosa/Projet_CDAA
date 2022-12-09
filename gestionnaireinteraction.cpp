@@ -8,8 +8,8 @@ GestionnaireInteraction::GestionnaireInteraction(GestionnaireBDD *gestionnaire)
 void GestionnaireInteraction::addInteraction(InteractionEntity *interaction, ContactEntity *contact)
 {
    if(gestionnaireBDD->insertInteraction(interaction)){
-       //on a besoin de cherche l'application qu'on vient d'inserer dans la base a partir de la liste
-       InteractionEntity * interactionAvecId = findInteractionByContenu(interaction->getContenuInteraction());
+       //on a besoin de cherche l'interaction qu'on vient d'inserer dans la base a partir de la liste
+       InteractionEntity * interactionAvecId = findInteraction(interaction);
        ContactInteractionEntity * contactInteraction = new ContactInteractionEntity(0,contact,interactionAvecId);
        cout << "Interaction ajoute dans la liste" << endl;
        if(gestionnaireBDD->insertContactInteraction(contactInteraction)){
@@ -98,7 +98,7 @@ void GestionnaireInteraction::deleteInteraction(InteractionEntity* interaction)
 
         }
         else{
-            cout << "L'interaction n'existe pas rien n'a ete fait" << std::endl<<std::endl;
+            cout << "L'interaction n'existe pas rien n'a ete fait" << endl;
         }
     }
     else{
@@ -106,13 +106,26 @@ void GestionnaireInteraction::deleteInteraction(InteractionEntity* interaction)
     }
 }
 
-const list<InteractionEntity *> &GestionnaireInteraction::getListInteraction() const
+const list<InteractionEntity *> &GestionnaireInteraction::getInteractionList() const
 {
     return gestionnaireBDD->getListInteractionEntity();
 }
 
-InteractionEntity *GestionnaireInteraction::findInteractionByContenu(string contenu)
+const list<InteractionTodoEntity *> &GestionnaireInteraction::getInteractionTodoList() const
 {
-    auto itInteraction = std::find_if(gestionnaireBDD->getListInteractionEntity().begin(),gestionnaireBDD->getListInteractionEntity().end(), [contenu](InteractionEntity *interaction){return  interaction->getContenuInteraction()==contenu;});
+    return gestionnaireBDD->getListInteractionTodoEntity();
+}
+
+InteractionEntity *GestionnaireInteraction::findInteractionById(int id)
+{
+    auto itInteraction = std::find_if(gestionnaireBDD->getListInteractionEntity().begin(),gestionnaireBDD->getListInteractionEntity().end(), [id](InteractionEntity *interaction){return  interaction->getIdInteraction()==id;});
+    return *itInteraction;
+}
+
+InteractionEntity *GestionnaireInteraction::findInteraction(InteractionEntity *interactionRecherche)
+{
+    auto test = gestionnaireBDD->getListInteractionEntity();
+
+    auto itInteraction = std::find_if(gestionnaireBDD->getListInteractionEntity().begin(),gestionnaireBDD->getListInteractionEntity().end(), [interactionRecherche](InteractionEntity *interaction){return  interaction->getContenuInteraction()==interactionRecherche->getContenuInteraction() && interaction->getDateAjoutInteraction()==interactionRecherche->getDateAjoutInteraction();});
     return *itInteraction;
 }

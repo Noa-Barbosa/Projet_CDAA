@@ -48,6 +48,8 @@ void GestionnaireContact::deleteContact(ContactEntity* contact)
             auto listContactEntity = gestionnaireBDD->getListContactEntity();
             auto listContactInteractionEntity = gestionnaireBDD->getListContactInteractionEntity();
             auto listInteractionEntity = gestionnaireBDD->getListInteractionEntity();
+            auto listInteractionTodoEntity = gestionnaireBDD->getListInteractionTodoEntity();
+            auto listTodoEntity = gestionnaireBDD->getListTodoEntity();
 
 
             list<ContactInteractionEntity*> contactInteractionAsupprimer;
@@ -61,14 +63,33 @@ void GestionnaireContact::deleteContact(ContactEntity* contact)
                }
             }
 
+
             for(ContactInteractionEntity* interactionContactAsupprimer : contactInteractionAsupprimer)
             {
                listContactInteractionEntity.remove(interactionContactAsupprimer);
             }
 
+            list<InteractionTodoEntity*> interactionTodoAsupprimer;
+            list<TodoEntity*> todoAsupprimer;
+
             for (InteractionEntity* interactionEntity : interactionAsupprimer)
             {
                 listInteractionEntity.remove(interactionEntity);
+                for(InteractionTodoEntity* interactionTodoEntity : listInteractionTodoEntity){
+                    if(interactionTodoEntity->getIdInteraction()==interactionEntity->getIdInteraction()){
+                        interactionTodoAsupprimer.push_back(interactionTodoEntity);
+                        todoAsupprimer.push_back(interactionTodoEntity->getTodoEntity());
+                    }
+                }
+            }
+
+            for(InteractionTodoEntity* interactionTodo : interactionTodoAsupprimer)
+            {
+               listInteractionTodoEntity.remove(interactionTodo);
+            }
+
+            for(TodoEntity* todo : todoAsupprimer){
+                listTodoEntity.remove(todo);
             }
 
             listContactEntity.remove(contact);
@@ -77,6 +98,8 @@ void GestionnaireContact::deleteContact(ContactEntity* contact)
             gestionnaireBDD->setListContactEntity(listContactEntity);
             gestionnaireBDD->setListContactInteractionEntity(listContactInteractionEntity);
             gestionnaireBDD->setListInteractionEntity(listInteractionEntity);
+            gestionnaireBDD->setListInteractionTodoEntity(listInteractionTodoEntity);
+            gestionnaireBDD->setListTodoEntity(listTodoEntity);
 
         }
         else{

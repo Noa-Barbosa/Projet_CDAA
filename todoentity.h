@@ -24,7 +24,7 @@ public:
      * @param contenu le contenu sous forme d'un chaine du todo
      * @param dateAjout la date d'ajout du todo recuperer depuis la bdd
      */
-    TodoEntity(std::string contenu, year_month_day dateAjout);
+    TodoEntity(int id, std::string contenu, year_month_day dateAjout);
 
     ~TodoEntity();
 
@@ -46,7 +46,18 @@ public:
      */
     const year_month_day &getDateAjoutTodo() const;
 
+    /**
+     * @brief Assesseur du todo en base
+     * @return l'id du todo
+     */
+    int getIdTodo() const;
+
 private:
+
+    /**
+     * @brief Id du todo en base
+     */
+    int idTodo;
 
     /**
      * @brief Texte du todo

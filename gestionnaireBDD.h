@@ -24,8 +24,14 @@ public:
      */
     GestionnaireBDD(const QString& path);
 
+    /**
+     * @brief Fonction qui lance une requete pour commencer une transaction (utilise pour nos tests)
+     */
     void beginTransaction();
 
+    /**
+     * @brief Fonction qui lance une requete pour rollback une transaction (utilise pour nos tests)
+     */
     void rollbackTransaction();
 
     /**
@@ -179,12 +185,32 @@ public:
      */
     bool deleteInteraction(InteractionEntity * interaction);
 
+    /**
+     * @brief Remplie la liste des todos depuis la BDD
+     * @return true si la requete c'est bien passe false sinon
+     */
     bool hydrateTodoList();
 
+    /**
+     * @brief Insere un nouveau todo dans la base
+     * @param todo le todo a inserer
+     * @return true si la requete c'est bien passe false sinon
+     */
     bool insertTodo(TodoEntity * todo);
 
+    /**
+     * @brief Met a jour le todo en parametre a partir deuxieme todo
+     * @param todo le todo a modifier
+     * @param todoModifie le todo avec les modifications
+     * @return true si la requete c'est bien passe false sinon
+     */
     bool updateTodo(TodoEntity * todo, TodoEntity * todoModifie);
 
+    /**
+     * @brief Supprime le todo dans la BDD
+     * @param todo le todo a supprimer
+     * @return true si la requete c'est bien passe false sinon
+     */
     bool deleteTodo(TodoEntity * todo);
 
     /**
@@ -200,8 +226,17 @@ public:
      */
     bool insertContactInteraction(ContactInteractionEntity * contactInteraction);
 
+    /**
+     * @brief Remplie la liste des interactions todo depuis la base
+     * @return true si la requete c'est bien passe false sinon
+     */
     bool hydrateInteractionTodoList();
 
+    /**
+     * @brief Insere une association interactiontodo dans la base
+     * @param interactionTodo l'interaction todo a ajoute
+     * @return true si la requete c'est bien passe false sinon
+     */
     bool insertInteractionTodo(InteractionTodoEntity * interactionTodo);
 
 

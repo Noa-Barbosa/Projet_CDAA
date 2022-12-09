@@ -5,8 +5,9 @@ TodoEntity::TodoEntity()
     dateAjoutTodo=year_month_day{floor<days>(system_clock::now())};
 }
 
-TodoEntity::TodoEntity(std::string contenu, year_month_day dateAjout)
+TodoEntity::TodoEntity(int id, std::string contenu, year_month_day dateAjout)
 {
+    idTodo=id;
     contenuTodo=contenu;
     dateAjoutTodo=dateAjout;
 }
@@ -28,6 +29,11 @@ void TodoEntity::setContenuTodo(const std::string &newContenuTodo)
 const year_month_day &TodoEntity::getDateAjoutTodo() const
 {
     return dateAjoutTodo;
+}
+
+int TodoEntity::getIdTodo() const
+{
+    return idTodo;
 }
 
 std::ostream& operator<< (ostream& os, const TodoEntity& todo)

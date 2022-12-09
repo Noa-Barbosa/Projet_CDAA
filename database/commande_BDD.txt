@@ -18,7 +18,7 @@ create table Todo(idTodo INTEGER PRIMARY KEY AUTOINCREMENT, contenuTodo TEXT NOT
 
 create table ContactInteraction(idContactInteraction INTEGER PRIMARY KEY AUTOINCREMENT, idContact INTEGER REFERENCES Contact(idContact) ON DELETE CASCADE, idInteraction INTEGER REFERENCES Interaction(idInteraction) ON DELETE CASCADE);
 
-create table InteractionTodo(idContactInteraction INTEGER PRIMARY KEY AUTOINCREMENT, idInteraction INTEGER REFERENCES Interaction(idInteraction) ON DELETE CASCADE, idTodo INTEGER REFERENCES Todo(idTodo) ON DELETE CASCADE);
+create table InteractionTodo(idInteractionTodo INTEGER PRIMARY KEY AUTOINCREMENT, idInteraction INTEGER REFERENCES Interaction(idInteraction) ON DELETE CASCADE, idTodo INTEGER REFERENCES Todo(idTodo) ON DELETE CASCADE);
 
 //insertion
 insert into contact(nomContact, prenomContact, entrepriseContact, uriPhotoContact, mailContact, telContact, dateCreaContact, dateDernModifContact) values ("Barbosa", "Noa", "McDonald's", "test.jpg", "noa.barbosa@hotmail.fr", "0458961235", date('now'), date('now'));

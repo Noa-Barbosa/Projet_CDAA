@@ -49,14 +49,29 @@ public:
      * @brief Assesseur de la liste des interactions
      * @return la liste des interactions
      */
-    const list<InteractionEntity*> &getListInteraction() const;
+    const list<InteractionEntity*> &getInteractionList() const;
 
     /**
-     * @brief Recherche une interaction par son contenu unique
-     * @param contenu le contenu de l'interaction
-     * @return l'interaction
+     * @brief Assesseur de la liste des interactiontodo
+     * @return la liste des interactiontodos
      */
-    InteractionEntity* findInteractionByContenu(string contenu);
+    const list<InteractionTodoEntity *> &getInteractionTodoList() const;
+
+    /**
+     * @brief Recherce une interaction egale a l'interaction au paramatre (donc avec le meme contenu et date)
+     * @param interactionRecherche l'interaction recherchee
+     * @return l'interaction recherchee
+     */
+    InteractionEntity* findInteraction(InteractionEntity* interactionRecherche);
+
+    /**
+     * @brief Recherche l'interaction par son id
+     * @param id l'id de l'interaction
+     * @return l'interaction recherchee
+     */
+    InteractionEntity* findInteractionById(int id);
+
+
 
 private:
 

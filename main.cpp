@@ -25,48 +25,88 @@ int main(int argc, char *argv[])
     GestionnaireInteraction gestionnaireInteraction(gestionnaireBDD);
     GestionnaireTodo gestionnaireTodo(gestionnaireBDD);
 
+    //Test de recuperation des listes
     auto listContact = gestionnaireContact.getContactList();
-    auto listInteraction = gestionnaireInteraction.getListInteraction();
+    auto listInteraction = gestionnaireInteraction.getInteractionList();
     auto listContactInteraction = gestionnaireContact.getContactInteractionList();
+    auto listTodo = gestionnaireTodo.getTodoList();
+    auto listInteractionTodo = gestionnaireInteraction.getInteractionTodoList();
 
     gestionnaireBDD->beginTransaction();
 
+    //Test ajout d'un contact
+    ContactEntity *contact = new ContactEntity();
+    contact->setNomContact("Test");
+    contact->setPrenomContact("ajout contact");
+    contact->setEntrepriseContact("Microsoft");
+    contact->setMailContact("ok.daccord@gmail.com");
+    list<unsigned> numTelContact1 = {4,1,2,5,4,8,5,5,9,0};
+    contact->setTelContact(numTelContact1);
+    contact->setPhotoContact("Projet/ProjetQT/photo_contact1.jpg");
+    gestionnaireContact.addContact(contact);
+    //on recherche le contact dans la liste pour avoir son identifiant
+    contact = gestionnaireContact.findContactByMail("ok.daccord@gmail.com");
+
+    listContact = gestionnaireContact.getContactList();
+
+    //Test ajout d'un interaction
     InteractionEntity * interaction = new InteractionEntity();
-    interaction->setContenuInteraction("TEST");
-
-    ContactEntity * contact = gestionnaireContact.findContactByMail("azdazdazd");
-
+    interaction->setContenuInteraction("Test ajout interaction");
     gestionnaireInteraction.addInteraction(interaction, contact);
 
-    interaction = gestionnaireInteraction.findInteractionByContenu("TEST");
-
-    listInteraction = gestionnaireInteraction.getListInteraction();
+    interaction = gestionnaireInteraction.findInteraction(interaction);
+    listInteraction = gestionnaireInteraction.getInteractionList();
     listContactInteraction = gestionnaireContact.getContactInteractionList();
 
+    //Test ajout d'un todo
+    TodoEntity * todo = new TodoEntity();
+    todo->setContenuTodo("Test ajout todo");
+    gestionnaireTodo.addTodo(todo, interaction);
+    todo = gestionnaireTodo.findTodo(todo);
+
+    listTodo = gestionnaireTodo.getTodoList();
+    listInteractionTodo = gestionnaireInteraction.getInteractionTodoList();
+
+    //Test edition d'une interaction, d'un contact et d'un todo
     ContactEntity * editContact = new ContactEntity(contact);
-    editContact->setNomContact("BIDUEL");
-
-    gestionnaireContact.editContact(contact, editContact);
+    editContact->setNomContact("Test edition contact");
+    gestionnaireContact.editContact(contact, editContact); 
     InteractionEntity * editInteraction = new InteractionEntity();
-    editInteraction->setContenuInteraction("TEST EDITION");
-
+    editInteraction->setContenuInteraction("Test edition interaction");
     gestionnaireInteraction.editInteraction(interaction, editInteraction);
+    TodoEntity * editTodo = new TodoEntity();
+    editTodo->setContenuTodo("Test edition todo");
+    gestionnaireTodo.editTodo(todo,editTodo);
 
-    listInteraction = gestionnaireInteraction.getListInteraction();
+    listContact = gestionnaireContact.getContactList();
+    listInteraction = gestionnaireInteraction.getInteractionList();
+    listTodo = gestionnaireTodo.getTodoList();
     listContactInteraction = gestionnaireContact.getContactInteractionList();
+    listInteractionTodo = gestionnaireInteraction.getInteractionTodoList();
 
-    interaction = gestionnaireInteraction.findInteractionByContenu("TEST EDITION");
+    //Test delete todo
+    gestionnaireTodo.deleteTodo(todo);
 
+    listTodo = gestionnaireTodo.getTodoList();
+    listInteractionTodo = gestionnaireInteraction.getInteractionTodoList();
+
+    //Test delete interaction
     gestionnaireInteraction.deleteInteraction(interaction);
 
-    listInteraction = gestionnaireInteraction.getListInteraction();
+    listInteraction = gestionnaireInteraction.getInteractionList();
     listContactInteraction = gestionnaireContact.getContactInteractionList();
+    listTodo = gestionnaireTodo.getTodoList();
+    listInteractionTodo = gestionnaireInteraction.getInteractionTodoList();
 
+    //Test delete contact
+    contact = gestionnaireContact.findContactByMail("azdazdazd");
     gestionnaireContact.deleteContact(contact);
 
     listContact = gestionnaireContact.getContactList();
-    listInteraction = gestionnaireInteraction.getListInteraction();
+    listInteraction = gestionnaireInteraction.getInteractionList();
+    listTodo = gestionnaireTodo.getTodoList();
     listContactInteraction = gestionnaireContact.getContactInteractionList();
+    listInteractionTodo = gestionnaireInteraction.getInteractionTodoList();
 
     gestionnaireBDD->rollbackTransaction();
 
