@@ -13,34 +13,61 @@ public:
 
     /**
      * @brief Constructeur avec parametre de la classe association
+     * @param id du contactinteraction en bdd
      * @param contact Le contact a lie
      * @param interaction L'interaction a lie
      */
-    ContactInteractionEntity(ContactEntity *contact, InteractionEntity *interaction);
+    ContactInteractionEntity(int id, ContactEntity *contact, InteractionEntity *interaction);
 
     /**
-     * @brief Assesseur du contact lie
-     * @return Le contact
+     * @brief Asseseur de l'id du contact lie a l'interaction
+     * @return l'id
      */
-     ContactEntity *getContactEntity() const;
+    int getIdContactEntity() const;
 
     /**
-     * @brief Assesseur de l'interaction lie
-     * @return L'interaction
+     * @brief Assesseur de l'id de l'interaction lie au contact
+     * @return
      */
-     InteractionEntity *getInteractionEntity() const;
+    int getIdInteractionEntity() const;
+
+    /**
+     * @brief Assesseur du contact lie a l'interaction
+     * @return le contact
+     */
+    ContactEntity *getContactEntity() const;
+
+    /**
+     * @brief Assesseur de l'interaction lie au contact
+     * @return l'interaction
+     */
+    InteractionEntity *getInteractionEntity() const;
 
 private:
 
     /**
+     * @brief Id de l'assocation contact-interaction en BDD
+     */
+    int idContactInteraction;
+    /**
+     * @brief L'id du contact lie a l'interaction
+     */
+    int idContactEntity;
+
+    /**
      * @brief Le contact lie a l'interaction
      */
-    ContactEntity *contactEntity;
+    ContactEntity * contactEntity;
+
+    /**
+     * @brief L'id de l'interaction lie au contact
+     */
+    int idInteractionEntity;
 
     /**
      * @brief L'interaction lie au contact
      */
-    InteractionEntity *interactionEntity;
+    InteractionEntity * interactionEntity;
 
     /**
      * @brief Compare l'interaction et le contact de chacun des objets en parametres

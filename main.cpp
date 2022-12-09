@@ -26,19 +26,49 @@ int main(int argc, char *argv[])
     GestionnaireTodo gestionnaireTodo(gestionnaireBDD);
 
     auto listContact = gestionnaireContact.getContactList();
+    auto listInteraction = gestionnaireInteraction.getListInteraction();
+    auto listContactInteraction = gestionnaireContact.getContactInteractionList();
 
-    auto contact = gestionnaireContact.findContactByMail("noa.barbosa@hotmail.fr");
+    gestionnaireBDD->beginTransaction();
 
-    //gestionnaireBDD->beginTransaction();
+    InteractionEntity * interaction = new InteractionEntity();
+    interaction->setContenuInteraction("TEST");
 
-    ContactEntity *Contact2 = new ContactEntity(contact);
-    Contact2->setNomContact("BARBEROUSSE");
-    Contact2->setTelContact({2,5,8,9,4,8,1,9,6,1});
-    Contact2->setMailContact("azdazdazd");
-    gestionnaireContact.addContact(Contact2);
+    ContactEntity * contact = gestionnaireContact.findContactByMail("azdazdazd");
 
-    Contact2 = gestionnaireContact.findContactByMail("azdazdazd");
-    gestionnaireContact.deleteContact(Contact2);
+    gestionnaireInteraction.addInteraction(interaction, contact);
+
+    interaction = gestionnaireInteraction.findInteractionByContenu("TEST");
+
+    listInteraction = gestionnaireInteraction.getListInteraction();
+    listContactInteraction = gestionnaireContact.getContactInteractionList();
+
+    ContactEntity * editContact = new ContactEntity(contact);
+    editContact->setNomContact("BIDUEL");
+
+    gestionnaireContact.editContact(contact, editContact);
+    InteractionEntity * editInteraction = new InteractionEntity();
+    editInteraction->setContenuInteraction("TEST EDITION");
+
+    gestionnaireInteraction.editInteraction(interaction, editInteraction);
+
+    listInteraction = gestionnaireInteraction.getListInteraction();
+    listContactInteraction = gestionnaireContact.getContactInteractionList();
+
+    interaction = gestionnaireInteraction.findInteractionByContenu("TEST EDITION");
+
+    gestionnaireInteraction.deleteInteraction(interaction);
+
+    listInteraction = gestionnaireInteraction.getListInteraction();
+    listContactInteraction = gestionnaireContact.getContactInteractionList();
+
+    gestionnaireContact.deleteContact(contact);
+
+    listContact = gestionnaireContact.getContactList();
+    listInteraction = gestionnaireInteraction.getListInteraction();
+    listContactInteraction = gestionnaireContact.getContactInteractionList();
+
+    gestionnaireBDD->rollbackTransaction();
 
     /**
     //test de creation d'un contact avec le constructeur vide et les mutateur et test de l'affichage
@@ -259,9 +289,6 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     MainWindow w;
     w.show();
-
-
-    //gestionnaireBDD->rollbackTransaction();
 
     return a.exec();
 

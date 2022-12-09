@@ -125,12 +125,14 @@ public:
 
     /**
      * @brief Met a jour la liste des contacts depuis la BDD
+     * @return true si la requete c'est bien passe false sinon
      */
-    bool updateContactList();
+    bool hydrateContactList();
 
     /**
      * @brief Insere un nouveau contact dans la BDD
      * @param contact le contact a ajoute
+     * @return true si la requete c'est bien passe false sinon
      */
     bool insertContact(ContactEntity * contact);
 
@@ -138,14 +140,70 @@ public:
      * @brief Met a jour le contact avec l'id correpondant a celui du parametres selon les attributs du contact en parametre
      * @param contact le pointeur sur le contact a modifie (cela permet de modifier directement l'objet sans modifier la liste)
      * @param contactEntityModifie le pointeur sur le contact qui contient les modifications
+     * @return true si la requete c'est bien passe false sinon
      */
     bool updateContact(ContactEntity * contact, ContactEntity * contactEntityModifie);
 
     /**
      * @brief Suppression d'un contact dans la BDD
      * @param contact le contact a supprimer
+     * @return true si la requete c'est bien passe false sinon
      */
     bool deleteContact(ContactEntity * contact);
+
+    /**
+     * @brief hydrateInteractionList
+     * @return true si la requete c'est bien passe false sinon
+     */
+    bool hydrateInteractionList();
+
+    /**
+     * @brief Insere une interaction dans la BDD
+     * @param interaction l'interaction a ajoute
+     * @return true si la requete c'est bien passe false sinon
+     */
+    bool insertInteraction(InteractionEntity * interaction);
+
+    /**
+     * @brief Met a jour le contenu de l'interaction
+     * @param interaction l'interaction que l'on veut modifier
+     * @param interactionModifie les modifications a apporter sur l'interaction
+     * @return true si la requete c'est bien passe false sinon
+     */
+    bool updateInteraction(InteractionEntity * interaction, InteractionEntity * interactionModifie);
+
+    /**
+     * @brief Supprime une interaction de la BDD
+     * @param interaction l'interaction a supprimer
+     * @return true si la requete c'est bien passe false sinon
+     */
+    bool deleteInteraction(InteractionEntity * interaction);
+
+    bool hydrateTodoList();
+
+    bool insertTodo(TodoEntity * todo);
+
+    bool updateTodo(TodoEntity * todo, TodoEntity * todoModifie);
+
+    bool deleteTodo(TodoEntity * todo);
+
+    /**
+     * @brief Remplie la liste des associations contactinteraction
+     * @return true si la requete c'est bien passe false sinon
+     */
+    bool hydrateContactInteractionList();
+
+    /**
+     * @brief Insere une association contact interaction dans la base
+     * @param contactInteraction le contact interaction a inserer
+     * @return true si la requete c'est bien passe false sinon
+     */
+    bool insertContactInteraction(ContactInteractionEntity * contactInteraction);
+
+    bool hydrateInteractionTodoList();
+
+    bool insertInteractionTodo(InteractionTodoEntity * interactionTodo);
+
 
 private:
 

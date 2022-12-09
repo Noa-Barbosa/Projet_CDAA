@@ -1,10 +1,23 @@
 #include "contactinteractionentity.h"
 
 
-ContactInteractionEntity::ContactInteractionEntity(ContactEntity *contact, InteractionEntity *interaction)
+ContactInteractionEntity::ContactInteractionEntity(int id,ContactEntity *contact, InteractionEntity *interaction)
 {
+    idContactInteraction = id;
+    idContactEntity=contact->getIdContact();
+    idInteractionEntity=interaction->getIdInteraction();
     contactEntity=contact;
     interactionEntity=interaction;
+}
+
+int ContactInteractionEntity::getIdContactEntity() const
+{
+    return idContactEntity;
+}
+
+int ContactInteractionEntity::getIdInteractionEntity() const
+{
+    return idInteractionEntity;
 }
 
 ContactEntity *ContactInteractionEntity::getContactEntity() const
@@ -18,6 +31,6 @@ InteractionEntity *ContactInteractionEntity::getInteractionEntity() const
 }
 
 bool operator==(ContactInteractionEntity a, ContactInteractionEntity b){
-    return  a.contactEntity == b.contactEntity &&
-            a.interactionEntity == b.interactionEntity;
+    return  a.idContactEntity == b.idContactEntity &&
+            a.idInteractionEntity == b.idInteractionEntity;
 }

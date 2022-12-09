@@ -116,6 +116,8 @@ public:
 
     const list<ContactEntity *> &getContactList() const;
 
+    const list<ContactInteractionEntity *> &getContactInteractionList() const;
+
     private:
 
     /**

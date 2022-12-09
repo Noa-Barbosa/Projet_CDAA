@@ -45,6 +45,19 @@ public:
      */
     void deleteInteraction(InteractionEntity* interaction);
 
+    /**
+     * @brief Assesseur de la liste des interactions
+     * @return la liste des interactions
+     */
+    const list<InteractionEntity*> &getListInteraction() const;
+
+    /**
+     * @brief Recherche une interaction par son contenu unique
+     * @param contenu le contenu de l'interaction
+     * @return l'interaction
+     */
+    InteractionEntity* findInteractionByContenu(string contenu);
+
 private:
 
     /**

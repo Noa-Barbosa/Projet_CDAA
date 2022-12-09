@@ -5,8 +5,9 @@ InteractionEntity::InteractionEntity()
     dateAjoutInteraction=year_month_day{floor<days>(system_clock::now())};
 }
 
-InteractionEntity::InteractionEntity(std::string contenu, year_month_day dateAjout)
+InteractionEntity::InteractionEntity(int id,std::string contenu, year_month_day dateAjout)
 {
+    idInteraction = id;
     contenuInteraction=contenu;
     dateAjoutInteraction=dateAjout;
 }
@@ -28,6 +29,11 @@ void InteractionEntity::setContenuInteraction(const std::string &newContenuInter
 const year_month_day &InteractionEntity::getDateAjoutInteraction() const
 {
     return dateAjoutInteraction;
+}
+
+int InteractionEntity::getIdInteraction() const
+{
+    return idInteraction;
 }
 
 std::ostream& operator<< (ostream& os, const InteractionEntity& interaction)

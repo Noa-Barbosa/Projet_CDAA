@@ -13,9 +13,14 @@ GestionnaireBDD::GestionnaireBDD(const QString& path)
     else
     {
         qDebug() << "Connexion etablie avec la BDD";
-        updateContactList();
+
         QSqlQuery query(db);
+        //cette requete active les contraintes de cle etrangeres qui par defaut sont desactivees
         query.exec("PRAGMA foreign_keys = ON;");
+
+        hydrateContactList();
+        hydrateInteractionList();
+        hydrateContactInteractionList();
     }
 
 
@@ -144,14 +149,14 @@ bool GestionnaireBDD::isInteractionTodoInList(InteractionTodoEntity *interaction
     }
 }
 
-bool GestionnaireBDD::updateContactList()
+bool GestionnaireBDD::hydrateContactList()
 {
     listContactEntity.clear();
     QSqlQuery query(db);
 
     //si query.exec renvoie false cela signifie qu'il y a eu une erreur au moment de l'execution de la requete
     if(!query.exec("SELECT idContact, nomContact, prenomContact, entrepriseContact, uriPhotoContact, mailContact, telContact, dateCreaContact, dateDernModifContact FROM Contact")){
-        cerr << "Erreur lors de la selection dans la BDD "<<query.lastError().text().toStdString() << endl;
+        cerr << "Erreur lors de la selection des contacts dans la BDD "<<query.lastError().text().toStdString() << endl;
         return false;
     }else{
         try {
@@ -265,7 +270,7 @@ bool GestionnaireBDD::insertContact(ContactEntity *contact)
         }
         else{
             //apres avoir inserer un nouveau contact on remet a jour la liste des contacts
-            updateContactList();
+            hydrateContactList();
             cout << "Contact insere avec succes" << endl;
             return true;
         }
@@ -282,7 +287,7 @@ bool GestionnaireBDD::updateContact(ContactEntity *contact, ContactEntity *conta
 {
     try {
         QSqlQuery updateQuery(db);
-        updateQuery.prepare("UPDATE contact SET nomContact = :nomContact, prenomContact = :prenomContact, entrepriseContact = :entrepriseContact, uriPhotoContact = :uriPhotoContact, mailContact = :mailContact, telContact = :telContact, dateCreaContact = :dateCreaContact, dateDernModifContact = :dateDernModifContact WHERE idContact = :idContact");
+        updateQuery.prepare("UPDATE contact SET nomContact = :nomContact, prenomContact = :prenomContact, entrepriseContact = :entrepriseContact, uriPhotoContact = :uriPhotoContact, mailContact = :mailContact, telContact = :telContact, dateDernModifContact = :dateDernModifContact WHERE idContact = :idContact");
 
         //on recupere chacune des valeurs string depuis l'objet contatEntityModifie en parametre pour les binds
         updateQuery.bindValue(":idContact", contact->getIdContact());
@@ -301,14 +306,6 @@ bool GestionnaireBDD::updateContact(ContactEntity *contact, ContactEntity *conta
         }
         streamChiffres >> tel;
         updateQuery.bindValue(":telContact", QString::fromStdString(tel));
-
-        //meme choses pour les dates
-        year_month_day dateCrea = contactEntityModifie->getDateCreaContact();
-        stringstream streamDateCrea;
-        string chaineDateCrea;
-        streamDateCrea << dateCrea;
-        streamDateCrea >> chaineDateCrea;
-        updateQuery.bindValue(":dateCreaContact", QString::fromStdString(chaineDateCrea));
 
         year_month_day dateDernModif = contactEntityModifie->getDateDernModif();
         stringstream streamDateDernModif;
@@ -350,9 +347,210 @@ bool GestionnaireBDD::deleteContact(ContactEntity *contact)
             return true;
         }
     } catch (const exception & e) {
-        cerr <<"Erreur lors de la preparation de la requete update contact" << e.what() << endl;
+        cerr <<"Erreur lors de la preparation de la requete delete contact" << e.what() << endl;
         return false;
     }
 
 
+}
+
+bool GestionnaireBDD::hydrateInteractionList()
+{
+    listInteractionEntity.clear();
+    QSqlQuery query(db);
+
+    //si query.exec renvoie false cela signifie qu'il y a eu une erreur au moment de l'execution de la requete
+    if(!query.exec("SELECT idInteraction, contenuInteraction, dateAjoutInteraction FROM Interaction")){
+        cerr << "Erreur lors de la selection des interactions dans la BDD "<<query.lastError().text().toStdString() << endl;
+        return false;
+    }else{
+        try {
+            while(query.next()){
+
+                //cette partie du code separe la chaine de caractere donne la date d'e creation'ajout en trois parties et la stocke dans un vector
+                std::vector<std::string> partiesDate;
+                std::string partie;
+                std::istringstream dateStream(query.value(2).toString().toStdString());
+                while (std::getline(dateStream, partie, '-'))
+                {
+                   partiesDate.push_back(partie);
+                }
+
+                //convertit chacune des trois parties de la date en entier
+                int annee = std::stoi(partiesDate.at(0));
+                int mois = std::stoi(partiesDate.at(1));
+                int jour = std::stoi(partiesDate.at(2));
+
+                //pour creer la date approprie
+                year_month_day dateAjout =year{annee}/mois/jour;
+
+                int id = query.value(0).toInt();
+                string contenu = query.value(1).toString().toStdString();
+
+                InteractionEntity * interaction = new InteractionEntity(id,contenu,dateAjout);
+
+                listInteractionEntity.push_back(interaction);
+            }
+
+            cout << "Liste des interactions mis a jour avec succes" << endl;
+            return true;
+
+        } catch (const exception & e) {
+            cerr <<"Erreur lors du remplissage de la liste interaction" << e.what() << endl;
+            return false;
+        }
+
+    }
+}
+
+bool GestionnaireBDD::insertInteraction(InteractionEntity *interaction)
+{
+    try {
+        QSqlQuery insertQuery(db);
+        insertQuery.prepare("INSERT INTO Interaction (contenuInteraction, dateAjoutInteraction) "
+                      "VALUES (:contenuInteraction, :dateAjoutInteraction)");
+
+        //on recupere chacune des valeurs string depuis l'objet en parametre pour les binds
+        insertQuery.bindValue(":contenuInteraction", QString::fromStdString(interaction->getContenuInteraction()));
+
+        //meme choses pour les dates
+        year_month_day dateAjout = interaction->getDateAjoutInteraction();
+        stringstream streamDateAjout;
+        string chaineDateAjout;
+        streamDateAjout << dateAjout;
+        streamDateAjout >> chaineDateAjout;
+        insertQuery.bindValue(":dateAjoutInteraction", QString::fromStdString(chaineDateAjout));
+
+
+        if(!insertQuery.exec()){
+            cerr << "Erreur lors de l'insertion de l'interaction dans la BDD" << insertQuery.lastError().text().toStdString() << endl;
+            return false;
+        }
+        else{
+            //apres avoir inserer un nouveau contact on remet a jour la liste des contacts
+            hydrateInteractionList();
+            cout << "Interaction insere avec succes" << endl;
+            return true;
+        }
+
+    } catch (const exception & e) {
+        cerr <<"Erreur lors de la preparation de la requete insert interaction" << e.what() << endl;
+        return false;
+    }
+}
+
+bool GestionnaireBDD::updateInteraction(InteractionEntity *interaction, InteractionEntity *interactionModifie)
+{
+    try {
+        QSqlQuery updateQuery(db);
+        updateQuery.prepare("UPDATE interaction SET contenuInteraction = :contenuInteraction WHERE idInteraction = :idInteraction");
+
+        //on recupere chacune des valeurs string depuis l'objet interactionModifie en parametre pour les binds
+        updateQuery.bindValue(":idInteraction", interaction->getIdInteraction());
+        updateQuery.bindValue(":contenuInteraction", QString::fromStdString(interactionModifie->getContenuInteraction()));
+
+        if(!updateQuery.exec()){
+            cerr << "Erreur lors de l'update de l'interaction dans la BDD" << updateQuery.lastError().text().toStdString()<< endl;
+            return false;
+        }
+        else{
+            cout << "Interaction modifie en base" << endl;
+            return true;
+        }
+
+    } catch (const exception & e) {
+        cerr <<"Erreur lors de la preparation de la requete update contact" << e.what() << endl;
+        return false;
+    }
+}
+
+bool GestionnaireBDD::deleteInteraction(InteractionEntity *interaction)
+{
+    try {
+        QSqlQuery deleteQuery(db);
+        deleteQuery.prepare("Delete from Interaction where idInteraction = :idInteraction");
+
+        deleteQuery.bindValue(":idInteraction",interaction->getIdInteraction());
+
+        if(!deleteQuery.exec()){
+            cerr << "Erreur lors du delete d'interaction en base" << deleteQuery.lastError().text().toStdString() << endl;
+            return false;
+        }
+        else{
+            cout << "Interaction supprimee en base" << endl;
+            return true;
+        }
+    } catch (const exception & e) {
+        cerr <<"Erreur lors de la preparation de la requete delete interaction" << e.what() << endl;
+        return false;
+    }
+}
+
+bool GestionnaireBDD::hydrateContactInteractionList()
+{
+    listContactInteractionEntity.clear();
+    QSqlQuery query(db);
+
+    //si query.exec renvoie false cela signifie qu'il y a eu une erreur au moment de l'execution de la requete
+    if(!query.exec("SELECT idContactInteraction, idContact, idInteraction FROM ContactInteraction")){
+        cerr << "Erreur lors de la selection des ContactInteraction dans la BDD "<<query.lastError().text().toStdString() << endl;
+        return false;
+    }else{
+        try {
+            while(query.next()){
+
+                int idContactInteraction = query.value(0).toInt();
+                int idContact = query.value(1).toInt();
+                int idInteraction = query.value(2).toInt();
+
+                auto itContact = std::find_if(listContactEntity.begin(),listContactEntity.end(), [idContact](ContactEntity *contact){return  contact->getIdContact()==idContact;});
+
+                auto itInteraction = std::find_if(listInteractionEntity.begin(),listInteractionEntity.end(), [idInteraction](InteractionEntity *interaction){return  interaction->getIdInteraction()==idInteraction;});
+
+                ContactEntity * contact= *itContact;
+
+                InteractionEntity * interaction = *itInteraction;
+
+                ContactInteractionEntity * contactInteraction = new ContactInteractionEntity(idContactInteraction, contact, interaction);
+
+                listContactInteractionEntity.push_back(contactInteraction);
+            }
+
+            cout << "Liste des contactinteraction mis a jour avec succes" << endl;
+            return true;
+
+        } catch (const exception & e) {
+            cerr <<"Erreur lors du remplissage de la liste contactinteraction" << e.what() << endl;
+            return false;
+        }
+
+    }
+}
+
+bool GestionnaireBDD::insertContactInteraction(ContactInteractionEntity *contactInteraction)
+{
+    try {
+        QSqlQuery insertQuery(db);
+        insertQuery.prepare("INSERT INTO ContactInteraction (idContact, idInteraction) "
+                      "VALUES (:idContact, :idInteraction)");
+
+        //on recupere chacune des valeurs string depuis l'objet en parametre pour les binds
+        insertQuery.bindValue(":idContact", contactInteraction->getIdContactEntity());
+        insertQuery.bindValue(":idInteraction", contactInteraction->getIdInteractionEntity());
+
+        if(!insertQuery.exec()){
+            cerr << "Erreur lors de l'insertion de la ContactInteraction dans la BDD" << insertQuery.lastError().text().toStdString() << endl;
+            return false;
+        }
+        else{
+            //apres avoir inserer un nouveau contact on remet a jour la liste des contacts
+            hydrateContactInteractionList();
+            cout << "ContactInteraction insere avec succes" << endl;
+            return true;
+        }
+
+    } catch (const exception & e) {
+        cerr <<"Erreur lors de la preparation de la requete insert ContactInteraction" << e.what() << endl;
+        return false;
+    }
 }

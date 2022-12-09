@@ -8,7 +8,13 @@ GestionnaireContact::GestionnaireContact(GestionnaireBDD *gestionnaire)
 
 void GestionnaireContact::addContact(ContactEntity *contact)
 {
-   gestionnaireBDD->insertContact(contact);
+
+   if(gestionnaireBDD->insertContact(contact)){
+        cout << "Contact ajoute dans la liste" << endl;
+   }
+   else{
+       cerr << "Erreur lors de l'insertion en BDD le contact n'a pas ete ajoute dans la liste en dur"<< endl;
+   }
 
 }
 
@@ -26,7 +32,7 @@ void GestionnaireContact::editContact(ContactEntity *contact, ContactEntity *con
             cout << "Contact modifie dans la liste" << endl;
     }
     else{
-        cerr << "Erreur lors de l'update en BDD le contact n'a pas ete modifie dans la liste en dur";
+        cerr << "Erreur lors de l'update en BDD le contact n'a pas ete modifie dans la liste en dur"<< endl;
 
     }
 
@@ -49,7 +55,7 @@ void GestionnaireContact::deleteContact(ContactEntity* contact)
 
             for(ContactInteractionEntity* contactInteraction : listContactInteractionEntity)
             {
-               if(contactInteraction->getContactEntity()==contact){
+               if(contactInteraction->getIdContactEntity()==contact->getIdContact()){
                    contactInteractionAsupprimer.push_back(contactInteraction);
                    interactionAsupprimer.push_back(contactInteraction->getInteractionEntity());
                }
@@ -78,7 +84,7 @@ void GestionnaireContact::deleteContact(ContactEntity* contact)
         }
     }
     else{
-         cerr << "Erreur lors du delete du contact les listes en dur n'ont pas ete modifie";
+         cerr << "Erreur lors du delete du contact les listes en dur n'ont pas ete modifie" << endl;
     }
 
 }
@@ -149,4 +155,9 @@ list<InteractionEntity*> GestionnaireContact::listAllInteractions(ContactEntity 
 const list<ContactEntity *> &GestionnaireContact::getContactList() const
 {
     return gestionnaireBDD->getListContactEntity();
+}
+
+const list<ContactInteractionEntity *> &GestionnaireContact::getContactInteractionList() const
+{
+    return gestionnaireBDD->getListContactInteractionEntity();
 }
