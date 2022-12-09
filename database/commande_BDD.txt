@@ -24,3 +24,38 @@ create table InteractionTodo(idContactInteraction INTEGER PRIMARY KEY AUTOINCREM
 insert into contact(nomContact, prenomContact, entrepriseContact, uriPhotoContact, mailContact, telContact, dateCreaContact, dateDernModifContact) values ("Barbosa", "Noa", "McDonald's", "test.jpg", "noa.barbosa@hotmail.fr", "0458961235", date('now'), date('now'));
 
 insert into contact(nomContact, prenomContact, entrepriseContact, uriPhotoContact, mailContact, telContact, dateCreaContact, dateDernModifContact) values ("Boisson", "Adrien", "Bar tabac de son pere", "test2.jpg", "adrien.boisson@hotmail.fr", "4879512002", date('now'), date('now'));
+
+insert into interaction(contenuInteraction, dateAjoutInteraction) values ("Apellez MR.Machin", date('now'));
+
+insert into interaction(contenuInteraction, dateAjoutInteraction) values ("Apellezdsqdqsdqsd", date('now'));
+
+insert into contactinteraction(idContact, idInteraction) values (5,3);
+insert into contactinteraction(idContact, idInteraction) values (5,4);
+
+insert into todo(contenuTodo, dateAjoutTodo) values ("ADADAD", date('now'));
+
+insert into todo(contenuTodo, dateAjoutTodo) values ("azdazdazdazdazdazd", date('now'));
+
+insert into todo(contenuTodo, dateAjoutTodo) values ("qsdqsdqsdqsd", date('now'));
+
+insert into InteractionTodo(idInteraction, idTodo) values (3,1);
+
+insert into InteractionTodo(idInteraction, idTodo) values (3,2);
+
+insert into InteractionTodo(idInteraction, idTodo) values (4,3);
+
+select * from Contact;
+
+select * from Interaction;
+
+select * from Todo;
+
+select * from ContactInteraction;
+
+select * from InteractionTodo;
+
+//trigger pour supprimer l'interaction lie à un contactinteraction
+CREATE TRIGGER trigger_after_contactInteraction_delete after delete ON ContactInteraction for each row BEGIN select idInteraction from Interaction where idInteraction=OLD.idInteraction; delete from interaction where idInteraction=OLD.idInteraction;END;
+
+//trigger pour supprimer le todo lie a un interaction todo
+CREATE TRIGGER trigger_after_interactionTodo_delete after delete ON InteractionTodo for each row BEGIN select idTodo from Todo where idTodo=OLD.idTodo; delete from todo where idTodo=OLD.idTodo;END;

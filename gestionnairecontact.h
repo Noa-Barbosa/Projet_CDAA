@@ -50,21 +50,21 @@ public:
     * @param entrepriseContact l'entreprise du contact
     * @return le contact
     */
-    ContactEntity* findByEntreprise(string entrepriseContact);
+    ContactEntity* findContactByEntreprise(string entrepriseContact);
 
     /**
     * @brief trouver un contact par sa date de création
     * @param dateCrea la date de création
     * @return le contact
     */
-    ContactEntity* findByDateCrea(year_month_day dateCrea);
+    ContactEntity* findContactByDateCrea(year_month_day dateCrea);
 
     /**
     * @brief trouver un contact par sa date de modification
     * @param dateModif la date de modification
     * @return le contact
     */
-    ContactEntity* findByDateModif(year_month_day dateModif);
+    ContactEntity* findContactByDateModif(year_month_day dateModif);
 
     /**
     * @brief renvoi le premier contact trouver entre deux date de creation
@@ -72,7 +72,7 @@ public:
     * @param dateCreaMax la date de création maximum
     * @return le contact
     */
-    ContactEntity* findByDateCreaBetween(year_month_day dateCreaMin, year_month_day dateCreaMax);
+    ContactEntity* findContactByDateCreaBetween(year_month_day dateCreaMin, year_month_day dateCreaMax);
 
     /**
     * @brief renvoi le premier contact trouver entre deux date de modification
@@ -80,7 +80,21 @@ public:
     * @param dateModifMax la date de modification maximum
     * @return le contact
     */
-    ContactEntity* findByDateModifBetween(year_month_day dateModifMin, year_month_day dateModifMax);
+    ContactEntity* findContactByDateModifBetween(year_month_day dateModifMin, year_month_day dateModifMax);
+
+    /**
+     * @brief Recherche un contact par son identifiant en base
+     * @param id l'id du contact
+     * @return le contact correpondant dans la liste
+     */
+    ContactEntity * findContactById(int id);
+
+    /**
+     * @brief Recherche un contact par son adresse email unique
+     * @param mail l'adresse email unique du contact
+     * @return le contact qui correspond dans la liste
+     */
+    ContactEntity *findContactByMail(string mail);
 
     /**
     * @brief renvoi la liste de toutes les interactions d'un contact
@@ -88,6 +102,13 @@ public:
     * @return la liste des interactions du contact
     */
     list<InteractionEntity*> listAllInteractions(ContactEntity *contactEntity);
+
+    /**
+     * @brief Verifie si le contact existe ou pas dans la liste des contacts
+     * @param contactRecherche Le contact recherche
+     * @return vrai s'il existe faux sinon
+     */
+    bool isContactInList(ContactEntity *contactRecherche);
 
     /**
     * @brief Assesseur de la date de la dernière suppression de contact

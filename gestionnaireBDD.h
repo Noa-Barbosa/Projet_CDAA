@@ -24,6 +24,10 @@ public:
      */
     GestionnaireBDD(const QString& path);
 
+    void beginTransaction();
+
+    void rollbackTransaction();
+
     /**
      * @brief Assesseur de la liste des contacts
      * @return la liste des contacts
@@ -85,13 +89,6 @@ public:
     void setListInteractionTodoEntity(const list<InteractionTodoEntity *> &newListInteractionTodoEntity);
 
     /**
-     * @brief Verifie si le contact existe ou pas dans la liste des contacts
-     * @param contactRecherche Le contact recherche
-     * @return vrai s'il existe faux sinon
-     */
-    bool isContactInList(ContactEntity *contactRecherche);
-
-    /**
      * @brief Verifie si l'interaction existe ou pas dans la liste des interactions
      * @param interactionRecherche L'interaction recherche
      * @return vrai si elle existe faux sinon
@@ -122,26 +119,26 @@ public:
     /**
      * @brief Met a jour la liste des contacts depuis la BDD
      */
-    void updateContactList();
+    bool updateContactList();
 
     /**
      * @brief Insere un nouveau contact dans la BDD
      * @param contact le contact a ajoute
      */
-    void insertContact(ContactEntity * contact);
+    bool insertContact(ContactEntity * contact);
 
     /**
      * @brief Met a jour le contact avec l'id correpondant a celui du parametres selon les attributs du contact en parametre
      * @param contact le pointeur sur le contact a modifie (cela permet de modifier directement l'objet sans modifier la liste)
      * @param contactEntityModifie le pointeur sur le contact qui contient les modifications
      */
-    void updateContact(ContactEntity * contact, ContactEntity * contactEntityModifie);
+    bool updateContact(ContactEntity * contact, ContactEntity * contactEntityModifie);
 
     /**
      * @brief Suppression d'un contact dans la BDD
      * @param contact le contact a supprimer
      */
-    void deleteContact(ContactEntity * contact);
+    bool deleteContact(ContactEntity * contact);
 
 private:
 

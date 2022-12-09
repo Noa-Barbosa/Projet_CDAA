@@ -13,9 +13,24 @@ GestionnaireBDD::GestionnaireBDD(const QString& path)
     else
     {
         qDebug() << "Connexion etablie avec la BDD";
+        updateContactList();
+        QSqlQuery query(db);
+        query.exec("PRAGMA foreign_keys = ON;");
     }
 
-    updateContactList();
+
+}
+
+void GestionnaireBDD::beginTransaction()
+{
+    QSqlQuery query(db);
+    query.exec("begin;");
+}
+
+void GestionnaireBDD::rollbackTransaction()
+{
+    QSqlQuery query(db);
+    query.exec("rollback;");
 }
 
 const list<ContactEntity *> &GestionnaireBDD::getListContactEntity() const
@@ -68,19 +83,6 @@ void GestionnaireBDD::setListInteractionTodoEntity(const list<InteractionTodoEnt
     listInteractionTodoEntity = newListInteractionTodoEntity;
 }
 
-bool GestionnaireBDD::isContactInList(ContactEntity *contactRecherche)
-{
-    list<ContactEntity*>::iterator findIter = find(listContactEntity.begin(), listContactEntity.end(), contactRecherche);
-
-    if(findIter!=listContactEntity.end()){
-        return true;
-    }
-    else{
-        return false;
-    }
-
-}
-
 bool GestionnaireBDD::isInteractionInList(InteractionEntity *interactionRecherche)
 {
     list<InteractionEntity*>::iterator findIter = find(listInteractionEntity.begin(), listInteractionEntity.end(), interactionRecherche);
@@ -130,165 +132,218 @@ bool GestionnaireBDD::isInteractionTodoInList(InteractionTodoEntity *interaction
     }
 }
 
-void GestionnaireBDD::updateContactList()
+bool GestionnaireBDD::updateContactList()
 {
     listContactEntity.clear();
     QSqlQuery query(db);
-    query.exec("SELECT idContact, nomContact, prenomContact, entrepriseContact, uriPhotoContact, mailContact, telContact, dateCreaContact, dateDernModifContact FROM Contact");
 
-    while(query.next()){
+    //si query.exec renvoie false cela signifie qu'il y a eu une erreur au moment de l'execution de la requete
+    if(!query.exec("SELECT idContact, nomContact, prenomContact, entrepriseContact, uriPhotoContact, mailContact, telContact, dateCreaContact, dateDernModifContact FROM Contact")){
+        cerr << "Erreur lors de la selection dans la BDD "<<query.lastError().text().toStdString() << endl;
+        return false;
+    }else{
+        try {
+            while(query.next()){
 
-        //recupere la chaine de caractere correspondant au numero de telephone
-        //convertit chacun des caractere en unsigned int et les stocke dans une liste
-        list<unsigned>  tel;
-        for (char &chiffre : query.value(6).toString().toStdString()) {
-                tel.push_back((unsigned) chiffre - '0');
+                //recupere la chaine de caractere correspondant au numero de telephone
+                //convertit chacun des caractere en unsigned int et les stocke dans une liste
+                list<unsigned>  tel;
+                for (char &chiffre : query.value(6).toString().toStdString()) {
+                        tel.push_back((unsigned) chiffre - '0');
+                    }
+
+                //cette partie du code separe la chaine de caractere donne la date de creation en trois parties et la stocke dans un vector
+                std::vector<std::string> partiesDate;
+                std::string partie;
+                std::istringstream dateStream(query.value(7).toString().toStdString());
+                while (std::getline(dateStream, partie, '-'))
+                {
+                   partiesDate.push_back(partie);
+                }
+
+                //convertit chacune des trois parties de la date en entier
+                int annee = std::stoi(partiesDate.at(0));
+                int mois = std::stoi(partiesDate.at(1));
+                int jour = std::stoi(partiesDate.at(2));
+
+                //pour creer la date approprie
+                year_month_day dateCrea =year{annee}/mois/jour;
+
+                //cette partie fait la meme chose avec la date de derniere modification
+                partiesDate.clear();
+                std::istringstream dateStream2(query.value(7).toString().toStdString());
+                while (std::getline(dateStream2, partie, '-'))
+                {
+                   partiesDate.push_back(partie);
+                }
+
+                annee = std::stoi(partiesDate.at(0));
+                mois = std::stoi(partiesDate.at(1));
+                jour = std::stoi(partiesDate.at(2));
+
+                year_month_day dateDernModif =year{annee}/mois/jour;
+
+                int id = query.value(0).toInt();
+                string nom = query.value(1).toString().toStdString();
+                string prenom = query.value(2).toString().toStdString();
+                string entreprise = query.value(3).toString().toStdString();
+                string uriPhoto = query.value(4).toString().toStdString();
+                string mail = query.value(5).toString().toStdString();
+
+                ContactEntity* Contact = new ContactEntity(id, nom, prenom, entreprise, mail, tel,uriPhoto, dateCrea, dateDernModif);
+
+                listContactEntity.push_back(Contact);
             }
 
-        //cette partie du code separe la chaine de caractere donne la date de creation en trois parties et la stocke dans un vector
-        std::vector<std::string> partiesDate;
-        std::string partie;
-        std::istringstream dateStream(query.value(7).toString().toStdString());
-        while (std::getline(dateStream, partie, '-'))
-        {
-           partiesDate.push_back(partie);
+            cout << "Liste des contacts mis a jour avec succes" << endl;
+            return true;
+
+        } catch (const exception & e) {
+            cerr <<"Erreur lors du remplissage de la liste contact" << e.what() << endl;
+            return false;
         }
 
-        //convertit chacune des trois parties de la date en entier
-        int annee = std::stoi(partiesDate.at(0));
-        int mois = std::stoi(partiesDate.at(1));
-        int jour = std::stoi(partiesDate.at(2));
-
-        //pour creer la date approprie
-        year_month_day dateCrea =year{annee}/mois/jour;
-
-        //cette partie fait la meme chose avec la date de derniere modification
-        partiesDate.clear();
-        std::istringstream dateStream2(query.value(7).toString().toStdString());
-        while (std::getline(dateStream2, partie, '-'))
-        {
-           partiesDate.push_back(partie);
-        }
-
-        annee = std::stoi(partiesDate.at(0));
-        mois = std::stoi(partiesDate.at(1));
-        jour = std::stoi(partiesDate.at(2));
-
-        year_month_day dateDernModif =year{annee}/mois/jour;
-
-        int id = query.value(0).toInt();
-        string nom = query.value(1).toString().toStdString();
-        string prenom = query.value(2).toString().toStdString();
-        string entreprise = query.value(3).toString().toStdString();
-        string uriPhoto = query.value(4).toString().toStdString();
-        string mail = query.value(5).toString().toStdString();
-
-        ContactEntity* Contact = new ContactEntity(id, nom, prenom, entreprise, mail, tel,uriPhoto, dateCrea, dateDernModif);
-
-        listContactEntity.push_back(Contact);
     }
-}
-
-void GestionnaireBDD::insertContact(ContactEntity *contact)
-{
-    QSqlQuery insertQuery(db);
-    insertQuery.prepare("INSERT INTO Contact (nomContact, prenomContact, entrepriseContact, uriPhotoContact, mailContact, telContact, dateCreaContact, dateDernModifContact) "
-                  "VALUES (:nomContact, :prenomContact, :entrepriseContact, :uriPhotoContact, :mailContact, :telContact, :dateCreaContact, :dateDernModifContact)");
-
-    //on recupere chacune des valeurs string depuis l'objet en parametre pour les binds
-    insertQuery.bindValue(":nomContact", QString::fromStdString(contact->getNomContact()));
-    insertQuery.bindValue(":prenomContact", QString::fromStdString(contact->getPrenomContact()));
-    insertQuery.bindValue(":entrepriseContact", QString::fromStdString(contact->getEntrepriseContact()));
-    insertQuery.bindValue(":uriPhotoContact", QString::fromStdString(contact->getPhotoContact()));
-    insertQuery.bindValue(":mailContact", QString::fromStdString(contact->getMailContact()));
-
-    //pour le numero de telephone il faut envoyer chacun des chiffres dans un stream qu'on convertit ensuite en string
-    list<unsigned> listeNumeros = contact->getTelContact();
-    stringstream streamChiffres;
-    string tel;
-    for (unsigned &chiffre : listeNumeros){
-        streamChiffres << chiffre;
-    }
-    streamChiffres >> tel;
-    insertQuery.bindValue(":telContact", QString::fromStdString(tel));
-
-    //meme choses pour les dates
-    year_month_day dateCrea = contact->getDateCreaContact();
-    stringstream streamDateCrea;
-    string chaineDateCrea;
-    streamDateCrea << dateCrea;
-    streamDateCrea >> chaineDateCrea;
-    insertQuery.bindValue(":dateCreaContact", QString::fromStdString(chaineDateCrea));
-
-    year_month_day dateDernModif = contact->getDateDernModif();
-    stringstream streamDateDernModif;
-    string chaineDateDernModif;
-    streamDateDernModif << dateDernModif;
-    streamDateDernModif >> chaineDateDernModif;
-    insertQuery.bindValue(":dateDernModifContact", QString::fromStdString(chaineDateDernModif));
-
-    if(!insertQuery.exec()){
-        qDebug() << "Erreur lors de l'insertion dans la BDD" << insertQuery.lastError().text();
-    }
-
-    updateContactList();
 
 }
 
-void GestionnaireBDD::updateContact(ContactEntity *contact, ContactEntity *contactEntityModifie)
+bool GestionnaireBDD::insertContact(ContactEntity *contact)
 {
-    QSqlQuery updateQuery(db);
-    updateQuery.prepare("UPDATE contact SET nomContact = :nomContact, prenomContact = :prenomContact, entrepriseContact = :entrepriseContact, uriPhotoContact = :uriPhotoContact, mailContact = :mailContact, telContact = :telContact, dateCreaContact = :dateCreaContact, dateDernModifContact = :dateDernModifContact WHERE idContact = :idContact");
+    try {
+        QSqlQuery insertQuery(db);
+        insertQuery.prepare("INSERT INTO Contact (nomContact, prenomContact, entrepriseContact, uriPhotoContact, mailContact, telContact, dateCreaContact, dateDernModifContact) "
+                      "VALUES (:nomContact, :prenomContact, :entrepriseContact, :uriPhotoContact, :mailContact, :telContact, :dateCreaContact, :dateDernModifContact)");
 
-    //on recupere chacune des valeurs string depuis l'objet contatEntityModifie en parametre pour les binds
-    updateQuery.bindValue(":idContact", contact->getIdContact());
-    updateQuery.bindValue(":nomContact", QString::fromStdString(contactEntityModifie->getNomContact()));
-    updateQuery.bindValue(":prenomContact", QString::fromStdString(contactEntityModifie->getPrenomContact()));
-    updateQuery.bindValue(":entrepriseContact", QString::fromStdString(contactEntityModifie->getEntrepriseContact()));
-    updateQuery.bindValue(":uriPhotoContact", QString::fromStdString(contactEntityModifie->getPhotoContact()));
-    updateQuery.bindValue(":mailContact", QString::fromStdString(contactEntityModifie->getMailContact()));
+        //on recupere chacune des valeurs string depuis l'objet en parametre pour les binds
+        insertQuery.bindValue(":nomContact", QString::fromStdString(contact->getNomContact()));
+        insertQuery.bindValue(":prenomContact", QString::fromStdString(contact->getPrenomContact()));
+        insertQuery.bindValue(":entrepriseContact", QString::fromStdString(contact->getEntrepriseContact()));
+        insertQuery.bindValue(":uriPhotoContact", QString::fromStdString(contact->getPhotoContact()));
+        insertQuery.bindValue(":mailContact", QString::fromStdString(contact->getMailContact()));
 
-    //pour le numero de telephone il faut envoyer chacun des chiffres dans un stream qu'on convertit ensuite en string
-    list<unsigned> listeNumeros = contactEntityModifie->getTelContact();
-    stringstream streamChiffres;
-    string tel;
-    for (unsigned &chiffre : listeNumeros){
-        streamChiffres << chiffre;
+        //pour le numero de telephone il faut envoyer chacun des chiffres dans un stream qu'on convertit ensuite en string
+        list<unsigned> listeNumeros = contact->getTelContact();
+        stringstream streamChiffres;
+        string tel;
+        for (unsigned &chiffre : listeNumeros){
+            streamChiffres << chiffre;
+        }
+        streamChiffres >> tel;
+        insertQuery.bindValue(":telContact", QString::fromStdString(tel));
+
+        //meme choses pour les dates
+        year_month_day dateCrea = contact->getDateCreaContact();
+        stringstream streamDateCrea;
+        string chaineDateCrea;
+        streamDateCrea << dateCrea;
+        streamDateCrea >> chaineDateCrea;
+        insertQuery.bindValue(":dateCreaContact", QString::fromStdString(chaineDateCrea));
+
+        year_month_day dateDernModif = contact->getDateDernModif();
+        stringstream streamDateDernModif;
+        string chaineDateDernModif;
+        streamDateDernModif << dateDernModif;
+        streamDateDernModif >> chaineDateDernModif;
+        insertQuery.bindValue(":dateDernModifContact", QString::fromStdString(chaineDateDernModif));
+
+
+        if(!insertQuery.exec()){
+            cerr << "Erreur lors de l'insertion dans la BDD" << insertQuery.lastError().text().toStdString() << endl;
+            return false;
+        }
+        else{
+            //apres avoir inserer un nouveau contact on remet a jour la liste des contacts
+            updateContactList();
+            cout << "Contact insere avec succes" << endl;
+            return true;
+        }
+
+    } catch (const exception & e) {
+        cerr <<"Erreur lors de la preparation de la requete insert contact" << e.what() << endl;
+        return false;
     }
-    streamChiffres >> tel;
-    updateQuery.bindValue(":telContact", QString::fromStdString(tel));
 
-    //meme choses pour les dates
-    year_month_day dateCrea = contactEntityModifie->getDateCreaContact();
-    stringstream streamDateCrea;
-    string chaineDateCrea;
-    streamDateCrea << dateCrea;
-    streamDateCrea >> chaineDateCrea;
-    updateQuery.bindValue(":dateCreaContact", QString::fromStdString(chaineDateCrea));
 
-    year_month_day dateDernModif = contactEntityModifie->getDateDernModif();
-    stringstream streamDateDernModif;
-    string chaineDateDernModif;
-    streamDateDernModif << dateDernModif;
-    streamDateDernModif >> chaineDateDernModif;
-    updateQuery.bindValue(":dateDernModifContact", QString::fromStdString(chaineDateDernModif));
+}
 
-    if(!updateQuery.exec()){
-        qDebug() << "Erreur lors de l'update dans la BDD" << updateQuery.lastError().text();
+bool GestionnaireBDD::updateContact(ContactEntity *contact, ContactEntity *contactEntityModifie)
+{
+    try {
+        QSqlQuery updateQuery(db);
+        updateQuery.prepare("UPDATE contact SET nomContact = :nomContact, prenomContact = :prenomContact, entrepriseContact = :entrepriseContact, uriPhotoContact = :uriPhotoContact, mailContact = :mailContact, telContact = :telContact, dateCreaContact = :dateCreaContact, dateDernModifContact = :dateDernModifContact WHERE idContact = :idContact");
+
+        //on recupere chacune des valeurs string depuis l'objet contatEntityModifie en parametre pour les binds
+        updateQuery.bindValue(":idContact", contact->getIdContact());
+        updateQuery.bindValue(":nomContact", QString::fromStdString(contactEntityModifie->getNomContact()));
+        updateQuery.bindValue(":prenomContact", QString::fromStdString(contactEntityModifie->getPrenomContact()));
+        updateQuery.bindValue(":entrepriseContact", QString::fromStdString(contactEntityModifie->getEntrepriseContact()));
+        updateQuery.bindValue(":uriPhotoContact", QString::fromStdString(contactEntityModifie->getPhotoContact()));
+        updateQuery.bindValue(":mailContact", QString::fromStdString(contactEntityModifie->getMailContact()));
+
+        //pour le numero de telephone il faut envoyer chacun des chiffres dans un stream qu'on convertit ensuite en string
+        list<unsigned> listeNumeros = contactEntityModifie->getTelContact();
+        stringstream streamChiffres;
+        string tel;
+        for (unsigned &chiffre : listeNumeros){
+            streamChiffres << chiffre;
+        }
+        streamChiffres >> tel;
+        updateQuery.bindValue(":telContact", QString::fromStdString(tel));
+
+        //meme choses pour les dates
+        year_month_day dateCrea = contactEntityModifie->getDateCreaContact();
+        stringstream streamDateCrea;
+        string chaineDateCrea;
+        streamDateCrea << dateCrea;
+        streamDateCrea >> chaineDateCrea;
+        updateQuery.bindValue(":dateCreaContact", QString::fromStdString(chaineDateCrea));
+
+        year_month_day dateDernModif = contactEntityModifie->getDateDernModif();
+        stringstream streamDateDernModif;
+        string chaineDateDernModif;
+        streamDateDernModif << dateDernModif;
+        streamDateDernModif >> chaineDateDernModif;
+        updateQuery.bindValue(":dateDernModifContact", QString::fromStdString(chaineDateDernModif));
+
+        if(!updateQuery.exec()){
+            cerr << "Erreur lors de l'update du contact dans la BDD" << updateQuery.lastError().text().toStdString()<< endl;
+            return false;
+        }
+        else{
+            cout << "Contact modifie en base" << updateQuery.lastError().text().toStdString()<< endl;
+            return true;
+        }
+
+    } catch (const exception & e) {
+        cerr <<"Erreur lors de la preparation de la requete update contact" << e.what() << endl;
+        return false;
     }
-    else{
-        qDebug() << "Contact modifie en base" << updateQuery.lastError().text();
 
-        //a changer
-        contact->setNomContact(contactEntityModifie->getNomContact());
-        contact->setPrenomContact(contactEntityModifie->getPrenomContact());
-        contact->setEntrepriseContact(contactEntityModifie->getEntrepriseContact());
-        contact->setTelContact(contactEntityModifie->getTelContact());
-        contact->setMailContact(contactEntityModifie->getMailContact());
-        contact->setPhotoContact(contactEntityModifie->getPhotoContact());
-        contact->setDateDernModif(year_month_day{floor<days>(system_clock::now())});
+
+
+
+}
+
+bool GestionnaireBDD::deleteContact(ContactEntity *contact)
+{
+    try {
+        QSqlQuery deleteQuery(db);
+        deleteQuery.prepare("Delete from Contact where idContact = :idContact");
+
+        deleteQuery.bindValue(":idContact",contact->getIdContact());
+
+        if(!deleteQuery.exec()){
+            cerr << "Erreur lors du delete en base" << deleteQuery.lastError().text().toStdString() << endl;
+            return false;
+        }
+        else{
+            cout << "Contact supprime en base" << endl;
+            return true;
+        }
+    } catch (const exception & e) {
+        cerr <<"Erreur lors de la preparation de la requete update contact" << e.what() << endl;
+        return false;
     }
-
 
 
 }
