@@ -83,6 +83,18 @@ void GestionnaireBDD::setListInteractionTodoEntity(const list<InteractionTodoEnt
     listInteractionTodoEntity = newListInteractionTodoEntity;
 }
 
+bool GestionnaireBDD::isContactInList(ContactEntity *contactRecherche)
+{
+    list<ContactEntity*>::iterator findIter = find(listContactEntity.begin(), listContactEntity.end(), contactRecherche);
+
+    if(findIter!=listContactEntity.end()){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
 bool GestionnaireBDD::isInteractionInList(InteractionEntity *interactionRecherche)
 {
     list<InteractionEntity*>::iterator findIter = find(listInteractionEntity.begin(), listInteractionEntity.end(), interactionRecherche);
@@ -318,9 +330,6 @@ bool GestionnaireBDD::updateContact(ContactEntity *contact, ContactEntity *conta
         cerr <<"Erreur lors de la preparation de la requete update contact" << e.what() << endl;
         return false;
     }
-
-
-
 
 }
 

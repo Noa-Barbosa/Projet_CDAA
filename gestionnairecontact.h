@@ -104,13 +104,6 @@ public:
     list<InteractionEntity*> listAllInteractions(ContactEntity *contactEntity);
 
     /**
-     * @brief Verifie si le contact existe ou pas dans la liste des contacts
-     * @param contactRecherche Le contact recherche
-     * @return vrai s'il existe faux sinon
-     */
-    bool isContactInList(ContactEntity *contactRecherche);
-
-    /**
     * @brief Assesseur de la date de la dernière suppression de contact
     * @return La date de la dernière suppression d'un contact
      */

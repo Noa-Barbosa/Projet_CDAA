@@ -2,28 +2,28 @@
 
 GestionnaireInteraction::GestionnaireInteraction(GestionnaireBDD *gestionnaire)
 {
-    gestionnaireListes=gestionnaire;
+    gestionnaireBDD=gestionnaire;
 }
 
 void GestionnaireInteraction::addInteraction(InteractionEntity *interaction, ContactEntity *contact)
 {
     //a chaque fois qu'on veut faire une operation sur une liste on recupere la liste actuelle avec le gestionnaire de liste (plus tard se sera un appel sur la base)
-    auto listInteractionEntity = gestionnaireListes->getListInteractionEntity();
-    auto listContactInteractionEntity = gestionnaireListes->getListContactInteractionEntity();
+    auto listInteractionEntity = gestionnaireBDD->getListInteractionEntity();
+    auto listContactInteractionEntity = gestionnaireBDD->getListContactInteractionEntity();
 
     //si l'interaction n'existe pas deja dans la liste
-    if(!gestionnaireListes->isInteractionInList(interaction)){
+    if(!gestionnaireBDD->isInteractionInList(interaction)){
         listInteractionEntity.push_back(interaction);
-        gestionnaireListes->setListInteractionEntity(listInteractionEntity);
+        gestionnaireBDD->setListInteractionEntity(listInteractionEntity);
     }
     else{
         cout << "L'interaction existe deja dans la liste elle n'a pas ete ajoute" << std::endl<<std::endl;
     }
 
     ContactInteractionEntity *contactInteraction = new ContactInteractionEntity(contact, interaction);
-    if(!gestionnaireListes->isContactInteractionInList(contactInteraction)){
+    if(!gestionnaireBDD->isContactInteractionInList(contactInteraction)){
         listContactInteractionEntity.push_back(contactInteraction);
-        gestionnaireListes->setListContactInteractionEntity(listContactInteractionEntity);
+        gestionnaireBDD->setListContactInteractionEntity(listContactInteractionEntity);
     }
     else{
         cout << "Le contact a deja cette interaction les deux n'ont pas ete lie" << std::endl<<std::endl;
@@ -42,12 +42,12 @@ void GestionnaireInteraction::editInteraction(InteractionEntity* interaction, In
 void GestionnaireInteraction::deleteInteraction(InteractionEntity* interaction)
 {
 
-    if(gestionnaireListes->isInteractionInList(interaction)){
+    if(gestionnaireBDD->isInteractionInList(interaction)){
 
-        auto listInteractionEntity = gestionnaireListes->getListInteractionEntity();
-        auto listContactInteractionEntity = gestionnaireListes->getListContactInteractionEntity();
-        auto listInteractionTodoEntity = gestionnaireListes->getListInteractionTodoEntity();
-        auto listTodoEntity = gestionnaireListes->getListTodoEntity();
+        auto listInteractionEntity = gestionnaireBDD->getListInteractionEntity();
+        auto listContactInteractionEntity = gestionnaireBDD->getListContactInteractionEntity();
+        auto listInteractionTodoEntity = gestionnaireBDD->getListInteractionTodoEntity();
+        auto listTodoEntity = gestionnaireBDD->getListTodoEntity();
 
         list<ContactInteractionEntity*> contactInteractionAsupprimer;
         list<TodoEntity*> todoASupprimer;
@@ -89,10 +89,10 @@ void GestionnaireInteraction::deleteInteraction(InteractionEntity* interaction)
 
         listInteractionEntity.remove(interaction);
 
-        gestionnaireListes->setListInteractionEntity(listInteractionEntity);
-        gestionnaireListes->setListContactInteractionEntity(listContactInteractionEntity);
-        gestionnaireListes->setListInteractionTodoEntity(listInteractionTodoEntity);
-        gestionnaireListes->setListTodoEntity(listTodoEntity);
+        gestionnaireBDD->setListInteractionEntity(listInteractionEntity);
+        gestionnaireBDD->setListContactInteractionEntity(listContactInteractionEntity);
+        gestionnaireBDD->setListInteractionTodoEntity(listInteractionTodoEntity);
+        gestionnaireBDD->setListTodoEntity(listTodoEntity);
 
     }
     else{

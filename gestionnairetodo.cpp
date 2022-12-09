@@ -2,19 +2,19 @@
 
 GestionnaireTodo::GestionnaireTodo(GestionnaireBDD *gestionnaire)
 {
-    gestionnaireListes=gestionnaire;
+    gestionnaireBDD=gestionnaire;
 }
 
 void GestionnaireTodo::addTodo(TodoEntity *todo, InteractionEntity *interaction)
 {
     //a chaque fois qu'on veut faire une operation sur une liste on recupere la liste actuelle avec le gestionnaire de liste (plus tard se sera un appel sur la base)
-    auto listTodoEntity = gestionnaireListes->getListTodoEntity();
-    auto listInteractionTodo = gestionnaireListes->getListInteractionTodoEntity();
+    auto listTodoEntity = gestionnaireBDD->getListTodoEntity();
+    auto listInteractionTodo = gestionnaireBDD->getListInteractionTodoEntity();
 
     //si le todo n'existe pas deja dans la liste
-    if(!gestionnaireListes->isTodoInList(todo)){
+    if(!gestionnaireBDD->isTodoInList(todo)){
         listTodoEntity.push_back(todo);
-        gestionnaireListes->setListTodoEntity(listTodoEntity);
+        gestionnaireBDD->setListTodoEntity(listTodoEntity);
     }
     else{
         cout << "Le todo existe deja dans la liste il n'a pas ete ajoute" << std::endl<<std::endl;
@@ -22,9 +22,9 @@ void GestionnaireTodo::addTodo(TodoEntity *todo, InteractionEntity *interaction)
 
     InteractionTodoEntity *interactionTodo = new InteractionTodoEntity(interaction, todo);
 
-    if(!gestionnaireListes->isInteractionTodoInList(interactionTodo)){
+    if(!gestionnaireBDD->isInteractionTodoInList(interactionTodo)){
         listInteractionTodo.push_back(interactionTodo);
-        gestionnaireListes->setListInteractionTodoEntity(listInteractionTodo);
+        gestionnaireBDD->setListInteractionTodoEntity(listInteractionTodo);
     }
     else{
         cout << "Linteraction a deja ce todo les deux n'ont pas ete lie" << std::endl<<std::endl;
@@ -40,10 +40,10 @@ void GestionnaireTodo::editTodo(TodoEntity *todo, TodoEntity *todoModif)
 
 void GestionnaireTodo::deleteTodo(TodoEntity *todo)
 {
-    if(gestionnaireListes->isTodoInList(todo)){
+    if(gestionnaireBDD->isTodoInList(todo)){
 
-        auto listTodoEntity = gestionnaireListes->getListTodoEntity();
-        auto listInteractionTodoEntity = gestionnaireListes->getListInteractionTodoEntity();
+        auto listTodoEntity = gestionnaireBDD->getListTodoEntity();
+        auto listInteractionTodoEntity = gestionnaireBDD->getListInteractionTodoEntity();
 
 
         list<InteractionTodoEntity*> interactionTodoAsupprimer;
@@ -62,8 +62,8 @@ void GestionnaireTodo::deleteTodo(TodoEntity *todo)
 
         listTodoEntity.remove(todo);
 
-        gestionnaireListes->setListTodoEntity(listTodoEntity);
-        gestionnaireListes->setListInteractionTodoEntity(listInteractionTodoEntity);
+        gestionnaireBDD->setListTodoEntity(listTodoEntity);
+        gestionnaireBDD->setListInteractionTodoEntity(listInteractionTodoEntity);
 
     }
     else{

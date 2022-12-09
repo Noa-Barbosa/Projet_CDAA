@@ -37,7 +37,7 @@ void GestionnaireContact::deleteContact(ContactEntity* contact)
 {
 
     if(gestionnaireBDD->deleteContact(contact)){
-        if(isContactInList(contact)){
+        if(gestionnaireBDD->isContactInList(contact)){
 
             auto listContactEntity = gestionnaireBDD->getListContactEntity();
             auto listContactInteractionEntity = gestionnaireBDD->getListContactInteractionEntity();
@@ -144,19 +144,6 @@ list<InteractionEntity*> GestionnaireContact::listAllInteractions(ContactEntity 
     }
 
     return interaction;
-}
-
-bool GestionnaireContact::isContactInList(ContactEntity *contactRecherche)
-{
-    list<ContactEntity*>::const_iterator findIter = find(gestionnaireBDD->getListContactEntity().begin(), gestionnaireBDD->getListContactEntity().end(), contactRecherche);
-
-    if(findIter!=gestionnaireBDD->getListContactEntity().end()){
-        return true;
-    }
-    else{
-        return false;
-    }
-
 }
 
 const list<ContactEntity *> &GestionnaireContact::getContactList() const

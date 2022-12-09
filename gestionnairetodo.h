@@ -50,7 +50,7 @@ private:
     /**
      * @brief Le gestionnaire de liste du programme
      */
-    GestionnaireBDD *gestionnaireListes;
+    GestionnaireBDD *gestionnaireBDD;
 };
 
 #endif // GESTIONNAIRETODO_H

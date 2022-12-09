@@ -11,7 +11,7 @@
 using namespace std;
 
 /**
- * @brief Classe qui gere toutes les listes utilisees dans notre application
+ * @brief Classe qui gere les actions sur la BDD et les listes utilisees dans notre programme
  */
 class GestionnaireBDD
 {
@@ -87,6 +87,13 @@ public:
      * @param newListInteractionTodoEntity la nouvelle liste
      */
     void setListInteractionTodoEntity(const list<InteractionTodoEntity *> &newListInteractionTodoEntity);
+
+    /**
+     * @brief Verifie si le contact existe ou pas dans la liste des contacts
+     * @param contactRecherche Le contact recherche
+     * @return vrai s'il existe faux sinon
+     */
+    bool isContactInList(ContactEntity *contactRecherche);
 
     /**
      * @brief Verifie si l'interaction existe ou pas dans la liste des interactions

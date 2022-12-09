@@ -50,7 +50,7 @@ private:
     /**
      * @brief Les gestionnaire de listes de l'application
      */
-    GestionnaireBDD *gestionnaireListes;
+    GestionnaireBDD *gestionnaireBDD;
 
 };
 
