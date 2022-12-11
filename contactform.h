@@ -25,6 +25,10 @@ private slots:
 
     void on_annulerPb_clicked();
 
+signals:
+
+    void signalEnregistrement();
+
 private:
     Ui::contactform *ui;
     GestionnaireContact * gestionnairecontact;

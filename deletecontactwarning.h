@@ -22,6 +22,9 @@ private slots:
 
     void on_No_clicked();
 
+signals:
+    void signalEnregistrement();
+
 private:
     Ui::DeleteContactWarning *ui;
     ContactEntity* contact;

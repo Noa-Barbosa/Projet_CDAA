@@ -18,6 +18,7 @@ DeleteContactWarning::~DeleteContactWarning()
 void DeleteContactWarning::on_Yes_clicked()
 {
     gestionnairecontact->deleteContact(contact);
+    emit signalEnregistrement();
     this->close();
 }
 

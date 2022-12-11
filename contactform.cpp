@@ -76,8 +76,10 @@ void ContactForm::on_enregisterPb_clicked()
     if(mod==false){
 
         gestionnairecontact->addContact(contact);
+        emit signalEnregistrement();
     }else if(mod==true){
         gestionnairecontact->editContact(contactentity,contact);
+        emit signalEnregistrement();
     }
 
 

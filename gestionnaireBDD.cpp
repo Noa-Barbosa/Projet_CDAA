@@ -190,7 +190,7 @@ bool GestionnaireBDD::hydrateContactList()
 
                 //cette partie fait la meme chose avec la date de derniere modification
                 partiesDate.clear();
-                std::istringstream dateStream2(query.value(7).toString().toStdString());
+                std::istringstream dateStream2(query.value(8).toString().toStdString());
                 while (std::getline(dateStream2, partie, '-'))
                 {
                    partiesDate.push_back(partie);
