@@ -23,7 +23,13 @@ public:
     ~ListContact();
 
 public slots:
-    void afficher_liste();
+    /**
+     * @brief Affiche la liste des contact filtrer s'il des filtre son preciser
+     * @param filtreNom le nom recherche
+     * @param filtreEntreprise l'entreprise recherchee
+     * @param filtreDateCrea la date de creation recherchee
+     */
+    void afficher_liste(string filtreNom ="", string filtreEntreprise="", string filtreDateCrea="", string filtreDateCreaMin="", string filtreDateCreaMax="");
 
 private slots:
     void on_addContact_clicked();
@@ -32,7 +38,13 @@ private slots:
 
     void on_deleteContact_clicked();
 
-    void on_Update_clicked();
+    void on_fitrerPb_clicked();
+
+    void on_effacerFiltrePb_clicked();
+
+    void on_dateIntervalleCheckbox_stateChanged(int arg1);
+
+    void on_dateCreaCheckbox_stateChanged(int arg1);
 
 private:
     Ui::ListContact *ui;
