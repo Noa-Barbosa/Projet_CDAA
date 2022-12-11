@@ -25,6 +25,7 @@ int main(int argc, char *argv[])
     GestionnaireInteraction* gestionnaireInteraction = new GestionnaireInteraction(gestionnaireBDD);
     GestionnaireTodo* gestionnaireTodo = new GestionnaireTodo(gestionnaireBDD);
 
+
     //Test de recuperation des listes
     auto listContact = gestionnaireContact->getContactList();
     auto listInteraction = gestionnaireInteraction->getInteractionList();
@@ -32,6 +33,7 @@ int main(int argc, char *argv[])
     auto listTodo = gestionnaireTodo->getTodoList();
     auto listInteractionTodo = gestionnaireInteraction->getInteractionTodoList();
 
+    /**
     gestionnaireBDD->beginTransaction();
 
     //Test ajout d'un contact
@@ -109,6 +111,7 @@ int main(int argc, char *argv[])
     listInteractionTodo = gestionnaireInteraction->getInteractionTodoList();
 
     gestionnaireBDD->rollbackTransaction();
+    **/
 
     /**
     //test de creation d'un contact avec le constructeur vide et les mutateur et test de l'affichage

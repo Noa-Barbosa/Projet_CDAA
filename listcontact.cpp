@@ -3,7 +3,6 @@
 #include "gestionnairecontact.h"
 #include "contactform.h"
 #include "deletecontactwarning.h"
-#include "listinteraction.h"
 
 
 
@@ -28,7 +27,7 @@ ListContact::~ListContact()
 void ListContact::afficher_liste()
 {
      ui->DataListContact->setRowCount(0);
-     ui->DataListContact->setColumnHidden(5, true);
+     ui->DataListContact->setColumnHidden(4, true);
     //récupère les données
     list<ContactEntity *> lce;
     lce = gestionnairecontact->getContactList();
@@ -39,15 +38,14 @@ void ListContact::afficher_liste()
         ui->DataListContact->setItem(0, 0, new QTableWidgetItem(QString::fromStdString(ce->getNomContact())));
         ui->DataListContact->setItem(0, 1, new QTableWidgetItem(QString::fromStdString(ce->getPrenomContact())));
         ui->DataListContact->setItem(0, 2, new QTableWidgetItem(QString::fromStdString(ce->getEntrepriseContact())));
-        ui->DataListContact->setItem(0, 3, new QTableWidgetItem(QString::fromStdString(ce->getMailContact())));
-        ui->DataListContact->setItem(0, 5, new QTableWidgetItem(QString::number(ce->getIdContact())));
+        ui->DataListContact->setItem(0, 4, new QTableWidgetItem(QString::number(ce->getIdContact())));
         //string pour les dates
         year_month_day dateCrea = ce->getDateCreaContact();
         stringstream streamDateCrea;
         string chaineDateCrea;
         streamDateCrea << dateCrea;
         streamDateCrea >> chaineDateCrea;
-        ui->DataListContact->setItem(0, 4, new QTableWidgetItem(QString::fromStdString(chaineDateCrea)));
+        ui->DataListContact->setItem(0, 3, new QTableWidgetItem(QString::fromStdString(chaineDateCrea)));
      }
 
 }
@@ -58,6 +56,7 @@ void ListContact::on_addContact_clicked()
     ContactEntity* ce = new ContactEntity();
     //on passe false en parametre car on ajoute
     cf = new ContactForm(this, gestionnairecontact, gestionnaireinteraction, gestionnairetodo, ce, false);
+    connect(cf, SIGNAL(signalEnregistrement()), this, SLOT(afficher_liste()));
     cf->show();
 
 }
@@ -67,6 +66,7 @@ void ListContact::on_seeContact_clicked()
 {
     //on passe true en parametre car on modifie
     cf = new ContactForm(this, gestionnairecontact, gestionnaireinteraction, gestionnairetodo, gestionnairecontact->findContactById( ui->DataListContact->model()->index(ui->DataListContact->currentRow(),4).data().toInt()), true);
+    connect(cf, SIGNAL(signalEnregistrement()), this, SLOT(afficher_liste()));
     cf->show();
 }
 
@@ -74,18 +74,12 @@ void ListContact::on_seeContact_clicked()
 void ListContact::on_deleteContact_clicked()
 {
     dcw = new DeleteContactWarning(this, gestionnairecontact->findContactById( ui->DataListContact->model()->index(ui->DataListContact->currentRow(),4).data().toInt()), gestionnairecontact);
+    connect(dcw, SIGNAL(signalEnregistrement()), this, SLOT(afficher_liste()));
     dcw->show();
 }
 
 void ListContact::on_Update_clicked()
 {
     afficher_liste();
-}
-
-
-void ListContact::on_interactionsContact_clicked()
-{
-    li = new ListInteraction;
-    li->show();
 }
 
