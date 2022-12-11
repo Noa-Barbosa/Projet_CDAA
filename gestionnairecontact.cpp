@@ -175,6 +175,120 @@ list<InteractionEntity*> GestionnaireContact::listAllInteractions(ContactEntity 
     return interaction;
 }
 
+list<ContactEntity *> GestionnaireContact::listContactsByFilter(string nom, string entreprise, string dateCrea,string dateCreaMin, string dateCreaMax)
+{
+    auto listContactAFiltrer = gestionnaireBDD->getListContactEntity();
+
+    if(nom!=""){
+        list<ContactEntity *> listContactFiltree;
+
+        for(ContactEntity * contact : listContactAFiltrer){
+            if (contact->getNomContact()==nom){
+                listContactFiltree.push_back(contact);
+            }
+        }
+
+        if(listContactFiltree.size()>0){
+            listContactAFiltrer=listContactFiltree;
+        }
+
+    }
+
+    if(entreprise!=""){
+        list<ContactEntity *> listContactFiltree;
+
+        for(ContactEntity * contact : listContactAFiltrer){
+            if (contact->getEntrepriseContact()==entreprise){
+                listContactFiltree.push_back(contact);
+            }
+        }
+
+        if(listContactFiltree.size()>0){
+            listContactAFiltrer=listContactFiltree;
+        }
+    }
+
+    if(dateCrea!=""){
+        list<ContactEntity *> listContactFiltree;
+
+        //cette partie du code separe la chaine de caractere donne la date de creation en trois parties et la stocke dans un vector
+        std::vector<std::string> partiesDate;
+        std::string partie;
+        std::istringstream dateStream(dateCrea);
+        while (std::getline(dateStream, partie, '-'))
+        {
+           partiesDate.push_back(partie);
+        }
+
+        //convertit chacune des trois parties de la date en entier
+        int annee = std::stoi(partiesDate.at(2));
+        int mois = std::stoi(partiesDate.at(1));
+        int jour = std::stoi(partiesDate.at(0));
+
+        //pour creer la date approprie
+        year_month_day dateCrea =year{annee}/mois/jour;
+
+        for(ContactEntity * contact : listContactAFiltrer){
+            if (contact->getDateCreaContact()==dateCrea){
+                listContactFiltree.push_back(contact);
+            }
+        }
+
+            listContactAFiltrer=listContactFiltree;
+    }
+
+    if(dateCreaMin!=""){
+        if(dateCreaMax!=""){
+            list<ContactEntity *> listContactFiltree;
+
+            //cette partie du code separe la chaine de caractere donne la date de creation minimum en trois parties et la stocke dans un vector
+            std::vector<std::string> partiesDateMin;
+            std::string partieDateMin;
+            std::istringstream dateMinStream(dateCreaMin);
+            while (std::getline(dateMinStream, partieDateMin, '-'))
+            {
+               partiesDateMin.push_back(partieDateMin);
+            }
+
+            //convertit chacune des trois parties de la date en entier
+            int annee = std::stoi(partiesDateMin.at(2));
+            int mois = std::stoi(partiesDateMin.at(1));
+            int jour = std::stoi(partiesDateMin.at(0));
+
+            //pour creer la date approprie
+            year_month_day dateCreaMin =year{annee}/mois/jour;
+
+            //cette partie du code separe la chaine de caractere donne la date de creation minimum en trois parties et la stocke dans un vector
+            std::vector<std::string> partiesDateMax;
+            std::string partieDateMax;
+            std::istringstream dateMaxStream(dateCreaMax);
+            while (std::getline(dateMaxStream, partieDateMax, '-'))
+            {
+               partiesDateMax.push_back(partieDateMax);
+            }
+
+            //convertit chacune des trois parties de la date en entier
+            annee = std::stoi(partiesDateMax.at(2));
+            mois = std::stoi(partiesDateMax.at(1));
+            jour = std::stoi(partiesDateMax.at(0));
+
+            //pour creer la date approprie
+            year_month_day dateCreaMax =year{annee}/mois/jour;
+
+            for(ContactEntity * contact : listContactAFiltrer){
+                  if(contact->getDateCreaContact()>=dateCreaMin && contact->getDateCreaContact()<= dateCreaMax){
+                      listContactFiltree.push_back(contact);
+                  }
+            }
+
+                listContactAFiltrer=listContactFiltree;
+        }
+    }
+
+    return listContactAFiltrer;
+
+}
+
 const list<ContactEntity *> &GestionnaireContact::getContactList() const
 {
     return gestionnaireBDD->getListContactEntity();

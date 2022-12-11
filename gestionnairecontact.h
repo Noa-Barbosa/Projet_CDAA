@@ -104,6 +104,15 @@ public:
     list<InteractionEntity*> listAllInteractions(ContactEntity *contactEntity);
 
     /**
+     * @brief Renvoie une liste des contact ayant les valeurs en parametre
+     * @param nom le nom a rechercher
+     * @param entreprise l'entreprise a rechercher
+     * @param dateCrea la dateDeCrea a rechercher
+     * @return
+     */
+    list<ContactEntity *> listContactsByFilter(string nom, string entreprise, string dateCrea, string dateCreaMin, string dateCreaMax);
+
+    /**
     * @brief Assesseur de la date de la dernière suppression de contact
     * @return La date de la dernière suppression d'un contact
      */
