@@ -2,6 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <listcontact.h>
+#include <gestionnairecontact.h>
+#include <gestionnaireinteraction.h>
+#include <gestionnairetodo.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -12,10 +16,18 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(QWidget *parent = nullptr, GestionnaireContact* gestionnairecontact = nullptr, GestionnaireInteraction* gestionnaireinteraction = nullptr, GestionnaireTodo* gestionnairetodo = nullptr);
     ~MainWindow();
+
+private slots:
+    void on_ListContact_clicked();
 
 private:
     Ui::MainWindow *ui;
+    ListContact *lc;
+    GestionnaireContact * gestionnairecontact;
+    GestionnaireInteraction* gestionnaireinteraction;
+    GestionnaireTodo* gestionnairetodo;
+
 };
 #endif // MAINWINDOW_H

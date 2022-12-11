@@ -21,16 +21,16 @@ int main(int argc, char *argv[])
     const QString database_path = project_path+"/database/CRM.db";
 
     GestionnaireBDD *gestionnaireBDD = new GestionnaireBDD(database_path);
-    GestionnaireContact gestionnaireContact(gestionnaireBDD);
-    GestionnaireInteraction gestionnaireInteraction(gestionnaireBDD);
-    GestionnaireTodo gestionnaireTodo(gestionnaireBDD);
+    GestionnaireContact* gestionnaireContact = new GestionnaireContact(gestionnaireBDD);
+    GestionnaireInteraction* gestionnaireInteraction = new GestionnaireInteraction(gestionnaireBDD);
+    GestionnaireTodo* gestionnaireTodo = new GestionnaireTodo(gestionnaireBDD);
 
     //Test de recuperation des listes
-    auto listContact = gestionnaireContact.getContactList();
-    auto listInteraction = gestionnaireInteraction.getInteractionList();
-    auto listContactInteraction = gestionnaireContact.getContactInteractionList();
-    auto listTodo = gestionnaireTodo.getTodoList();
-    auto listInteractionTodo = gestionnaireInteraction.getInteractionTodoList();
+    auto listContact = gestionnaireContact->getContactList();
+    auto listInteraction = gestionnaireInteraction->getInteractionList();
+    auto listContactInteraction = gestionnaireContact->getContactInteractionList();
+    auto listTodo = gestionnaireTodo->getTodoList();
+    auto listInteractionTodo = gestionnaireInteraction->getInteractionTodoList();
 
     gestionnaireBDD->beginTransaction();
 
@@ -43,70 +43,70 @@ int main(int argc, char *argv[])
     list<unsigned> numTelContact1 = {4,1,2,5,4,8,5,5,9,0};
     contact->setTelContact(numTelContact1);
     contact->setPhotoContact("Projet/ProjetQT/photo_contact1.jpg");
-    gestionnaireContact.addContact(contact);
+    gestionnaireContact->addContact(contact);
     //on recherche le contact dans la liste pour avoir son identifiant
-    contact = gestionnaireContact.findContactByMail("ok.daccord@gmail.com");
+    contact = gestionnaireContact->findContactByMail("ok.daccord@gmail.com");
 
-    listContact = gestionnaireContact.getContactList();
+    listContact = gestionnaireContact->getContactList();
 
     //Test ajout d'un interaction
     InteractionEntity * interaction = new InteractionEntity();
     interaction->setContenuInteraction("Test ajout interaction");
-    gestionnaireInteraction.addInteraction(interaction, contact);
+    gestionnaireInteraction->addInteraction(interaction, contact);
 
-    interaction = gestionnaireInteraction.findInteraction(interaction);
-    listInteraction = gestionnaireInteraction.getInteractionList();
-    listContactInteraction = gestionnaireContact.getContactInteractionList();
+    interaction = gestionnaireInteraction->findInteraction(interaction);
+    listInteraction = gestionnaireInteraction->getInteractionList();
+    listContactInteraction = gestionnaireContact->getContactInteractionList();
 
     //Test ajout d'un todo
     TodoEntity * todo = new TodoEntity();
     todo->setContenuTodo("Test ajout todo");
-    gestionnaireTodo.addTodo(todo, interaction);
-    todo = gestionnaireTodo.findTodo(todo);
+    gestionnaireTodo->addTodo(todo, interaction);
+    todo = gestionnaireTodo->findTodo(todo);
 
-    listTodo = gestionnaireTodo.getTodoList();
-    listInteractionTodo = gestionnaireInteraction.getInteractionTodoList();
+    listTodo = gestionnaireTodo->getTodoList();
+    listInteractionTodo = gestionnaireInteraction->getInteractionTodoList();
 
     //Test edition d'une interaction, d'un contact et d'un todo
     ContactEntity * editContact = new ContactEntity(contact);
     editContact->setNomContact("Test edition contact");
-    gestionnaireContact.editContact(contact, editContact); 
+    gestionnaireContact->editContact(contact, editContact);
     InteractionEntity * editInteraction = new InteractionEntity();
     editInteraction->setContenuInteraction("Test edition interaction");
-    gestionnaireInteraction.editInteraction(interaction, editInteraction);
+    gestionnaireInteraction->editInteraction(interaction, editInteraction);
     TodoEntity * editTodo = new TodoEntity();
     editTodo->setContenuTodo("Test edition todo");
-    gestionnaireTodo.editTodo(todo,editTodo);
+    gestionnaireTodo->editTodo(todo,editTodo);
 
-    listContact = gestionnaireContact.getContactList();
-    listInteraction = gestionnaireInteraction.getInteractionList();
-    listTodo = gestionnaireTodo.getTodoList();
-    listContactInteraction = gestionnaireContact.getContactInteractionList();
-    listInteractionTodo = gestionnaireInteraction.getInteractionTodoList();
+    listContact = gestionnaireContact->getContactList();
+    listInteraction = gestionnaireInteraction->getInteractionList();
+    listTodo = gestionnaireTodo->getTodoList();
+    listContactInteraction = gestionnaireContact->getContactInteractionList();
+    listInteractionTodo = gestionnaireInteraction->getInteractionTodoList();
 
     //Test delete todo
-    gestionnaireTodo.deleteTodo(todo);
+    gestionnaireTodo->deleteTodo(todo);
 
-    listTodo = gestionnaireTodo.getTodoList();
-    listInteractionTodo = gestionnaireInteraction.getInteractionTodoList();
+    listTodo = gestionnaireTodo->getTodoList();
+    listInteractionTodo = gestionnaireInteraction->getInteractionTodoList();
 
     //Test delete interaction
-    gestionnaireInteraction.deleteInteraction(interaction);
+    gestionnaireInteraction->deleteInteraction(interaction);
 
-    listInteraction = gestionnaireInteraction.getInteractionList();
-    listContactInteraction = gestionnaireContact.getContactInteractionList();
-    listTodo = gestionnaireTodo.getTodoList();
-    listInteractionTodo = gestionnaireInteraction.getInteractionTodoList();
+    listInteraction = gestionnaireInteraction->getInteractionList();
+    listContactInteraction = gestionnaireContact->getContactInteractionList();
+    listTodo = gestionnaireTodo->getTodoList();
+    listInteractionTodo = gestionnaireInteraction->getInteractionTodoList();
 
     //Test delete contact
-    contact = gestionnaireContact.findContactByMail("azdazdazd");
-    gestionnaireContact.deleteContact(contact);
+    contact = gestionnaireContact->findContactByMail("azdazdazd");
+    gestionnaireContact->deleteContact(contact);
 
-    listContact = gestionnaireContact.getContactList();
-    listInteraction = gestionnaireInteraction.getInteractionList();
-    listTodo = gestionnaireTodo.getTodoList();
-    listContactInteraction = gestionnaireContact.getContactInteractionList();
-    listInteractionTodo = gestionnaireInteraction.getInteractionTodoList();
+    listContact = gestionnaireContact->getContactList();
+    listInteraction = gestionnaireInteraction->getInteractionList();
+    listTodo = gestionnaireTodo->getTodoList();
+    listContactInteraction = gestionnaireContact->getContactInteractionList();
+    listInteractionTodo = gestionnaireInteraction->getInteractionTodoList();
 
     gestionnaireBDD->rollbackTransaction();
 
@@ -327,7 +327,7 @@ int main(int argc, char *argv[])
 
     */
     QApplication a(argc, argv);
-    MainWindow w;
+    MainWindow w(nullptr, gestionnaireContact, gestionnaireInteraction, gestionnaireTodo);
     w.show();
 
     return a.exec();

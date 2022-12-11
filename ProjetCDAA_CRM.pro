@@ -11,31 +11,43 @@ CONFIG += c++17
 
 SOURCES += \
     contactentity.cpp \
+    contactform.cpp \
     contactinteractionentity.cpp \
+    deletecontactwarning.cpp \
     gestionnaireBDD.cpp \
     gestionnairecontact.cpp \
     gestionnaireinteraction.cpp \
     gestionnairetodo.cpp \
     interactionentity.cpp \
     interactiontodoentity.cpp \
+    listcontact.cpp \
+    listinteraction.cpp \
     main.cpp \
     mainwindow.cpp \
     todoentity.cpp
 
 HEADERS += \
     contactentity.h \
+    contactform.h \
     contactinteractionentity.h \
     date.h \
+    deletecontactwarning.h \
     gestionnaireBDD.h \
     gestionnairecontact.h \
     gestionnaireinteraction.h \
     gestionnairetodo.h \
     interactionentity.h \
     interactiontodoentity.h \
+    listcontact.h \
+    listinteraction.h \
     mainwindow.h \
     todoentity.h
 
 FORMS += \
+    contactform.ui \
+    deletecontactwarning.ui \
+    listcontact.ui \
+    listinteraction.ui \
     mainwindow.ui
 
 DEFINES += PROJECT_PATH="\"$$PWD\""
