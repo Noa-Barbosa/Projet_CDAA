@@ -31,13 +31,6 @@
        </property>
       </widget>
      </item>
-     <item>
-      <widget class="QPushButton" name="ListInteraction">
-       <property name="text">
-        <string>Liste des Intéractions</string>
-       </property>
-      </widget>
-     </item>
     </layout>
    </widget>
   </widget>

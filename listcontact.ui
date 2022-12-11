@@ -52,6 +52,11 @@
        </column>
        <column>
         <property name="text">
+         <string>Mail</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
          <string>Date de création</string>
         </property>
        </column>
@@ -69,7 +74,7 @@
      <rect>
       <x>10</x>
       <y>470</y>
-      <width>413</width>
+      <width>532</width>
       <height>80</height>
      </rect>
     </property>
@@ -84,14 +89,14 @@
      <item>
       <widget class="QPushButton" name="seeContact">
        <property name="text">
-        <string>Voir un contact</string>
+        <string>Voir le contact</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="deleteContact">
        <property name="text">
-        <string>Supprimer un contact</string>
+        <string>Supprimer le contact</string>
        </property>
       </widget>
      </item>
@@ -99,6 +104,13 @@
       <widget class="QPushButton" name="Update">
        <property name="text">
         <string>Update</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="interactionsContact">
+       <property name="text">
+        <string>Liste des intéraction</string>
        </property>
       </widget>
      </item>

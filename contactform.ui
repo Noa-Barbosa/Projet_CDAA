@@ -118,7 +118,7 @@
        <item>
         <widget class="QPushButton" name="annulerPb">
          <property name="text">
-          <string>Annuler</string>
+          <string>Retour</string>
          </property>
         </widget>
        </item>

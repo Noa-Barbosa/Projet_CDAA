@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "listcontact.h"
-#include "listinteraction.h"
 
 MainWindow::MainWindow(QWidget *parent, GestionnaireContact* gestionnairecontact, GestionnaireInteraction* gestionnaireinteraction, GestionnaireTodo* gestionnairetodo)
     : QMainWindow(parent)
@@ -26,13 +25,5 @@ void MainWindow::on_ListContact_clicked()
     lc = new ListContact(this, gestionnairecontact, gestionnaireinteraction, gestionnairetodo);
     lc->show();
 
-}
-
-//voir la liste des intéractions
-void MainWindow::on_ListInteraction_clicked()
-{
-    hide();
-    li = new ListInteraction;
-    li->show();
 }
 

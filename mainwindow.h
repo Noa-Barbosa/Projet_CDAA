@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 #include <listcontact.h>
-#include <listinteraction.h>
 #include <gestionnairecontact.h>
 #include <gestionnaireinteraction.h>
 #include <gestionnairetodo.h>
@@ -23,12 +22,9 @@ public:
 private slots:
     void on_ListContact_clicked();
 
-    void on_ListInteraction_clicked();
-
 private:
     Ui::MainWindow *ui;
     ListContact *lc;
-    ListInteraction *li;
     GestionnaireContact * gestionnairecontact;
     GestionnaireInteraction* gestionnaireinteraction;
     GestionnaireTodo* gestionnairetodo;
