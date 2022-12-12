@@ -52,6 +52,8 @@ public:
      */
     int getIdTodo() const;
 
+    void setDateAjoutTodo(const year_month_day &newDateAjoutTodo);
+
 private:
 
     /**

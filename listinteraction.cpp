@@ -49,10 +49,17 @@ void ListInteraction::afficher_liste_Interaction()
 
 }
 
+void ListInteraction::on_addInteractionPb_clicked()
+{
+    InteractionEntity * interaction = new InteractionEntity();
+    interactionForm = new InteractionForm(this, gestionnairecontact, gestionnaireinteraction, gestionnairetodo,contactentity,interaction,false);
+    connect(interactionForm, SIGNAL(signalEnregistrement()), this, SLOT(afficher_liste_Interaction()));
+    interactionForm->show();
+}
+
 void ListInteraction::on_deleteInteractionPb_clicked()
 {
     diw = new deleteinteractionwarning(this, gestionnaireinteraction->findInteractionById(ui->DataListInteraction->model()->index(ui->DataListInteraction->currentRow(),2).data().toInt()), gestionnaireinteraction);
     connect(diw, SIGNAL(signalEnregistrement()), this, SLOT(afficher_liste_Interaction()));
     diw->show();
 }
-
