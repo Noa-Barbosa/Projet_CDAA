@@ -35,7 +35,7 @@ void ListContact::afficher_liste(string filtreNom, string filtreEntreprise, stri
     //récupère les données
     list<ContactEntity *> listContact;
     listContact = gestionnairecontact->listContactsByFilter(filtreNom,filtreEntreprise,filtreDateCrea,filtreDateCreaMin,filtreDateCreaMax);
-
+    listContact.sort();
     //insére les données dans la table
     for(ContactEntity* ce : listContact)
     {
