@@ -130,7 +130,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>30</y>
+      <y>20</y>
       <width>751</width>
       <height>121</height>
      </rect>
@@ -151,6 +151,13 @@
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="changePhoto">
+       <property name="text">
+        <string>Changer l'image</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QLineEdit" name="PhotolineEdit"/>
      </item>
     </layout>
@@ -162,7 +169,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>22</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>

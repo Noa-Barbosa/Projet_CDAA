@@ -35,12 +35,13 @@ void ListContact::afficher_liste(string filtreNom, string filtreEntreprise, stri
     //récupère les données
     list<ContactEntity *> listContact;
     listContact = gestionnairecontact->listContactsByFilter(filtreNom,filtreEntreprise,filtreDateCrea,filtreDateCreaMin,filtreDateCreaMax);
-    listContact.sort();
+    listContact.reverse();
     //insére les données dans la table
     for(ContactEntity* ce : listContact)
     {
         ui->DataListContact->insertRow(0);
         ui->DataListContact->setItem(0, 0, new QTableWidgetItem(QString::fromStdString(ce->getNomContact())));
+        cout << ce->getNomContact() << endl;
         ui->DataListContact->setItem(0, 1, new QTableWidgetItem(QString::fromStdString(ce->getPrenomContact())));
         ui->DataListContact->setItem(0, 2, new QTableWidgetItem(QString::fromStdString(ce->getEntrepriseContact())));
         ui->DataListContact->setItem(0, 3, new QTableWidgetItem(QString::fromStdString(ce->getMailContact())));
