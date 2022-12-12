@@ -36,6 +36,11 @@ int TodoEntity::getIdTodo() const
     return idTodo;
 }
 
+void TodoEntity::setDateAjoutTodo(const year_month_day &newDateAjoutTodo)
+{
+    dateAjoutTodo = newDateAjoutTodo;
+}
+
 std::ostream& operator<< (ostream& os, const TodoEntity& todo)
 {
     os << todo.getContenuTodo() << ' ' << todo.getDateAjoutTodo();

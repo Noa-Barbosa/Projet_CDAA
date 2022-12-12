@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1026</width>
-    <height>621</height>
+    <width>614</width>
+    <height>523</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,45 +17,19 @@
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>30</y>
+      <x>20</x>
+      <y>20</y>
       <width>571</width>
       <height>441</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0">
-      <widget class="QTableWidget" name="DataListInteraction">
-       <column>
-        <property name="text">
-         <string>Date</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>Contenu</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>id</string>
-        </property>
-       </column>
-      </widget>
-     </item>
      <item row="1" column="0">
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
         <widget class="QPushButton" name="addInteractionPb">
          <property name="text">
           <string>Ajouter interaction</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="editInteractionPb">
-         <property name="text">
-          <string>Modifier interaction</string>
          </property>
         </widget>
        </item>
@@ -68,6 +42,25 @@
        </item>
       </layout>
      </item>
+     <item row="0" column="0">
+      <widget class="QTableWidget" name="DataListInteraction">
+       <column>
+        <property name="text">
+         <string>Contenu</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Date</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>id</string>
+        </property>
+       </column>
+      </widget>
+     </item>
     </layout>
    </widget>
   </widget>
@@ -76,7 +69,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1026</width>
+     <width>614</width>
      <height>25</height>
     </rect>
    </property>

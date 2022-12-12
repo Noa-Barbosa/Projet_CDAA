@@ -20,6 +20,7 @@ SOURCES += \
     gestionnaireinteraction.cpp \
     gestionnairetodo.cpp \
     interactionentity.cpp \
+    interactionform.cpp \
     interactiontodoentity.cpp \
     listcontact.cpp \
     listinteraction.cpp \
@@ -39,6 +40,7 @@ HEADERS += \
     gestionnaireinteraction.h \
     gestionnairetodo.h \
     interactionentity.h \
+    interactionform.h \
     interactiontodoentity.h \
     listcontact.h \
     listinteraction.h \
@@ -49,6 +51,7 @@ FORMS += \
     contactform.ui \
     deletecontactwarning.ui \
     deleteinteractionwarning.ui \
+    interactionform.ui \
     listcontact.ui \
     listinteraction.ui \
     mainwindow.ui
