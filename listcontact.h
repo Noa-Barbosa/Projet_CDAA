@@ -8,6 +8,7 @@
 #include <gestionnairetodo.h>
 #include <contactform.h>
 #include <deletecontactwarning.h>
+#include <listinteraction.h>
 
 
 namespace Ui {
@@ -46,6 +47,8 @@ private slots:
 
     void on_dateCreaCheckbox_stateChanged(int arg1);
 
+    void on_interactionsContact_clicked();
+
 private:
     Ui::ListContact *ui;
     GestionnaireContact * gestionnairecontact;
@@ -53,6 +56,7 @@ private:
     GestionnaireTodo* gestionnairetodo;
     ContactForm* cf;
     DeleteContactWarning* dcw;
+    ListInteraction* li;
 
 };
 

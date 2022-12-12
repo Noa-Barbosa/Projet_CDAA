@@ -31,7 +31,7 @@ ListContact::~ListContact()
 void ListContact::afficher_liste(string filtreNom, string filtreEntreprise, string filtreDateCrea, string filtreDateCreaMin, string filtreDateCreaMax)
 {
      ui->DataListContact->setRowCount(0);
-     ui->DataListContact->setColumnHidden(5, true);
+     ui->DataListContact->setColumnHidden(6, true);
     //récupère les données
     list<ContactEntity *> listContact;
     listContact = gestionnairecontact->listContactsByFilter(filtreNom,filtreEntreprise,filtreDateCrea,filtreDateCreaMin,filtreDateCreaMax);
@@ -44,8 +44,16 @@ void ListContact::afficher_liste(string filtreNom, string filtreEntreprise, stri
         ui->DataListContact->setItem(0, 1, new QTableWidgetItem(QString::fromStdString(ce->getPrenomContact())));
         ui->DataListContact->setItem(0, 2, new QTableWidgetItem(QString::fromStdString(ce->getEntrepriseContact())));
         ui->DataListContact->setItem(0, 3, new QTableWidgetItem(QString::fromStdString(ce->getMailContact())));
-        ui->DataListContact->setItem(0, 5, new QTableWidgetItem(QString::number(ce->getIdContact())));
-        //string pour les dates
+        //pour le numero de telephone il faut envoyer chacun des chiffres dans un stream qu'on convertit ensuite en string
+        list<unsigned> listeNumeros = ce->getTelContact();
+        stringstream streamChiffres;
+        string tel;
+        for (unsigned &chiffre : listeNumeros){
+            streamChiffres << chiffre;
+        }
+        streamChiffres >> tel;
+        ui->DataListContact->setItem(0, 4, new QTableWidgetItem(QString::fromStdString(tel)));
+        //meme idée pour les dates
         year_month_day dateCrea = ce->getDateCreaContact();
 
         stringstream streamDateCrea;
@@ -56,8 +64,11 @@ void ListContact::afficher_liste(string filtreNom, string filtreEntreprise, stri
         streamDateCrea << "-";
         streamDateCrea << dateCrea.year();
         streamDateCrea >> chaineDateCrea;
-        ui->DataListContact->setItem(0, 4, new QTableWidgetItem(QString::fromStdString(chaineDateCrea)));
+        ui->DataListContact->setItem(0, 5, new QTableWidgetItem(QString::fromStdString(chaineDateCrea)));
+        ui->DataListContact->setItem(0, 6, new QTableWidgetItem(QString::number(ce->getIdContact())));
      }
+    ui->nbContact->setText("Nombre de contacts : "+QString::number(listContact.size()));
+
 
 }
 
@@ -76,7 +87,7 @@ void ListContact::on_addContact_clicked()
 void ListContact::on_seeContact_clicked()
 {
     //on passe true en parametre car on modifie
-    cf = new ContactForm(this, gestionnairecontact, gestionnaireinteraction, gestionnairetodo, gestionnairecontact->findContactById( ui->DataListContact->model()->index(ui->DataListContact->currentRow(),5).data().toInt()), true);
+    cf = new ContactForm(this, gestionnairecontact, gestionnaireinteraction, gestionnairetodo, gestionnairecontact->findContactById( ui->DataListContact->model()->index(ui->DataListContact->currentRow(),6).data().toInt()), true);
     connect(cf, SIGNAL(signalEnregistrement()), this, SLOT(afficher_liste()));
     cf->show();
 }
@@ -84,7 +95,7 @@ void ListContact::on_seeContact_clicked()
 //supprimer un contact
 void ListContact::on_deleteContact_clicked()
 {
-    dcw = new DeleteContactWarning(this, gestionnairecontact->findContactById( ui->DataListContact->model()->index(ui->DataListContact->currentRow(),5).data().toInt()), gestionnairecontact);
+    dcw = new DeleteContactWarning(this, gestionnairecontact->findContactById( ui->DataListContact->model()->index(ui->DataListContact->currentRow(),6).data().toInt()), gestionnairecontact);
     connect(dcw, SIGNAL(signalEnregistrement()), this, SLOT(afficher_liste()));
     dcw->show();
 }
@@ -140,6 +151,13 @@ void ListContact::on_fitrerPb_clicked()
 void ListContact::on_effacerFiltrePb_clicked()
 {
     afficher_liste();
+    ui->filtreNomEdit->clear();
+    ui->filtreEntrepriseEdit->clear();
+    QString date_string_on_db = "01/01/2000";
+    QDate date = QDate::fromString(date_string_on_db,"dd/MM/yyyy");
+    ui->filtreDateCrea->setDate(date);
+    ui->dateCreaMinEdit->setDate(date);
+    ui->dateCreaMaxEdit->setDate(date);
 }
 
 void ListContact::on_dateIntervalleCheckbox_stateChanged(int arg1)
@@ -161,5 +179,12 @@ void ListContact::on_dateCreaCheckbox_stateChanged(int arg1)
     }else{
         ui->filtreDateCrea->setEnabled(true);
     }
+}
+
+
+void ListContact::on_interactionsContact_clicked()
+{
+    li = new ListInteraction(this, gestionnairecontact, gestionnaireinteraction, gestionnairetodo);
+    li->show();
 }
 
