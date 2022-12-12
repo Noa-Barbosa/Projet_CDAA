@@ -57,6 +57,11 @@
        </column>
        <column>
         <property name="text">
+         <string>Téléphone</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
          <string>Date de création</string>
         </property>
        </column>
@@ -183,6 +188,13 @@
          </property>
         </widget>
        </item>
+       <item row="3" column="3">
+        <widget class="QLabel" name="nbContact">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
       </layout>
      </item>
     </layout>
@@ -194,7 +206,7 @@
      <x>0</x>
      <y>0</y>
      <width>1342</width>
-     <height>25</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
