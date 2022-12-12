@@ -67,7 +67,7 @@ void ListContact::afficher_liste(string filtreNom, string filtreEntreprise, stri
         ui->DataListContact->setItem(0, 5, new QTableWidgetItem(QString::fromStdString(chaineDateCrea)));
         ui->DataListContact->setItem(0, 6, new QTableWidgetItem(QString::number(ce->getIdContact())));
      }
-    ui->nbContact->setText("Nombre de contacts : "+QString::number(listContact.size()));
+    ui->nbContact->setText("Nombre de contacts trouvés : "+QString::number(listContact.size()));
 
 
 }
@@ -184,7 +184,7 @@ void ListContact::on_dateCreaCheckbox_stateChanged(int arg1)
 
 void ListContact::on_interactionsContact_clicked()
 {
-    li = new ListInteraction(this, gestionnairecontact, gestionnaireinteraction, gestionnairetodo);
+    li = new ListInteraction(this, gestionnairecontact, gestionnaireinteraction, gestionnairetodo,gestionnairecontact->findContactById( ui->DataListContact->model()->index(ui->DataListContact->currentRow(),6).data().toInt()));
     li->show();
 }
 

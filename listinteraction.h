@@ -1,6 +1,7 @@
 #ifndef LISTINTERACTION_H
 #define LISTINTERACTION_H
 
+#include "deleteinteractionwarning.h"
 #include <QMainWindow>
 #include <gestionnairecontact.h>
 #include <gestionnaireinteraction.h>
@@ -22,12 +23,17 @@ public:
 public slots:
     void afficher_liste_Interaction();
 
+private slots:
+    void on_deleteInteractionPb_clicked();
+
 private:
     Ui::ListInteraction *ui;
     GestionnaireContact * gestionnairecontact;
     GestionnaireInteraction* gestionnaireinteraction;
     GestionnaireTodo* gestionnairetodo;
     ContactEntity* contactentity;
+
+    deleteinteractionwarning * diw;
 };
 
 #endif // LISTINTERACTION_H

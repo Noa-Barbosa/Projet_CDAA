@@ -167,7 +167,7 @@ list<InteractionEntity*> GestionnaireContact::listAllInteractions(ContactEntity 
 
     for(ContactInteractionEntity* contactInteraction : listContactInteractionEntity)
     {
-       if(contactInteraction->getContactEntity()==contactEntity){
+       if(contactInteraction->getContactEntity()->getIdContact()==contactEntity->getIdContact()){
            interaction.push_back(contactInteraction->getInteractionEntity());
        }
     }

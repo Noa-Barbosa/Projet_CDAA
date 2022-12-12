@@ -118,6 +118,7 @@ const list<InteractionTodoEntity *> &GestionnaireInteraction::getInteractionTodo
 
 InteractionEntity *GestionnaireInteraction::findInteractionById(int id)
 {
+    auto test = gestionnaireBDD->getListInteractionEntity();
     auto itInteraction = std::find_if(gestionnaireBDD->getListInteractionEntity().begin(),gestionnaireBDD->getListInteractionEntity().end(), [id](InteractionEntity *interaction){return  interaction->getIdInteraction()==id;});
     return *itInteraction;
 }

@@ -14,6 +14,7 @@ SOURCES += \
     contactform.cpp \
     contactinteractionentity.cpp \
     deletecontactwarning.cpp \
+    deleteinteractionwarning.cpp \
     gestionnaireBDD.cpp \
     gestionnairecontact.cpp \
     gestionnaireinteraction.cpp \
@@ -32,6 +33,7 @@ HEADERS += \
     contactinteractionentity.h \
     date.h \
     deletecontactwarning.h \
+    deleteinteractionwarning.h \
     gestionnaireBDD.h \
     gestionnairecontact.h \
     gestionnaireinteraction.h \
@@ -46,6 +48,7 @@ HEADERS += \
 FORMS += \
     contactform.ui \
     deletecontactwarning.ui \
+    deleteinteractionwarning.ui \
     listcontact.ui \
     listinteraction.ui \
     mainwindow.ui
