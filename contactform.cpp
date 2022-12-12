@@ -87,7 +87,7 @@ void ContactForm::on_enregisterPb_clicked()
     }else if(mail.empty()){
         messageBox.information(this, "Champ invalide","Le champ mail ne doit pas être vide");
         messageBox.setFixedSize(500,200);
-    }else if(mail.find("@")!=true){
+    }else if(mail.find('@')==string::npos){
         messageBox.information(this, "Champ invalide","Le champ mail doit être semblable à exemple@gmail.fr");
         messageBox.setFixedSize(500,200);
     }else if(telString.empty()){
