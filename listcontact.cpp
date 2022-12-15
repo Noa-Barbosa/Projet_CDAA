@@ -35,7 +35,7 @@ void ListContact::afficher_liste(string filtreNom, string filtreEntreprise, stri
     //récupère les données
     list<ContactEntity *> listContact;
     listContact = gestionnairecontact->listContactsByFilter(filtreNom,filtreEntreprise,filtreDateCrea,filtreDateCreaMin,filtreDateCreaMax);
-
+    listContact.reverse();
     //insére les données dans la table
     for(ContactEntity* ce : listContact)
     {
@@ -68,6 +68,8 @@ void ListContact::afficher_liste(string filtreNom, string filtreEntreprise, stri
         ui->DataListContact->setItem(0, 6, new QTableWidgetItem(QString::number(ce->getIdContact())));
      }
     ui->nbContact->setText("Nombre de contacts trouvés : "+QString::number(listContact.size()));
+
+    ui->DataListContact->selectRow(0);
 
 
 }

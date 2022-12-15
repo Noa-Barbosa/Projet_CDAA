@@ -13,6 +13,7 @@ ContactForm::ContactForm(QWidget *parent, GestionnaireContact* gestionnaireconta
     this->gestionnairetodo = gestionnairetodo;
     this->contactentity = contactentity;
     this->mod = mod;
+    ui->photo->setScaledContents(true);
     ui->NomlineEdit->setText(QString::fromStdString(contactentity->getNomContact()));
     ui->PrenomlineEdit->setText(QString::fromStdString(contactentity->getPrenomContact()));
     ui->EntrepriselineEdit->setText(QString::fromStdString(contactentity->getEntrepriseContact()));
@@ -21,7 +22,7 @@ ContactForm::ContactForm(QWidget *parent, GestionnaireContact* gestionnaireconta
     QPixmap pixmap(QString::fromStdString(contactentity->getPhotoContact()));
     //QPixmap pixmap("C:/Users/Adrien/Desktop/meme creation/Marzad.png");
     ui->PhotolineEdit->setText(QString::fromStdString(contactentity->getPhotoContact()));
-    ui->photo->setPixmap(pixmap);
+    ui->photo->setPixmap(pixmap.scaled(200, 200, Qt::KeepAspectRatio));
     //pour le numero de telephone il faut envoyer chacun des chiffres dans un stream qu'on convertit ensuite en string
     list<unsigned> listeNumeros = contactentity->getTelContact();
     stringstream streamChiffres;
@@ -119,3 +120,9 @@ void ContactForm::on_annulerPb_clicked()
     this->close();
 }
 
+
+void ContactForm::on_changePhoto_clicked()
+{
+    image = new Image(this);
+    image->show();
+}

@@ -7,6 +7,7 @@
 #include <gestionnaireinteraction.h>
 #include <gestionnairetodo.h>
 #include <contactentity.h>
+#include <image.h>
 
 namespace Ui {
 class contactform;
@@ -25,6 +26,8 @@ private slots:
 
     void on_annulerPb_clicked();
 
+    void on_changePhoto_clicked();
+
 signals:
 
     void signalEnregistrement();
@@ -36,6 +39,7 @@ private:
     GestionnaireTodo* gestionnairetodo;
     ContactEntity* contactentity;
     bool mod;
+    Image* image;
 
 };
 
