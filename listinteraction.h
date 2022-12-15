@@ -14,7 +14,7 @@ class ListInteraction;
 }
 
 /**
- * @brief La page de liste des interactions
+ * @brief Page de liste des interactions
  */
 class ListInteraction : public QMainWindow
 {
