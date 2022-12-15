@@ -6,196 +6,206 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1342</width>
-    <height>542</height>
+    <width>1141</width>
+    <height>636</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Liste des contacs</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="gridLayoutWidget">
+   <widget class="QTableWidget" name="DataListContact">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>30</y>
-      <width>1143</width>
-      <height>431</height>
+      <x>10</x>
+      <y>138</y>
+      <width>751</width>
+      <height>391</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout">
+    <property name="editTriggers">
+     <set>QAbstractItemView::NoEditTriggers</set>
+    </property>
+    <property name="selectionMode">
+     <enum>QAbstractItemView::SingleSelection</enum>
+    </property>
+    <property name="selectionBehavior">
+     <enum>QAbstractItemView::SelectRows</enum>
+    </property>
+    <column>
+     <property name="text">
+      <string>Nom</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Prénom</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Entreprise</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Mail</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Téléphone</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Date de création</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>id</string>
+     </property>
+    </column>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>538</y>
+      <width>1101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="addContact">
+       <property name="text">
+        <string>Ajouter un contact</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="seeContact">
+       <property name="text">
+        <string>Modifier le contact</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="deleteContact">
+       <property name="text">
+        <string>Supprimer le contact</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="interactionsContact">
+       <property name="text">
+        <string>Voir interactions du contact</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>1091</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="layoutFiltre">
+     <item row="3" column="3">
+      <widget class="QLabel" name="nbContact">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QDateEdit" name="filtreDateCrea">
+       <property name="locale">
+        <locale language="English" country="UnitedStates"/>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Nom</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Date de création</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Entreprise</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QDateEdit" name="dateCreaMaxEdit"/>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="filtreEntrepriseEdit"/>
+     </item>
+     <item row="1" column="5">
+      <widget class="QPushButton" name="effacerFiltrePb">
+       <property name="text">
+        <string>Effacer Recherche</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLineEdit" name="filtreNomEdit"/>
+     </item>
+     <item row="3" column="2">
+      <widget class="QCheckBox" name="dateIntervalleCheckbox">
+       <property name="text">
+        <string>Recherche par intervalle de dates ?</string>
+       </property>
+      </widget>
+     </item>
      <item row="2" column="0">
-      <widget class="QTableWidget" name="DataListContact">
-       <property name="editTriggers">
-        <set>QAbstractItemView::NoEditTriggers</set>
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>Date de création minimum</string>
        </property>
-       <property name="selectionMode">
-        <enum>QAbstractItemView::SingleSelection</enum>
-       </property>
-       <property name="selectionBehavior">
-        <enum>QAbstractItemView::SelectRows</enum>
-       </property>
-       <column>
-        <property name="text">
-         <string>Nom</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>Prénom</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>Entreprise</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>Mail</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>Téléphone</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>Date de création</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>id</string>
-        </property>
-       </column>
       </widget>
      </item>
      <item row="3" column="0">
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <widget class="QPushButton" name="addContact">
-         <property name="text">
-          <string>Ajouter un contact</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="seeContact">
-         <property name="text">
-          <string>Modifier le contact</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="deleteContact">
-         <property name="text">
-          <string>Supprimer le contact</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="interactionsContact">
-         <property name="text">
-          <string>Voir interactions du contact</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      <widget class="QDateEdit" name="dateCreaMinEdit"/>
      </item>
-     <item row="0" column="0">
-      <layout class="QGridLayout" name="layoutFiltre">
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_4">
-         <property name="text">
-          <string>Date de création minimum</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLineEdit" name="filtreEntrepriseEdit"/>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label">
-         <property name="text">
-          <string>Nom</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QDateEdit" name="dateCreaMaxEdit"/>
-       </item>
-       <item row="1" column="5">
-        <widget class="QPushButton" name="effacerFiltrePb">
-         <property name="text">
-          <string>Effacer Recherche</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="4">
-        <widget class="QPushButton" name="fitrerPb">
-         <property name="text">
-          <string>Filtrer liste</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLineEdit" name="filtreNomEdit"/>
-       </item>
-       <item row="1" column="2">
-        <widget class="QDateEdit" name="filtreDateCrea">
-         <property name="locale">
-          <locale language="English" country="UnitedStates"/>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QLabel" name="label_3">
-         <property name="text">
-          <string>Date de création</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLabel" name="label_2">
-         <property name="text">
-          <string>Entreprise</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QDateEdit" name="dateCreaMinEdit"/>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLabel" name="label_5">
-         <property name="text">
-          <string>Date de création maximum</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="3">
-        <widget class="QCheckBox" name="dateCreaCheckbox">
-         <property name="text">
-          <string>Recherche par date de création ?</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="2">
-        <widget class="QCheckBox" name="dateIntervalleCheckbox">
-         <property name="text">
-          <string>Recherche par intervalle de dates ?</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="3">
-        <widget class="QLabel" name="nbContact">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-      </layout>
+     <item row="2" column="1">
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>Date de création maximum</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="4">
+      <widget class="QPushButton" name="fitrerPb">
+       <property name="text">
+        <string>Filtrer liste</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="3">
+      <widget class="QCheckBox" name="dateCreaCheckbox">
+       <property name="text">
+        <string>Recherche par date de création ?</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
@@ -205,12 +215,24 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1342</width>
-     <height>22</height>
+     <width>1141</width>
+     <height>25</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuContact">
+    <property name="title">
+     <string>Contact</string>
+    </property>
+    <addaction name="actionAjouter_un_contact"/>
+   </widget>
+   <addaction name="menuContact"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionAjouter_un_contact">
+   <property name="text">
+    <string>Ajouter un contact</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

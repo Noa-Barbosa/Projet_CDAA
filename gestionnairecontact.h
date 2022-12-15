@@ -53,6 +53,11 @@ public:
     */
     list<InteractionEntity*> listAllInteractions(ContactEntity *contactEntity);
 
+    /**
+     * @brief Liste tout les todos d'un contact
+     * @param contactEntity le contact dont on veut lister les todos
+     * @return la liste des todos du contact
+     */
     list<TodoEntity*> listAllTodo(ContactEntity *contactEntity);
 
     /**
@@ -75,8 +80,16 @@ public:
     */
     void setDateDernSuppContact(const year_month_day &newDateDernSuppContact);
 
+    /**
+     * @brief Assesseur depuis le gestionnaireBDD de la liste des contacts
+     * @return la liste des contacts
+     */
     const list<ContactEntity *> &getContactList() const;
 
+    /**
+     * @brief Assesseur depuis le gestionnaireBDD de la liste des contactinteractions
+     * @return la liste des contactinteractions
+     */
     const list<ContactInteractionEntity *> &getContactInteractionList() const;
 
     private:

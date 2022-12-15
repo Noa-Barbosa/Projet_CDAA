@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>614</width>
-    <height>523</height>
+    <width>613</width>
+    <height>554</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,22 +25,21 @@
     </property>
     <layout class="QGridLayout" name="gridLayout">
      <item row="1" column="0">
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <widget class="QPushButton" name="addInteractionPb">
-         <property name="text">
-          <string>Ajouter interaction</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="deleteInteractionPb">
-         <property name="text">
-          <string>Supprimer interaction</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      <layout class="QHBoxLayout" name="horizontalLayout"/>
+     </item>
+     <item row="0" column="1">
+      <widget class="QTableWidget" name="DataListTodo">
+       <column>
+        <property name="text">
+         <string>Todo</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Date</string>
+        </property>
+       </column>
+      </widget>
      </item>
      <item row="0" column="0">
       <widget class="QTableWidget" name="DataListInteraction">
@@ -70,18 +69,37 @@
        </column>
       </widget>
      </item>
-     <item row="0" column="1">
-      <widget class="QTableWidget" name="DataListTodo">
-       <column>
-        <property name="text">
-         <string>Todo</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>Date</string>
-        </property>
-       </column>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>460</y>
+      <width>571</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QPushButton" name="addInteractionPb">
+       <property name="text">
+        <string>Ajouter interaction</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="modifierInteractionPb">
+       <property name="text">
+        <string>Modifier interaction</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="deleteInteractionPb">
+       <property name="text">
+        <string>Supprimer interaction</string>
+       </property>
       </widget>
      </item>
     </layout>
@@ -92,8 +110,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>614</width>
-     <height>22</height>
+     <width>613</width>
+     <height>25</height>
     </rect>
    </property>
   </widget>

@@ -52,6 +52,10 @@ public:
      */
     int getIdTodo() const;
 
+    /**
+     * @brief Mutateur de la date d'ajout
+     * @param newDateAjoutTodo la nouvelle date
+     */
     void setDateAjoutTodo(const year_month_day &newDateAjoutTodo);
 
 private:

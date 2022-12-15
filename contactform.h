@@ -7,7 +7,7 @@
 #include <gestionnaireinteraction.h>
 #include <gestionnairetodo.h>
 #include <contactentity.h>
-#include <image.h>
+#include <QFileDialog>
 
 namespace Ui {
 class contactform;
@@ -39,7 +39,6 @@ private:
     GestionnaireTodo* gestionnairetodo;
     ContactEntity* contactentity;
     bool mod;
-    Image* image;
 
 };
 

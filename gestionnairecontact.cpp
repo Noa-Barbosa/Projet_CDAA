@@ -169,9 +169,7 @@ list<ContactEntity *> GestionnaireContact::listContactsByFilter(string nom, stri
             }
         }
 
-        if(listContactFiltree.size()>0){
-            listContactAFiltrer=listContactFiltree;
-        }
+        listContactAFiltrer=listContactFiltree;
 
     }
 
@@ -184,9 +182,8 @@ list<ContactEntity *> GestionnaireContact::listContactsByFilter(string nom, stri
             }
         }
 
-        if(listContactFiltree.size()>0){
-            listContactAFiltrer=listContactFiltree;
-        }
+        listContactAFiltrer=listContactFiltree;
+
     }
 
     if(dateCrea!=""){

@@ -11,6 +11,7 @@ ListInteraction::ListInteraction(QWidget *parent, GestionnaireContact* gestionna
     this->gestionnairetodo = gestionnairetodo;
     this->contactentity = contactentity;
     afficher_liste_Interaction();
+    afficher_liste_Todo();
 }
 
 ListInteraction::~ListInteraction()
@@ -44,9 +45,10 @@ void ListInteraction::afficher_liste_Interaction()
         streamDateCrea >> chaineDateCrea;
         ui->DataListInteraction->setItem(0, 1, new QTableWidgetItem(QString::fromStdString(chaineDateCrea)));
         ui->DataListInteraction->setItem(0, 2, new QTableWidgetItem(QString::number(ie->getIdInteraction())));
-        afficher_liste_Todo();
 
      }
+
+    afficher_liste_Todo();
 
 
 }
@@ -83,10 +85,12 @@ void ListInteraction::afficher_liste_Todo()
 void ListInteraction::on_addInteractionPb_clicked()
 {
     InteractionEntity * interaction = new InteractionEntity();
-    interactionForm = new InteractionForm(this, gestionnairecontact, gestionnaireinteraction, gestionnairetodo,contactentity,interaction,false);
+    interactionForm = new InteractionForm(this, gestionnairecontact, gestionnaireinteraction, gestionnairetodo,contactentity,interaction,true);
     connect(interactionForm, SIGNAL(signalEnregistrement()), this, SLOT(afficher_liste_Interaction()));
     interactionForm->show();
 }
+
+
 
 void ListInteraction::on_deleteInteractionPb_clicked()
 {
@@ -94,3 +98,13 @@ void ListInteraction::on_deleteInteractionPb_clicked()
     connect(diw, SIGNAL(signalEnregistrement()), this, SLOT(afficher_liste_Interaction()));
     diw->show();
 }
+
+
+void ListInteraction::on_modifierInteractionPb_clicked()
+{
+    interactionForm = new InteractionForm(this, gestionnairecontact, gestionnaireinteraction, gestionnairetodo,contactentity,gestionnaireinteraction->findInteractionById(ui->DataListInteraction->model()->index(ui->DataListInteraction->currentRow(),2).data().toInt()),false);
+    connect(interactionForm, SIGNAL(signalEnregistrement()), this, SLOT(afficher_liste_Interaction()));
+    interactionForm->show();
+}
+
+

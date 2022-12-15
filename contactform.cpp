@@ -19,10 +19,12 @@ ContactForm::ContactForm(QWidget *parent, GestionnaireContact* gestionnaireconta
     ui->EntrepriselineEdit->setText(QString::fromStdString(contactentity->getEntrepriseContact()));
     ui->MaillineEdit->setText(QString::fromStdString(contactentity->getMailContact()));
     //photo
-    QPixmap pixmap(QString::fromStdString(contactentity->getPhotoContact()));
-    //QPixmap pixmap("C:/Users/Adrien/Desktop/meme creation/Marzad.png");
-    ui->PhotolineEdit->setText(QString::fromStdString(contactentity->getPhotoContact()));
-    ui->photo->setPixmap(pixmap.scaled(200, 200, Qt::KeepAspectRatio));
+    string uriPhoto = contactentity->getPhotoContact();
+    if(uriPhoto!=""){
+        QPixmap pixmap(QString::fromStdString(uriPhoto));
+        ui->PhotolineEdit->setText(QString::fromStdString(contactentity->getPhotoContact()));
+        ui->photo->setPixmap(pixmap.scaled(200, 200, Qt::KeepAspectRatio));
+    }
     //pour le numero de telephone il faut envoyer chacun des chiffres dans un stream qu'on convertit ensuite en string
     list<unsigned> listeNumeros = contactentity->getTelContact();
     stringstream streamChiffres;
@@ -100,11 +102,11 @@ void ContactForm::on_enregisterPb_clicked()
     }
     else {
         //ajout ou modification
-        if(mod==false){
+        if(mod){
 
             gestionnairecontact->addContact(contact);
             emit signalEnregistrement();
-        }else if(mod==true){
+        }else{
             gestionnairecontact->editContact(contactentity,contact);
             emit signalEnregistrement();
         }
@@ -123,6 +125,13 @@ void ContactForm::on_annulerPb_clicked()
 
 void ContactForm::on_changePhoto_clicked()
 {
-    image = new Image(this);
-    image->show();
+    QString nomFichier = QFileDialog::getOpenFileName(this,
+             tr("Ouvir une image"), "/C:", tr("Img (*.png *.jpeg *.jpg)"));
+        ui->PhotolineEdit->setText(nomFichier);
+    if(!nomFichier.isEmpty()){
+        QPixmap pixmap(nomFichier);
+        ui->photo->setPixmap(pixmap.scaled(200, 200, Qt::IgnoreAspectRatio));
+    }
+
+
 }

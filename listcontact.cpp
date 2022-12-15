@@ -35,6 +35,13 @@ void ListContact::afficher_liste(string filtreNom, string filtreEntreprise, stri
     //récupère les données
     list<ContactEntity *> listContact;
     listContact = gestionnairecontact->listContactsByFilter(filtreNom,filtreEntreprise,filtreDateCrea,filtreDateCreaMin,filtreDateCreaMax);
+
+    if(listContact.size()==0){
+        messageRecherche = new QMessageBox(this);
+        messageRecherche->setText("Aucun contact n'a été trouvé avec les filtres fournis");
+        messageRecherche->exec();
+    }
+
     listContact.reverse();
     //insére les données dans la table
     for(ContactEntity* ce : listContact)
@@ -79,7 +86,7 @@ void ListContact::on_addContact_clicked()
 {
     ContactEntity* ce = new ContactEntity();
     //on passe false en parametre car on ajoute
-    cf = new ContactForm(this, gestionnairecontact, gestionnaireinteraction, gestionnairetodo, ce, false);
+    cf = new ContactForm(this, gestionnairecontact, gestionnaireinteraction, gestionnairetodo, ce, true);
     connect(cf, SIGNAL(signalEnregistrement()), this, SLOT(afficher_liste()));
     cf->show();
 
@@ -89,7 +96,7 @@ void ListContact::on_addContact_clicked()
 void ListContact::on_seeContact_clicked()
 {
     //on passe true en parametre car on modifie
-    cf = new ContactForm(this, gestionnairecontact, gestionnaireinteraction, gestionnairetodo, gestionnairecontact->findContactById( ui->DataListContact->model()->index(ui->DataListContact->currentRow(),6).data().toInt()), true);
+    cf = new ContactForm(this, gestionnairecontact, gestionnaireinteraction, gestionnairetodo, gestionnairecontact->findContactById( ui->DataListContact->model()->index(ui->DataListContact->currentRow(),6).data().toInt()), false);
     connect(cf, SIGNAL(signalEnregistrement()), this, SLOT(afficher_liste()));
     cf->show();
 }
@@ -188,5 +195,15 @@ void ListContact::on_interactionsContact_clicked()
 {
     li = new ListInteraction(this, gestionnairecontact, gestionnaireinteraction, gestionnairetodo,gestionnairecontact->findContactById( ui->DataListContact->model()->index(ui->DataListContact->currentRow(),6).data().toInt()));
     li->show();
+}
+
+
+void ListContact::on_actionAjouter_un_contact_triggered()
+{
+    ContactEntity* ce = new ContactEntity();
+    //on passe false en parametre car on ajoute
+    cf = new ContactForm(this, gestionnairecontact, gestionnaireinteraction, gestionnairetodo, ce, false);
+    connect(cf, SIGNAL(signalEnregistrement()), this, SLOT(afficher_liste()));
+    cf->show();
 }
 

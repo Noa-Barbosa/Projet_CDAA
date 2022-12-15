@@ -123,6 +123,21 @@ InteractionEntity *GestionnaireInteraction::findInteractionById(int id)
     return *itInteraction;
 }
 
+list<TodoEntity *> GestionnaireInteraction::listAllTodos(InteractionEntity *interaction)
+{
+    auto listInteractionTodo = gestionnaireBDD->getListInteractionTodoEntity();
+    list<TodoEntity *> todo;
+
+    for(InteractionTodoEntity* interactionTodo : listInteractionTodo)
+    {
+       if(interactionTodo->getIdInteraction()==interaction->getIdInteraction()){
+           todo.push_back(interactionTodo->getTodoEntity());
+       }
+    }
+
+    return todo;
+}
+
 InteractionEntity *GestionnaireInteraction::findInteraction(InteractionEntity *interactionRecherche)
 {
     auto test = gestionnaireBDD->getListInteractionEntity();

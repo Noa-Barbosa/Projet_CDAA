@@ -71,6 +71,13 @@ public:
      */
     InteractionEntity* findInteractionById(int id);
 
+    /**
+     * @brief Liste tout les todos d'une interaction
+     * @param interaction l'interaction dont on veut rechercher les todos
+     * @return la liste des todos
+     */
+    list<TodoEntity*> listAllTodos(InteractionEntity * interaction);
+
 
 
 private:

@@ -31,6 +31,7 @@ InteractionForm::~InteractionForm()
 
 void InteractionForm::on_enregisterPb_clicked()
 {
+
     InteractionEntity * interaction = new InteractionEntity();
     string contenu =ui->contenuEdit->text().toStdString();
 
@@ -42,11 +43,19 @@ void InteractionForm::on_enregisterPb_clicked()
         messageBox.setFixedSize(500,200);
     }
     else{
-        gestionnaireinteraction->addInteraction(interaction,contactentity);
+        //si on est en mode ajout
+        if(mod){
+            gestionnaireinteraction->addInteraction(interaction,contactentity);
+        }
+        //sinon on est en mode modification
+        else{
+            auto listTodoEntity = gestionnaireinteraction->listAllTodos(interactionentity);
 
-        //on enleve les espaces pour faciliter le traitement
-        std::string::iterator end_pos = std::remove(contenu.begin(), contenu.end(), ' ');
-        contenu.erase(end_pos, contenu.end());
+            for(TodoEntity * todo : listTodoEntity){
+                gestionnairetodo->deleteTodo(todo);
+            }
+            gestionnaireinteraction->editInteraction(interactionentity,interaction);
+        }
 
         auto posTodo = contenu.find("@todo");
         auto posDate = contenu.find("@date");
@@ -96,6 +105,8 @@ void InteractionForm::on_enregisterPb_clicked()
         }
         emit signalEnregistrement();
     }
+
+
 
 
 }
