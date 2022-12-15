@@ -112,51 +112,9 @@ void GestionnaireContact::deleteContact(ContactEntity* contact)
 
 }
 
-ContactEntity* GestionnaireContact::findContactByNom(string nomContact)
-{
-    auto itContact = std::find_if(gestionnaireBDD->getListContactEntity().begin(),gestionnaireBDD->getListContactEntity().end(), [nomContact](ContactEntity *contact){return  contact->getNomContact()==nomContact;});
-    return *itContact;
-}
-
-ContactEntity* GestionnaireContact::findContactByEntreprise(string entrepriseContact)
-{
-    auto itContact = std::find_if(gestionnaireBDD->getListContactEntity().begin(),gestionnaireBDD->getListContactEntity().end(), [entrepriseContact](ContactEntity *contact){return  contact->getEntrepriseContact()==entrepriseContact;});
-    return *itContact;
-}
-
-ContactEntity* GestionnaireContact::findContactByDateCrea(year_month_day dateCrea)
-{
-    auto itContact = std::find_if(gestionnaireBDD->getListContactEntity().begin(),gestionnaireBDD->getListContactEntity().end(), [dateCrea](ContactEntity *contact){return  contact->getDateCreaContact()==dateCrea;});
-    return *itContact;
-}
-
-ContactEntity* GestionnaireContact::findContactByDateModif(year_month_day dateModif)
-{
-    auto itContact = std::find_if(gestionnaireBDD->getListContactEntity().begin(),gestionnaireBDD->getListContactEntity().end(), [dateModif](ContactEntity *contact){return  contact->getDateDernModif()==dateModif;});
-    return *itContact;
-}
-
-ContactEntity* GestionnaireContact::findContactByDateCreaBetween(year_month_day dateCreaMin, year_month_day dateCreaMax)
-{
-    auto itContact = std::find_if(gestionnaireBDD->getListContactEntity().begin(),gestionnaireBDD->getListContactEntity().end(), [dateCreaMin, dateCreaMax](ContactEntity *contact){return  contact->getDateCreaContact()>=dateCreaMin && contact->getDateCreaContact()<=dateCreaMax;});
-    return *itContact;
-}
-
-ContactEntity* GestionnaireContact::findContactByDateModifBetween(year_month_day dateModifMin, year_month_day dateModifMax)
-{
-    auto itContact = std::find_if(gestionnaireBDD->getListContactEntity().begin(),gestionnaireBDD->getListContactEntity().end(), [dateModifMin, dateModifMax](ContactEntity *contact){return  contact->getDateDernModif()>=dateModifMin && contact->getDateDernModif()<=dateModifMax;});
-    return *itContact;
-}
-
 ContactEntity *GestionnaireContact::findContactById(int id)
 {
     auto itContact = std::find_if(gestionnaireBDD->getListContactEntity().begin(),gestionnaireBDD->getListContactEntity().end(), [id](ContactEntity *contact){return  contact->getIdContact()==id;});
-    return *itContact;
-}
-
-ContactEntity *GestionnaireContact::findContactByMail(string mail)
-{
-    auto itContact = std::find_if(gestionnaireBDD->getListContactEntity().begin(),gestionnaireBDD->getListContactEntity().end(), [mail](ContactEntity *contact){return  contact->getMailContact()==mail;});
     return *itContact;
 }
 

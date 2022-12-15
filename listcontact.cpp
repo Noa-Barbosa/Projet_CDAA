@@ -41,7 +41,6 @@ void ListContact::afficher_liste(string filtreNom, string filtreEntreprise, stri
     {
         ui->DataListContact->insertRow(0);
         ui->DataListContact->setItem(0, 0, new QTableWidgetItem(QString::fromStdString(ce->getNomContact())));
-        cout << ce->getNomContact() << endl;
         ui->DataListContact->setItem(0, 1, new QTableWidgetItem(QString::fromStdString(ce->getPrenomContact())));
         ui->DataListContact->setItem(0, 2, new QTableWidgetItem(QString::fromStdString(ce->getEntrepriseContact())));
         ui->DataListContact->setItem(0, 3, new QTableWidgetItem(QString::fromStdString(ce->getMailContact())));
@@ -69,6 +68,8 @@ void ListContact::afficher_liste(string filtreNom, string filtreEntreprise, stri
         ui->DataListContact->setItem(0, 6, new QTableWidgetItem(QString::number(ce->getIdContact())));
      }
     ui->nbContact->setText("Nombre de contacts trouvés : "+QString::number(listContact.size()));
+
+    ui->DataListContact->selectRow(0);
 
 
 }
