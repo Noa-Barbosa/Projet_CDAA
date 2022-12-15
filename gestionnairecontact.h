@@ -53,6 +53,8 @@ public:
     */
     list<InteractionEntity*> listAllInteractions(ContactEntity *contactEntity);
 
+    list<TodoEntity*> listAllTodo(ContactEntity *contactEntity);
+
     /**
      * @brief Renvoie une liste des contact ayant les valeurs en parametre
      * @param nom le nom a rechercher
@@ -88,6 +90,7 @@ public:
      * @brief Gestionnaire des listes du programme
      */
     GestionnaireBDD *gestionnaireBDD;
+
 };
 
 #endif // GESTIONNAIRECONTACT_H

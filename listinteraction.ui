@@ -44,6 +44,15 @@
      </item>
      <item row="0" column="0">
       <widget class="QTableWidget" name="DataListInteraction">
+       <property name="editTriggers">
+        <set>QAbstractItemView::NoEditTriggers</set>
+       </property>
+       <property name="selectionMode">
+        <enum>QAbstractItemView::SingleSelection</enum>
+       </property>
+       <property name="selectionBehavior">
+        <enum>QAbstractItemView::SelectRows</enum>
+       </property>
        <column>
         <property name="text">
          <string>Contenu</string>
@@ -61,6 +70,20 @@
        </column>
       </widget>
      </item>
+     <item row="0" column="1">
+      <widget class="QTableWidget" name="DataListTodo">
+       <column>
+        <property name="text">
+         <string>Todo</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Date</string>
+        </property>
+       </column>
+      </widget>
+     </item>
     </layout>
    </widget>
   </widget>
@@ -70,7 +93,7 @@
      <x>0</x>
      <y>0</y>
      <width>614</width>
-     <height>25</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

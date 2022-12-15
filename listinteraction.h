@@ -24,6 +24,8 @@ public:
 public slots:
     void afficher_liste_Interaction();
 
+    void afficher_liste_Todo();
+
 private slots:
     void on_deleteInteractionPb_clicked();
 
