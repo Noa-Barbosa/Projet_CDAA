@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>773</width>
-    <height>357</height>
+    <width>885</width>
+    <height>429</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Suppression d'un contact</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="verticalLayoutWidget">
@@ -27,7 +27,7 @@
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>Etes vous sur de vouloir supprimmer ce contact ?</string>
+        <string>Etes vous sur de vouloir supprimer ce contact ?</string>
        </property>
       </widget>
      </item>
@@ -57,8 +57,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>773</width>
-     <height>22</height>
+     <width>885</width>
+     <height>25</height>
     </rect>
    </property>
   </widget>
