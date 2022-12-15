@@ -44,9 +44,40 @@ void ListInteraction::afficher_liste_Interaction()
         streamDateCrea >> chaineDateCrea;
         ui->DataListInteraction->setItem(0, 1, new QTableWidgetItem(QString::fromStdString(chaineDateCrea)));
         ui->DataListInteraction->setItem(0, 2, new QTableWidgetItem(QString::number(ie->getIdInteraction())));
+        afficher_liste_Todo();
+
      }
 
 
+}
+
+void ListInteraction::afficher_liste_Todo()
+{
+   ui->DataListTodo->setRowCount(0);
+   //ui->DataListTodo->setColumnHidden(2, true);
+   //récupère les données
+   list<TodoEntity *> listEntity;
+
+   listEntity = gestionnairecontact->listAllTodo(contactentity);
+   //insére les données dans la table
+   for(TodoEntity* de : listEntity)
+   {
+       ui->DataListTodo->insertRow(0);
+       ui->DataListTodo->setItem(0, 0, new QTableWidgetItem(QString::fromStdString(de->getContenuTodo())));
+       //les dates
+       year_month_day dateCrea = de->getDateAjoutTodo();
+
+       stringstream streamDateCrea;
+       string chaineDateCrea;
+       streamDateCrea << dateCrea.day();
+       streamDateCrea << "-";
+       streamDateCrea << dateCrea.month();
+       streamDateCrea << "-";
+       streamDateCrea << dateCrea.year();
+       streamDateCrea >> chaineDateCrea;
+       ui->DataListTodo->setItem(0, 1, new QTableWidgetItem(QString::fromStdString(chaineDateCrea)));
+       //ui->DataListTodo->setItem(0, 2, new QTableWidgetItem(QString::number(de->getIdTodo())));
+    }
 }
 
 void ListInteraction::on_addInteractionPb_clicked()

@@ -133,6 +133,29 @@ list<InteractionEntity*> GestionnaireContact::listAllInteractions(ContactEntity 
     return interaction;
 }
 
+list<TodoEntity *> GestionnaireContact::listAllTodo(ContactEntity *contactEntity)
+{
+    auto listInteractionEntity = listAllInteractions(contactEntity);
+    auto listInteractionTodoEntity = gestionnaireBDD->getListInteractionTodoEntity();
+    list<TodoEntity*> todo;
+
+    for (InteractionEntity* interactionEntity : listInteractionEntity)
+    {
+        for(InteractionTodoEntity* interactionTodo : listInteractionTodoEntity)
+        {
+           if(interactionTodo->getIdInteraction()== interactionEntity->getIdInteraction())
+           {
+               todo.push_back(interactionTodo->getTodoEntity());
+           }
+        }
+
+    }
+
+
+
+    return todo;
+}
+
 list<ContactEntity *> GestionnaireContact::listContactsByFilter(string nom, string entreprise, string dateCrea,string dateCreaMin, string dateCreaMax)
 {
     auto listContactAFiltrer = gestionnaireBDD->getListContactEntity();
