@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>788</width>
+    <width>796</width>
     <height>383</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Suppression d'une interaction</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="verticalLayoutWidget">
@@ -27,7 +27,7 @@
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>Etes vous sur de vouloir supprimmer cette interaction ?</string>
+        <string>Etes vous sur de vouloir supprimer cette interaction ?</string>
        </property>
       </widget>
      </item>
@@ -57,7 +57,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>788</width>
+     <width>796</width>
      <height>25</height>
     </rect>
    </property>
