@@ -68,7 +68,7 @@
      </property>
     </column>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -102,18 +102,18 @@
      <item>
       <widget class="QPushButton" name="interactionsContact">
        <property name="text">
-        <string>Voir interactions du contact</string>
+        <string>Voir interactions/tâches contact</string>
        </property>
       </widget>
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>1091</width>
+      <width>1110</width>
       <height>121</height>
      </rect>
     </property>

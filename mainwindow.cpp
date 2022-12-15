@@ -21,9 +21,10 @@ MainWindow::~MainWindow()
 //voir la liste des contacts
 void MainWindow::on_ListContact_clicked()
 {
-    hide();
+
     lc = new ListContact(this, gestionnairecontact, gestionnaireinteraction, gestionnairetodo);
     lc->show();
+
 
 }
 
